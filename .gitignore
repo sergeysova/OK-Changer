@@ -1,0 +1,5 @@
+# Files to ignore when considering what GIT should commit.
+
+# Source of compiler
+project/*
+
