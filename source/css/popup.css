@@ -1,0 +1,292 @@
+* { margin: 0; padding: 0; border: 0; outline: none; overflow: hidden; }
+
+body {
+	width: 400px;
+	height: 540px; /* 540px */
+	padding-top: 48px;
+	font-family: arial,helvetica,sans-serif;
+	font-size: 12px;
+	color: #333;
+	overflow: hidden;
+}
+
+.topbar {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 48px;
+	background: url('http://stg.odnoklassniki.ru/res/i/p/toolbar/toolbar_x.png?v3') repeat-x;
+	box-shadow: rgba(0, 0, 0, .4) 0 0 11px 1px;
+}
+
+.logo_img {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 149px;
+	height: 48px;
+	background: url('/img/logo_default.png') 50% 9px no-repeat;
+	display: inline-block;
+	margin-left: 20px;
+}
+
+
+.progbutton,
+.savesetts,
+.ui-accordion .ui-accordion-header {
+	background-color: #ffb256;
+	background-image: -webkit-linear-gradient(top,#ffb256,#e88017);
+	background-image: linear-gradient(top,#ffb256,#e88017);
+	text-shadow: 0 -1px 0 #c4690b;
+	box-shadow: none;
+	border: 0;
+	overflow: visible;
+	color: white;
+	font: 500 14px Arial;
+	cursor: pointer;
+	white-space: nowrap;
+	border-radius: 5px;
+	padding: 5px 21px;
+	margin: 3px;
+	-webkit-transition: box-shadow .3s;
+	transition: box-shadow .3s;
+}
+
+.ui-widget-content {
+	border: 1px solid #FFA017;
+	background: none;
+	color: #333;
+	border-radius: 3px;
+	background: rgba(255, 255, 255, .7);
+}
+
+.ui-accordion .ui-accordion-header-active
+{
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.ui-accordion .ui-accordion-content/*-active*/
+{
+	border: 1px solid #FFB256;
+	padding: 10px;
+	margin: 3px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background-color: rgba(255, 200, 100, .2);
+	margin-top: -4px;
+}
+
+.progbutton:hover,
+.savesetts:hover,
+.ui-accordion .ui-accordion-header:hover
+{
+	box-shadow: 0 0 15px -5px #000;
+}
+
+.usel-off {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.pb_active {
+	background-color: #1DAA09;
+	background-image: -moz-linear-gradient(top,#78D81F,#1DAA09);
+	background-image: -ms-linear-gradient(top,#78D81F,#1DAA09);
+	background-image: -o-linear-gradient(top,#78D81F,#1DAA09);
+	background-image: -webkit-gradient(linear,left top,left bottom,from(#78D81F),to(#1DAA09));
+	background-image: -webkit-linear-gradient(top,#78D81F,#1DAA09);
+	background-image: linear-gradient(top,#78D81F,#1DAA09);
+	text-shadow: 0 -1px 0 #458F11;
+}
+
+
+.savesetts {
+	width: 30%;
+	margin: 7px auto;
+	font-size: 16px;
+	text-align: center;
+}
+
+.savesetts:hover {
+	width: 33%;
+}
+
+
+.toolbar_nav {
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	-webkit-padding-start: 0px;/*40px;*/
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	vertical-align: top;
+	white-space: nowrap;
+	margin-left: 175px;
+}
+
+.toolbar_nav_i {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	white-space: normal;
+	margin: 0 2px;
+	text-align: center;
+	
+	-webkit-transition: background .2s;
+}
+
+.toolbar_nav_i:hover {
+	background: rgba(0,0,0,.1);
+}
+
+
+.toolbar_nav_a {
+	position: relative;
+	display: block;
+	height: 48px;
+	min-width: 42px;
+	padding: 0 8px;
+	color: #F8D6B4;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.toolbar_nav_a__marks .toolbar_nav_i_ic {
+	
+}
+
+.toolbar_nav_i_ic {
+	position: relative;
+	height: 48px;
+	background-image: url('/img/toolbarp.png');
+	background-repeat: no-repeat;
+}
+
+.nav_setts {
+	background-position: 50% -103px;
+}
+
+.nav_link {
+	background-position: 50% -7px;
+}
+
+.nav_decor {
+	width: 60px;
+	background-position: 50% -147px;
+}
+
+.nav_styles {
+	background-position: 50% -55px;
+}
+
+.toolbar_nav_i_tx-w {
+	position: relative;
+	padding-top: 32px;
+	font-size: 10px;
+	line-height: 14px;
+	white-space: nowrap;
+}
+
+.stylebutton,
+.decbutton {
+	cursor: default;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	background: url('http://stg.odnoklassniki.ru/res/i/p/toolbar/toolbar_x.png?v3') repeat-x;
+	opacity: 1;
+	
+	-webkit-transition: opacity .2s;
+	-moz-transition: opacity .2s;
+	-o-transition: opacity .2s;
+	transition: opacity .2s;
+}
+
+.stylebutton:hover,
+.decbutton:hover {
+	opacity: .7;
+}
+
+.stylebg,
+.decbg {
+	width: 100%;
+	height: 33px;
+	background-position: 50% 0;
+	background-repeat: no-repeat;
+	
+	box-shadow: none;
+	
+	-webkit-transition: box-shadow .2s;
+	-moz-transition: box-shadow .2s;
+	-o-transition: box-shadow .2s;
+	transition: box-shadow .2s;
+	color: #F8f6f4;
+	padding-top: 15px;
+	text-indent: 10px;
+}
+
+.stylebg:hover,
+.decbg:hover {
+	box-shadow: rgba(0, 0, 0, .4) 0 0 11px 1px;
+}
+
+#decor_block,
+#style_block {
+	height: 100%;
+	overflow-y: scroll;
+	padding-top: 5px;
+}
+
+#settings_block {
+	padding-top: 10px;
+}
+
+.ui-accordion .progbutton
+{
+	padding: 3px 15px;
+	margin: 3px;
+}
+
+.ui-slider-content
+{
+	border: 1px solid #E88017;
+	background: rgba(255, 255, 255, .7);
+	border-radius: 3px;
+}
+
+.ui-slider .ui-slider-range
+{
+	background-color: #FFB256;
+	background-image: -webkit-linear-gradient(bottom,#FFB256,#E88017);
+	background-image: linear-gradient(bottom,#FFB256,#E88017);
+	height: 12px;
+	border-radius: 3px;
+}
+
+.ui-slider-horizontal .ui-slider-handle
+{
+	background-color: #FFB256;
+	background-image: -webkit-linear-gradient(top,#FFB256,#E88017);
+	background-image: linear-gradient(top,#FFB256,#E88017);
+	top: 0px;
+	margin-left: -7px;
+	width: 14px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+	-webkit-transition: box-shadow .2s;
+	transition: box-shadow .2s;
+	border: none;
+	cursor: pointer;
+	height: 12px;
+}
+
+.ui-slider-horizontal .ui-slider-handle:hover
+{
+	box-shadow: 0 0 8px rgba(0, 0, 0, .4);
+}
+
