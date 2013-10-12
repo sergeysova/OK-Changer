@@ -2,4 +2,6 @@
 
 # Source of compiler
 project/*
+release/*
+build/chrome/*
 
