@@ -24,11 +24,11 @@ body {
 	position: absolute;
 	left: 0;
 	top: 0;
-	width: 149px;
+	width: 100px;
 	height: 48px;
-	background: url('/img/logo_default.png') 50% 9px no-repeat;
-	display: inline-block;
-	margin-left: 20px;
+	background: url('/img/logo_default.png') 50% 0 no-repeat;
+	display: none;/*inline-block;*/
+	margin-left: 0px;
 }
 
 
@@ -103,19 +103,6 @@ body {
 	text-shadow: 0 -1px 0 #458F11;
 }
 
-
-.savesetts {
-	width: 30%;
-	margin: 7px auto;
-	font-size: 16px;
-	text-align: center;
-}
-
-.savesetts:hover {
-	width: 33%;
-}
-
-
 .toolbar_nav {
 	-webkit-margin-before: 1em;
 	-webkit-margin-after: 1em;
@@ -128,7 +115,7 @@ body {
 	display: inline-block;
 	vertical-align: top;
 	white-space: nowrap;
-	margin-left: 175px;
+	margin-left: 0px;
 }
 
 .toolbar_nav_i {
@@ -173,17 +160,22 @@ body {
 	background-position: 50% -103px;
 }
 
-.nav_link {
+.nav_font {
 	background-position: 50% -7px;
 }
 
 .nav_decor {
 	width: 60px;
-	background-position: 50% -147px;
+	background-position: 50% -150px;
 }
 
 .nav_styles {
-	background-position: 50% -55px;
+	background-position: 50% -53px;
+}
+
+.nav_okchanger {
+	background-position: 50% -192px;
+	width: 92px;
 }
 
 .toolbar_nav_i_tx-w {
@@ -237,7 +229,8 @@ body {
 }
 
 #decor_block,
-#style_block {
+#style_block,
+#fonts_block {
 	height: 100%;
 	overflow-y: scroll;
 	padding-top: 5px;

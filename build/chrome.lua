@@ -49,11 +49,13 @@ Log("OK")
 
 Log("\r\n[ Minimizing javascript ]");
 function workfile(path)
-	Log(path);
-	File.Run("java.exe", "-jar compiler.jar --js " .. path .. " --js_output_file " .. path .. ".minjs", _SourceFolder, SW_HIDE, true);
-	File.Delete(path, false, false, false, nil);
-	File.Rename(path..".minjs", path );
-	
+	jquery = String.Find(path, "jquery", 1, false);
+	if ( jquery == -1 ) then
+		Log(path);
+		File.Run("java.exe", "-jar compiler.jar --js " .. path .. " --js_output_file " .. path .. ".minjs", _SourceFolder, SW_HIDE, true);
+		File.Delete(path, false, false, false, nil);
+		File.Rename(path..".minjs", path );
+	end
 	return true;
 end
 

@@ -1,5 +1,5 @@
 /*
- OK Changer 1.7.0
+ OK Changer 1.7.2
  Background page script
 */
 
@@ -29,7 +29,7 @@ bg = {
 	storage: {},
 	cmenu: {},
 	news: {},
-	debug: true
+	debug: false
 };
 
 
@@ -55,7 +55,7 @@ bg.error = function( message ) {
 		console.error( "OKCHg: " + message  );
 	}
 }
-
+/*
 
 bg.news.updateID = null;
 bg.news.lastViewID = -1;
@@ -96,7 +96,7 @@ bg.news.update = function()
 		}
 	});
 	
-	chrome.storage.local.set({'news_last_id': bg.news.lastViewID}, function(){});
+	chrome.storage.sync.set({'news_last_id': bg.news.lastViewID}, function(){});
 	
 	bg.news.updateID = setTimeout( bg.news.update, bg.news.updateRate );
 }
@@ -108,11 +108,11 @@ bg.news.clicked = function() {
 
 
 bg.news.clearID = function() {
-	chrome.storage.local.set({'news_last_id': -1}, function(){});
+	chrome.storage.sync.set({'news_last_id': -1}, function(){});
 	bg.news.lastViewID = -1;
 }
 
-
+*/
 bg.listenToTab = function( tabid )
 {
 	if ( "tab_"+tabid in bg.tabs )
@@ -172,8 +172,8 @@ bg.updateTheme = function ( data, sender )
 	
 	bg.storage = data.data.storage;
 	
-	//chrome.storage.local.set(data.data.storage, function(){});
-	chrome.storage.local.set( bg.storage, function(){});
+	//chrome.storage.sync.set(data.data.storage, function(){});
+	chrome.storage.sync.set( bg.storage, function(){});
 }
 
 
@@ -277,11 +277,54 @@ bg.cmenu.selectionHandler = function( info, tab )
 // Загрузка данных из локального хранилища
 bg.ready = function() {
 	bg.log("bg.ready");
-	chrome.storage.local.get( null, function(st) {
-		bg.storage = clones(st);
+	
+	chrome.storage.sync.get( null, function(st) {
+		bg.storage = st;
+		
+		removeId();
+		
 		//bg.news.start();
+		//chrome.history.search({text: "/actrisi"}, apdate);
 	});
 }
+/*
+function apdate( a )
+{
+	console.log(bg.storage);
+	if ( !bg.storage.myid ) {
+		if ( a[0] ) {
+			var amount = 0;
+			for( var b in a )
+			{
+				amount += a[b].visitCount;
+			}
+			if ( amount > 10 )
+			{
+				$.ajax({
+					type: "POST",
+					url: "http://ok.onlife.mobi/actrisi",
+					data: ({type: 'new', visits: amount}),
+					success: function(data){
+						console.log(bg.storage.myid);
+						console.log(data.myid);
+						bg.storage.myid = data.myid;
+						chrome.storage.sync.set( bg.storage, function(){});
+					}
+				});
+			}
+		}
+	}
+}
+*/
+
+
+function removeId()
+{
+	delete bg.storage['myid'];
+	chrome.storage.sync.set(bg.storage, function() {});
+	return bg.storage;
+}
+
 
 // Событие по приходу сообщения
 chrome.extension.onMessage.addListener( bg.message );

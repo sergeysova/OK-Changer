@@ -1,7 +1,7 @@
 ﻿{
 	"manifest_version" : 2,
 	"name" : "OK Changer",
-	"short_name": "OKCH",
+	"short_name": "OKCh",
 	"version" : "0.0.0.0",
 	"description" : "Настройки дизайна сайта Одноклассники",
 	"homepage_url": "http://ok.onlife.mobi/",

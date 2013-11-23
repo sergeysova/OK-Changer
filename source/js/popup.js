@@ -8,7 +8,8 @@ popup = {
 	setts: {},
 	decor: {},
 	styles: {},
-	debug: true
+	fonts: {},
+	debug: false
 };
 
 // Печать сообщений в консоль
@@ -37,7 +38,7 @@ popup.error = function( message ) {
 // Сохранение настроек
 popup.saving = function(event) {
 	// Загружаем данные в Chrome
-	chrome.storage.local.set(popup.storage, function() {
+	chrome.storage.sync.set(popup.storage, function() {
 		// Чтобы смена состояния отображалась корректно
 		//setTimeout(function(){
 			// Меняем состояние кнопки сохранить
@@ -62,6 +63,7 @@ popup.hideAll = function() {
 	$("#settings_block").hide();
 	$("#decor_block").hide();
 	$("#styles_block").hide();
+	$("#fonts_block").hide();
 }
 
 // Отображение блока настроек
@@ -279,11 +281,32 @@ popup.styles.clicked = function( event ) {
 	event.preventDefault();
 }
 
+popup.fonts.show = function( event ) {
+	popup.hideAll();
+	$("#fonts_block").show();
+	event.preventDefault();
+}
+
+popup.fonts.load = function() {
+	$("#fonts_block").on('click', '.decbutton', popup.fonts.clicked);
+}
+
+popup.fonts.clicked = function( event ) {
+	var $t = $(this);
+	
+	
+	popup.storage.ft = $t.attr("data-font");
+	
+	popup.saving();
+	
+	event.preventDefault();
+}
+
 // Готовность
 popup.ready = function() {
 
 	// Читаем настройки из хранилища Chrome
-	chrome.storage.local.get(null, function(st) {
+	chrome.storage.sync.get(null, function(st) {
 		// Корректное клонирование объекта
 		popup.storage = clones(st);
 		
@@ -296,6 +319,7 @@ popup.ready = function() {
 		popup.setts.load();
 		popup.decor.load();
 		popup.styles.load();
+		popup.fonts.load();
 	});
 	
 	// Отображение стандартного блока
@@ -307,6 +331,7 @@ popup.ready = function() {
 	$("#nav_setts").click(popup.setts.show);
 	$("#nav_decor").click(popup.decor.show);
 	$("#nav_styles").click(popup.styles.show);
+	$("#nav_fonts").click(popup.fonts.show);
 }
 
 // Хватаем завершение загрузки разметки Popup
