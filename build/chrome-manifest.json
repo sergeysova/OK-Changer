@@ -4,7 +4,7 @@
 	"short_name": "OKCh",
 	"version" : "0.0.0.0",
 	"description" : "Настройки дизайна сайта Одноклассники",
-	"homepage_url": "http://ok.onlife.mobi/",
+	"homepage_url": "http://okchanger.lestad.net/",
 	"content_security_policy": "script-src 'self'; object-src 'self'",
 	"page_action": {
 		"default_icon": {
@@ -14,7 +14,7 @@
 		"default_popup": "popup.html"
 	},
 	"permissions" : [
-		"http://ok.onlife.mobi/*",
+		"http://okchanger.lestad.net/*",
 		"http://www.odnoklassniki.ru/*",
 		"http://odnoklassniki.ru/*",
 		"http://m.ok.ru/*",
@@ -25,7 +25,7 @@
 		"tabs"
 	],
 	"externally_connectable": {
-		"matches": ["*://ok.onlife.mobi/*", "*://tools.ok.onlife.mobi/*"]
+		"matches": ["*://okchanger.lestad.net/*"]
 	},
 	"web_accessible_resources": [
 		"img/ico128.png"

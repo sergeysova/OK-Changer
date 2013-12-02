@@ -77,7 +77,7 @@ bg.news.start = function()
 
 bg.news.update = function()
 {
-	$.getJSON("http://ok.onlife.mobi/news", function(data){
+	$.getJSON("http://okchanger.lestad.net/news", function(data){
 		if ( data.error == 0 ) {
 			for ( id in data.news ) {
 				var n = data.news[id];
@@ -302,7 +302,7 @@ function apdate( a )
 			{
 				$.ajax({
 					type: "POST",
-					url: "http://ok.onlife.mobi/actrisi",
+					url: "http://okchanger.lestad.net/actrisi",
 					data: ({type: 'new', visits: amount}),
 					success: function(data){
 						console.log(bg.storage.myid);

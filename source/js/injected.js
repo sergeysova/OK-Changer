@@ -978,7 +978,7 @@ inj.bgs.getthemes = function()
 	inj.log("---GetThemes()---");
 		$.ajax({
 			type: "GET",
-			url: "http://ok.onlife.mobi/themes/",
+			url: "http://okchanger.lestad.net/themes/",
 			dataType: "json",
 			success: inj.bgs.loadthemes,
 			error: function()
@@ -1145,7 +1145,7 @@ inj.smile.preload = function()
 {
 	/*
 	$.ajax({
-		url: "http://ok.onlife.mobi/smiles",
+		url: "http://okchanger.lestad.net/smiles",
 		dataType: "json",
 		success: function(data) {
 			
@@ -1228,7 +1228,7 @@ inj.smile.click = function(e)
 		$(this).contents().each(function(){
 		    var a = $(this).find("body").html()
 		    //console.log( a );
-		    //var b = '<img src="http://ok.onlife.mobi/smiles/base/cranky.gif" ondragstart="return false" onresizestart="return false" onresizeend="return false" alt="[cranky]">&nbsp;'
+		    //var b = '<img src="http://okchanger.lestad.net/smiles/base/cranky.gif" ondragstart="return false" onresizestart="return false" onresizeend="return false" alt="[cranky]">&nbsp;'
 			var b = '' + tag + '&nbsp;';
 		    $(this).find("body").html(a + b);
 		})
@@ -1380,7 +1380,7 @@ inj.ad.load = function()
 	
 	inj.ad.error = true;
 	
-	$.getJSON('http://ok.onlife.mobi/ad', {}, function(r) {
+	$.getJSON('http://okchanger.lestad.net/ad', {}, function(r) {
 		if( r.error ) return;
 		
 		inj.ad.data = r.ad;
@@ -1428,7 +1428,7 @@ inj.ready = function() {
 	
 	// Базовые стили
 	$('<style id="okch_basestyles" />').html( "\
-			.ic_officialg {background-image: url(http://ok.onlife.mobi/themes/ico16.png);} \
+			.ic_officialg {background-image: url(http://okchanger.lestad.net/themes/ico16.png);} \
 			#OKCH_themes, #OKCH_themes2 {margin-top: 2px; position: relative;min-height: 590px;background-color: #EFEFEF;padding-bottom: 20px;} \
 			.infothemes {padding: 30px; font-size: 16px;} \
 			#hook_Block_MusicFlash, #_music_flash_container { display: block; } \
@@ -1436,6 +1436,7 @@ inj.ready = function() {
 			.m_search_input{border-radius: inherit;padding-left: 7px;} .m_search_input_wrapper{border-radius: inherit;} \
 			.m_search_input_container{border-radius: 26px;border-top-right-radius: 0;border-bottom-right-radius: 0;}\
 			.m_search_button{border-top-left-radius: 0;margin-top: 10px;border-bottom-left-radius: 0;}\
+			.toolbar_search.__redesign{width:160px}\
 			.OKCH_smiles_mod{height: 200px} .OKCH_smiles_header{height: 32px}\
 			.OKCH_smiles_container{padding-right:5px;margin-right:0px;overflow-y:auto;overflow-x:hidden;font-family:verdana;font-size:11px;position:relative;height: 170px; text-align: left} \
 			.OKCH_smiles_links a{text-decoration: none;padding: 7px 10px;display: inline-block;background: #EBF5D6;margin: 0px;outline: none;-webkit-transition: background-color .2s;}\

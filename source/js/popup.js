@@ -154,7 +154,7 @@ popup.decor.load = function() {
 	
 	// Запрос к серверу за декором
 	$.ajax({
-		url: "http://ok.onlife.mobi/decor/",
+		url: "http://okchanger.lestad.net/decor/",
 		dataType: "json",
 		success: function(data) {
 			// Проверка наличия ошибок сервера
@@ -227,7 +227,7 @@ popup.styles.load = function() {
 	$("#st_none, #st_default").off('click').click(popup.styles.clicked);
 	
 	$.ajax({
-		url: "http://ok.onlife.mobi/styles/",
+		url: "http://okchanger.lestad.net/styles/",
 		dataType: "json",
 		success: function(data) {
 			// Проверка наличия ошибок сервера

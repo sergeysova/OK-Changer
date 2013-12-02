@@ -46,7 +46,8 @@ TextFile.WriteFromString(ChromeBuildFolder.."manifest.json", manifest, false);
 Log("OK")
 
 
-
+Log("\r\n[ Not minimize! ]");
+--[[
 Log("\r\n[ Minimizing javascript ]");
 function workfile(path)
 	jquery = String.Find(path, "jquery", 1, false);
@@ -60,6 +61,7 @@ function workfile(path)
 end
 
 File.Find(ChromeBuildFolder, "*.js", true, true, nil, workfile);
+]]
 
 Log("\r\n[ Zip ]");
 -- Adding to zip
