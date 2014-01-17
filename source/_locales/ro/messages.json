@@ -1,14 +1,14 @@
 ﻿{
 	"extDescription" : {
-		"message": "Setari de dizain Odnoklassniki",
+		"message": "Configurarea de design al Odnoklassniki",
 		"description": ""
 	},
 	"buttonExit" : {
-		"message": "butonul Iesire",
+		"message": "Ieșire",
 		"description": ""
 	},
 	"officialGroup" : {
-		"message": "grupul Oficial",
+		"message": "grupul oficial",
 		"description": ""
 	},
 	"General" : {
@@ -16,55 +16,55 @@
 		"description": ""
 	},
 	"HideBlocks" : {
-		"message": "Ascunde Blocuri",
+		"message": "Ascunde blocuri",
 		"description": ""
 	},
 	"SiteDesign" : {
-		"message": "Dizain Sait",
+		"message": "Dizainul saitului",
 		"description": ""
 	},
 	"PageOpacity" : {
-		"message": "Opacitate Pagina",
-		"description": "Opacity page"
+		"message": "Transparența paginii",
+		"description": "opacitatea paginii"
 	},
 	"HidePanelMail" : {
-		"message": "Ascunde Panoul Mail",
+		"message": "Ascunde panoul Mail.Ru",
 		"description": ""
 	},
 	"HideButtonMail" : {
-		"message": "Ascunde Butonul Mail",
+		"message": "Ascunde butonul Mail.Ru",
 		"description": ""
 	},
 	"RedirectLinks" : {
-		"message": "Redirectioneaza Link-uri",
+		"message": "Redirecţionează link-uri",
 		"description": ""
 	},
 	"AdBlock" : {
-		"message": "Adauga Blocare",
+		"message": "Blochează reclamele",
 		"description": ""
 	},
 	"ReducePage" : {
-		"message": "Micsoreaza Pagina",
-		"description": "Make page smaller"
+		"message": "Micsorează pagina",
+		"description": "Micsorează pagina"
 	},
 	"AutohideTopPanel" : {
-		"message": "Auto-ascunde Panoul Principal ",
+		"message": "Auto-ascunde bara pricipală",
 		"description": ""
 	},
 	"FriendsCommon" : {
-		"message": "Prieteni Comuni",
+		"message": "Ce aveți în comun?",
 		"description": ""
 	},
 	"Holidays" : {
-		"message": "Sarbatori",
+		"message": "Sărbatori",
 		"description": ""
 	},
 	"Familiar" : {
-		"message": "Cunoscuti",
-		"description": "Are you know?"
+		"message": "Vă cunoaşteţi? ",
+		"description": "Vă cunoaşteţi?"
 	},
 	"About" : {
-		"message": "Despre",
+		"message": "Despre mine",
 		"description": ""
 	},
 	"Events" : {
@@ -72,7 +72,7 @@
 		"description": ""
 	},
 	"Worked" : {
-		"message": "Activitati",
+		"message": "Aţi lucrat impreună",
 		"description": ""
 	},
 	"Groups" : {
@@ -80,79 +80,83 @@
 		"description": ""
 	},
 	"Recommended" : {
-		"message": "Recomandam",
+		"message": "Recomandăm",
 		"description": ""
 	},
 	"Games" : {
-		"message": "",
-		"description": "Jocuri pt.dvs."
+		"message": "Jocuri pentru Dvs.",
+		"description": "Jocuri pentru Dvs."
 	},
 	"Favorites" : {
-		"message": "",
-		"description": "Adrese"
+		"message": "Semne de carte",
+		"description": "Semne de carte"
 	},
 	"FriendOnline" : {
-		"message": "Prieteni Online",
+		"message": "Prieteni on-line",
 		"description": ""
 	},
 	"Moderator" : {
-		"message": "Moderator",
+		"message": "Moderatorul Odnoklassniki",
 		"description": ""
 	},
 	"Popups" : {
-		"message": "Popup-uri",
+		"message": "Alerte pop-up",
 		"description": "Popup alerts"
 	},
 	"HideAllBlocks" : {
-		"message": "Ascunde Toate Blocurile",
+		"message": "Ascunde toate blocurile",
 		"description": ""
 	},
 	"HideMarksOverPhoto" : {
-		"message": "Ascunde Notele La Poze",
+		"message": "Ascunde notele",
 		"description": ""
 	},
 	"HideGifts" : {
-		"message": "Ascunde Cadouri",
+		"message": "Ascunde cadouri",
 		"description": ""
 	},
 	"HideNotifCounters" : {
-		"message": "Ascunde Notificarile",
+		"message": "Scoateți notificările",
+		"description": ""
+	},
+	"AvatarDown": {
+		"message": "Coboară avatar",
 		"description": ""
 	},
 	"BigSendButton" : {
-		"message": "Micsoreaza Butonul Trimite",
+		"message": "Marește butonul Trimite",
 		"description": ""
 	},
 	"HideOnlineMarker" : {
-		"message": "Ascunde Indicatorul On-line",
+		"message": "Ascunde indicatorul On-line",
 		"description": ""
 	},
 	"CircledTextStyles" : {
-		"message": "Stilul cercuri ",
+		"message": "Stilul cerc",
 		"description": ""
 	},
 	"AdvShadows" : {
-		"message": "Adauga Umbra",
+		"message": "Adaugă umbră",
 		"description": ""
 	},
 	"HidePlayerButton" : {
-		"message": "",
-		"description": "Ascunde Butonul Play"
+		"message": "Ascunde butonul Play",
+		"description": ""
 	},
 	"HideLogotypeMenu" : {
-		"message": "Ascunde Meniul Logo-ului",
+		"message": "Ascunde meniul logo-ului",
 		"description": ""
 	},
 	"HidePopupMenu" : {
-		"message": "Ascunde Meniul Pop-up",
+		"message": "Ascunde Menu-ul pop-up",
 		"description": ""
 	},
 	"Settings" : {
-		"message": "Setari",
+		"message": "Setări",
 		"description": ""
 	},
 	"Decoration" : {
-		"message": "Decoratie",
+		"message": "Decor",
 		"description": ""
 	},
 	"Style" : {
@@ -164,7 +168,7 @@
 		"description": ""
 	},
 	"StandartFont" : {
-		"message": "Font Standart",
+		"message": "Font implicit",
 		"description": "Default font"
 	},
 	"Default" : {
@@ -172,15 +176,51 @@
 		"description": ""
 	},
 	"ClearDecor" : {
-		"message": "Inlatura Decor",
+		"message": "Fară decorație",
 		"description": ""
 	},
 	"OriginalDecor" : {
-		"message": "Decor Original",
+		"message": "Decorație originală",
 		"description": ""
 	},
 	"SharePage" : {
-		"message": "Distrubuie Pagina",
+		"message": "Împărtăşeşte pagina OK",
+		"description": ""
+	},
+	"ShareLink" : {
+		"message": "Împărtăşeşte link-ul OK",
+		"description": ""
+	},
+	"DownloadSong": {
+		"message": "Descarcă melodia",
+		"description": ""
+	},
+	"ThemesFromUsers": {
+		"message":	"De la utilizatori",
+		"description": ""
+	},
+	"ThemesDefault": {
+		"message": "Implicit",
+		"description": ""
+	},
+	"ThemeSelected": {
+		"message":	"selectat",
+		"description": "Tema aleasă - selectată"
+	},
+	"ServerIsDown": {
+		"message": "Server în construcție",
+		"description": ""
+	},
+	"ServerIsWork": {
+		"message": "Server în construcție",
+		"description": ""
+	},
+	"NoAuthor": {
+		"message": "fară autor",
+		"description": ""
+	},
+	"CheckInternet": {
+		"message": "Verificați conexiunea la internet",
 		"description": ""
 	}
 }
