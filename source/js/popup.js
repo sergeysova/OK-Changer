@@ -184,16 +184,16 @@ popup.decor.load = function() {
 					$("#decor_block").on('click', '.decbutton', popup.decor.clicked);
 				} else {
 					// Массив decor пуст
-					$("#decor_block").append("<center>На сервере нет стилей!<br/>Возможно ведутся технические работы!<br/></center>");
+					$("#decor_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
 				}
 			} else {
 				// Переменная error больше 0
-				$("#decor_block").append("<center>На сервере ведутся технические работы!</center>");
+				$("#decor_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
 			}
 		},
 		error: function() {
 			// Не прошел AJAX запрос
-			$("#decor_block").html("<center>Не удалось соединиться с сервером!</br>Возможно у вас отсутствует подключение к интернету!</center>");
+			$("#decor_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
 		}
 	});
 }
@@ -251,16 +251,16 @@ popup.styles.load = function() {
 					$("#styles_block").on('click', '.stylebutton', popup.styles.clicked);
 				} else {
 					// Массив themes пуст
-					$("#styles_block").append("<center>На сервере нет стилей!<br/>Возможно ведутся технические работы!<br/></center>");
+					$("#styles_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
 				}
 			} else {
 				// Переменная error больше 0
-				$("#styles_block").append("<center>На сервере ведутся технические работы!</center>");
+				$("#styles_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
 			}
 		},
 		error: function() {
 			// Не прошел AJAX запрос
-			$("#styles_block").html("<center>Не удалось соединиться с сервером!</br>Возможно у вас отсутствует подключение к интернету!</center>");
+			$("#styles_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
 		}
 	});
 }
@@ -295,7 +295,10 @@ popup.fonts.clicked = function( event ) {
 	var $t = $(this);
 	
 	
-	popup.storage.ft = $t.attr("data-font");
+	popup.storage.ft = {
+		'name': $t.attr("data-font"),
+		'url': $t.attr('data-google')
+	};
 	
 	popup.saving();
 	
@@ -304,7 +307,11 @@ popup.fonts.clicked = function( event ) {
 
 // Готовность
 popup.ready = function() {
-
+	$("[data-lang]").each(function(id){
+		$(this).html(chrome.i18n.getMessage($(this).attr('data-lang')));
+	});
+	
+	
 	// Читаем настройки из хранилища Chrome
 	chrome.storage.sync.get(null, function(st) {
 		// Корректное клонирование объекта

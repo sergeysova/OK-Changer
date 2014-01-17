@@ -3,9 +3,10 @@
 	"name" : "OK Changer",
 	"short_name": "OKCh",
 	"version" : "0.0.0.0",
-	"description" : "Настройки дизайна сайта Одноклассники",
+	"description" : "__MSG_extDescription__",
 	"homepage_url": "http://okchanger.lestad.net/",
 	"content_security_policy": "script-src 'self'; object-src 'self'",
+	"default_locale": "en",
 	"page_action": {
 		"default_icon": {
 			"19": "img/ico128.png"
@@ -28,7 +29,8 @@
 		"matches": ["*://okchanger.lestad.net/*"]
 	},
 	"web_accessible_resources": [
-		"img/ico128.png"
+		"img/ico128.png",
+		"js/jquery-1.10.2.min.map"
 	],
 	"icons": {
 		"128": "img/ico128.png",

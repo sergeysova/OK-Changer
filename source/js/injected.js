@@ -381,6 +381,17 @@ inj.upd.s_happenings = function( value ) {
 	inj.storage.s_happenings = value;
 }
 
+// Скрытие блока "Работали вместе?"
+inj.upd.s_workwith = function( value ) {
+	if ( value == 1 || value == true ) {
+		b.hide("#hook_Block_RightColumnRecommendationsByRelation");
+	} else {
+		b.show("#hook_Block_RightColumnRecommendationsByRelation");
+	}
+	
+	inj.storage.s_workwith = value;
+}
+
 
 // Скрытие блока "Рекомендуем"
 inj.upd.s_recommended = function( value )
@@ -483,16 +494,22 @@ inj.upd.s_mailbar = function( value ) {
 
 // Автоскрытие верхней панели
 inj.upd.s_autohidebar = function( value ) {
-	b.stylehiding('autohidebar', value, "\
+	if ( value ) {
+		b.stylehiding('autohidebar', value, "\
 					#topPanel {transition: margin-top .3s}\
 				");
-	if ( value ) {
 		$(window).scroll(function(){
 			console.log($("body").scrollTop());
 			if ( $(window).scrollTop() < 200 ) {
 				$("#topPanel").css("margin-top", "0px");
 			} else $("#topPanel").css("margin-top", "-50px");
 		});
+	} else {
+		b.stylehiding('autohidebar', false, "\
+					#topPanel {transition: margin-top .3s}\
+				");
+		$(window).off("scroll");
+		$("#topPanel").css("margin-top", "0px");
 	}
 	
 	inj.storage.s_autohidebar = value;
@@ -669,8 +686,10 @@ inj.upd.st_url = function( value ) {
 
 inj.upd.ft = function( value )
 {
-	if ( value != -1 ) {
-		$("#okch_setfont").html("* {font-family: '"+value+"'}");
+	if ( value.name != -1 ) {
+		$("#okch_setfont").html("\
+		@import url("+value.url+"); \
+		* {font-family: '"+value.name+"'}");
 	} else {
 		$("#okch_setfont").html("* {}");
 	}
@@ -729,8 +748,8 @@ inj.upd.update_authorspage = function()
 	{
 		$(".u-menu__mt").append('\
 			<li class="u-menu_li" id="action_menu_official_group">\
-				<a class="u-menu_a" id="action_menu_official_group_a" href="/okchanger" hrefattrs="st.cmd=userMain&amp;st._aid=FriendFriend_Visit" title="Официальная группа OK Changer">\
-					<span class="tico"><i class="tico_img ic ic_officialg"></i>официальная группа</span>\
+				<a class="u-menu_a" id="action_menu_official_group_a" href="/okchanger" hrefattrs="st.cmd=userMain&amp;st._aid=FriendFriend_Visit" title="OK Changer">\
+					<span class="tico"><i class="tico_img ic ic_officialg"></i>'+chrome.i18n.getMessage('officialGroup')+'</span>\
 				</a>\
 			</li>\
 		'); // background-position: left -538px;
@@ -799,7 +818,7 @@ inj.upd.update_exitbutton = function() {
 					<a propagate="true" class="toolbar_nav_a toolbar_nav_a__guests" href="/dk?st.cmd=userMain&cmd=PopLayer&st.layer.cmd=PopLayerLogoffUser" id="nav_toolbar_a_exit">\
 						<div class="toolbar_nav_i_glow"></div>\
 						<div class="toolbar_nav_i_ic">\
-							<div unselectable="on" class="toolbar_nav_i_tx-w usel-off">Выход</div>\
+							<div unselectable="on" class="toolbar_nav_i_tx-w usel-off">'+chrome.i18n.getMessage('buttonExit')+'</div>\
 						</div>\
 					</a>\
 				</div>\
@@ -900,7 +919,7 @@ inj.music.update = function() {
 		$('.mus-tr_i[data-ok-down != "true"]').each(function(index, element) {
 			$(this).find(".ic16_download").remove();
 			var trID = JSON.parse( $(this).attr("data-query") ).trackId;
-			var $downsong = $("<a class=\"ic16 ic16_play-control ic16_download\" title=\"Скачать песню\"></a>");
+			var $downsong = $("<a class=\"ic16 ic16_play-control ic16_download\" title=\""+chrome.i18n.getMessage('DownloadSong')+"\"></a>");
 			$downsong.attr("id", "ok-musdn_" + trID);
 			
 			var data = {};
@@ -958,8 +977,8 @@ inj.bgs.check = function()
 		
 		var tpl = '<div class="mctc_navMenu">\
 					<a href="" class="mctc_navMenuSec mctc_navMenuActiveSec" id="okth_load_ok">OK Changer</a>\
-					<a href="" class="mctc_navMenuSec" id="okth_load_users">От пользователей</a>\
-					<a href="" class="mctc_navMenuSec" id="okth_load_def">Стандартные</a>\
+					<a href="" class="mctc_navMenuSec" id="okth_load_users">'+chrome.i18n.getMessage('ThemesFromUsers')+'</a>\
+					<a href="" class="mctc_navMenuSec" id="okth_load_def">'+chrome.i18n.getMessage('ThemesDefault')+'</a>\
 					</div>';
 		
 		$("div.covers_cat_t").attr("id", "def_title").append(tpl);
@@ -1078,18 +1097,18 @@ inj.bgs.loadthemes = function( data )
 		var selectedtpl = '<div class="covers_cat_i covers_cat_i__selected show-on-hover" id="{id}" -data-file="{file}"><div class="covers_cat_i_cnt">\
 <div class="covers_cat_preview"><img height="90" class="covers_cat_img" src="{image}"></div>\
 <div class="covers_cat_descr_w"><div class="covers_cat_descr"><div class="covers_cat_name ellip">{name}</div>\
-<div class="covers_cat_inf"><span class="tico"><i class="tico_img ic ic_ok"></i>установлена</span></div></div></div>\
+<div class="covers_cat_inf"><span class="tico"><i class="tico_img ic ic_ok"></i>'+chrome.i18n.getMessage('ThemeSelected')+'</span></div></div></div>\
 <div class="covers_cat_i_footer"><div class="covers_cat_inf"><span class="tico" style="padding-left:0" title="Автор темы">{author}</span></div></div></div></div>';
 		
 		if ( data.error > 0 )
 		{
-			$okthemes.html("<center class=\"infothemes\">На сервере ведутся технические работы!</center>");
+			$okthemes.html("<center class=\"infothemes\">"+chrome.i18n.getMessage("ServerIsDown")+"!</center>");
 			return;
 		}
 		
 		if ( data.themes.length < 1 )
 		{
-			$okthemes.html("<center class=\"infothemes\">На сервере нет тем!<br/>Возможно ведутся технические работы!<br/></center>");
+			$okthemes.html("<center class=\"infothemes\">"+chrome.i18n.getMessage("ServerIsWork")+"!<br/></center>");
 			return;
 		}
 		
@@ -1124,7 +1143,7 @@ inj.bgs.loadthemes = function( data )
 								.replace( "{image}",	data.themes[it].preview )
 								.replace( "{name}",		data.themes[it].title )
 								.replace( "{file}",		data.themes[it].file )
-								.replace( "{author}",	data.themes[it].author ? data.themes[it].author : "автор не указан" )
+								.replace( "{author}",	data.themes[it].author ? data.themes[it].author : chrome.i18n.getMessage('NoAuthor') )
 							);
 			}
 		}

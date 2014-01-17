@@ -1,0 +1,227 @@
+﻿{
+	"extDescription" : {
+		"message": "Set up design of Odnoklassniki",
+		"description": ""
+	},
+	"buttonExit" : {
+		"message": "Exit",
+		"description": ""
+	},
+	"officialGroup" : {
+		"message": "official group",
+		"description": ""
+	},
+	"General" : {
+		"message": "Main",
+		"description": ""
+	},
+	"HideBlocks" : {
+		"message": "Hide blocks",
+		"description": ""
+	},
+	"SiteDesign" : {
+		"message": "Site design",
+		"description": ""
+	},
+	"PageOpacity" : {
+		"message": "Transparency page",
+		"description": "Opacity page"
+	},
+	"HidePanelMail" : {
+		"message": "Hide panel Mail.Ru",
+		"description": ""
+	},
+	"HideButtonMail" : {
+		"message": "Hide button Mail.Ru",
+		"description": ""
+	},
+	"RedirectLinks" : {
+		"message": "Redirecting the links",
+		"description": ""
+	},
+	"AdBlock" : {
+		"message": "Blocking advertising",
+		"description": ""
+	},
+	"ReducePage" : {
+		"message": "Reduce the page",
+		"description": "Make page smaller"
+	},
+	"AutohideTopPanel" : {
+		"message": "Autohide top panel",
+		"description": ""
+	},
+	"FriendsCommon" : {
+		"message": "What do you have in common",
+		"description": ""
+	},
+	"Holidays" : {
+		"message": "Holidays",
+		"description": ""
+	},
+	"Familiar" : {
+		"message": "People you may know",
+		"description": "Are you know?"
+	},
+	"About" : {
+		"message": "About",
+		"description": ""
+	},
+	"Events" : {
+		"message": "Events",
+		"description": ""
+	},
+	"Worked" : {
+		"message": "Did you work together?",
+		"description": ""
+	},
+	"Groups" : {
+		"message": "Groups",
+		"description": ""
+	},
+	"Recommended" : {
+		"message": "Recommended",
+		"description": ""
+	},
+	"Games" : {
+		"message": "Games for you",
+		"description": "Games for you"
+	},
+	"Favorites" : {
+		"message": "Bookmarks",
+		"description": "Bookmarks"
+	},
+	"FriendOnline" : {
+		"message": "Friend is online",
+		"description": ""
+	},
+	"Moderator" : {
+		"message": "Moderator",
+		"description": ""
+	},
+	"Popups" : {
+		"message": "Popup alerts",
+		"description": "Popup alerts"
+	},
+	"HideAllBlocks" : {
+		"message": "Hide all blocks",
+		"description": ""
+	},
+	"HideMarksOverPhoto" : {
+		"message": "Hide marks over photo",
+		"description": ""
+	},
+	"HideGifts" : {
+		"message": "Hide gifts",
+		"description": ""
+	},
+	"HideNotifCounters" : {
+		"message": "Remove notifications counter",
+		"description": ""
+	},
+	"AvatarDown": {
+		"message": "Lower avatar",
+		"description": ""
+	},
+	"BigSendButton" : {
+		"message": "Big button send",
+		"description": ""
+	},
+	"HideOnlineMarker" : {
+		"message": "Hide blinking marker Online",
+		"description": ""
+	},
+	"CircledTextStyles" : {
+		"message": "Circled Text Styles",
+		"description": ""
+	},
+	"AdvShadows" : {
+		"message": "More shadows",
+		"description": ""
+	},
+	"HidePlayerButton" : {
+		"message": "Hide player button",
+		"description": ""
+	},
+	"HideLogotypeMenu" : {
+		"message": "Hide logotype Menu",
+		"description": ""
+	},
+	"HidePopupMenu" : {
+		"message": "Hide popup Menu",
+		"description": ""
+	},
+	"Settings" : {
+		"message": "Settings",
+		"description": ""
+	},
+	"Decoration" : {
+		"message": "Decor",
+		"description": ""
+	},
+	"Style" : {
+		"message": "Style",
+		"description": ""
+	},
+	"Font" : {
+		"message": "Font",
+		"description": ""
+	},
+	"StandartFont" : {
+		"message": "Default font",
+		"description": "Default font"
+	},
+	"Default" : {
+		"message": "Default",
+		"description": ""
+	},
+	"ClearDecor" : {
+		"message": "Clear decoration",
+		"description": ""
+	},
+	"OriginalDecor" : {
+		"message": "Original decoration",
+		"description": ""
+	},
+	"SharePage" : {
+		"message": "Share page to OK",
+		"description": ""
+	},
+	"ShareLink" : {
+		"message": "Share link to OK",
+		"description": ""
+	},
+	"DownloadSong": {
+		"message": "Download song",
+		"description": ""
+	},
+	"ThemesFromUsers": {
+		"message":	"From users",
+		"description": ""
+	},
+	"ThemesDefault": {
+		"message": "Default",
+		"description": ""
+	},
+	"ThemeSelected": {
+		"message":	"selected",
+		"description": "Selected theme - selected"
+	},
+	"ServerIsDown": {
+		"message": "Server under construction",
+		"description": ""
+	},
+	"ServerIsWork": {
+		"message": "Server under construction",
+		"description": ""
+	},
+	"NoAuthor": {
+		"message": "no author",
+		"description": ""
+	},
+	"CheckInternet": {
+		"message": "Check the internet connection",
+		"description": ""
+	}
+}
+

@@ -1,0 +1,187 @@
+﻿{
+	"extDescription" : {
+		"message": "Setari de dizain Odnoklassniki",
+		"description": ""
+	},
+	"buttonExit" : {
+		"message": "butonul Iesire",
+		"description": ""
+	},
+	"officialGroup" : {
+		"message": "grupul Oficial",
+		"description": ""
+	},
+	"General" : {
+		"message": "General",
+		"description": ""
+	},
+	"HideBlocks" : {
+		"message": "Ascunde Blocuri",
+		"description": ""
+	},
+	"SiteDesign" : {
+		"message": "Dizain Sait",
+		"description": ""
+	},
+	"PageOpacity" : {
+		"message": "Opacitate Pagina",
+		"description": "Opacity page"
+	},
+	"HidePanelMail" : {
+		"message": "Ascunde Panoul Mail",
+		"description": ""
+	},
+	"HideButtonMail" : {
+		"message": "Ascunde Butonul Mail",
+		"description": ""
+	},
+	"RedirectLinks" : {
+		"message": "Redirectioneaza Link-uri",
+		"description": ""
+	},
+	"AdBlock" : {
+		"message": "Adauga Blocare",
+		"description": ""
+	},
+	"ReducePage" : {
+		"message": "Micsoreaza Pagina",
+		"description": "Make page smaller"
+	},
+	"AutohideTopPanel" : {
+		"message": "Auto-ascunde Panoul Principal ",
+		"description": ""
+	},
+	"FriendsCommon" : {
+		"message": "Prieteni Comuni",
+		"description": ""
+	},
+	"Holidays" : {
+		"message": "Sarbatori",
+		"description": ""
+	},
+	"Familiar" : {
+		"message": "Cunoscuti",
+		"description": "Are you know?"
+	},
+	"About" : {
+		"message": "Despre",
+		"description": ""
+	},
+	"Events" : {
+		"message": "Evenimente",
+		"description": ""
+	},
+	"Worked" : {
+		"message": "Activitati",
+		"description": ""
+	},
+	"Groups" : {
+		"message": "Grupuri",
+		"description": ""
+	},
+	"Recommended" : {
+		"message": "Recomandam",
+		"description": ""
+	},
+	"Games" : {
+		"message": "",
+		"description": "Jocuri pt.dvs."
+	},
+	"Favorites" : {
+		"message": "",
+		"description": "Adrese"
+	},
+	"FriendOnline" : {
+		"message": "Prieteni Online",
+		"description": ""
+	},
+	"Moderator" : {
+		"message": "Moderator",
+		"description": ""
+	},
+	"Popups" : {
+		"message": "Popup-uri",
+		"description": "Popup alerts"
+	},
+	"HideAllBlocks" : {
+		"message": "Ascunde Toate Blocurile",
+		"description": ""
+	},
+	"HideMarksOverPhoto" : {
+		"message": "Ascunde Notele La Poze",
+		"description": ""
+	},
+	"HideGifts" : {
+		"message": "Ascunde Cadouri",
+		"description": ""
+	},
+	"HideNotifCounters" : {
+		"message": "Ascunde Notificarile",
+		"description": ""
+	},
+	"BigSendButton" : {
+		"message": "Micsoreaza Butonul Trimite",
+		"description": ""
+	},
+	"HideOnlineMarker" : {
+		"message": "Ascunde Indicatorul On-line",
+		"description": ""
+	},
+	"CircledTextStyles" : {
+		"message": "Stilul cercuri ",
+		"description": ""
+	},
+	"AdvShadows" : {
+		"message": "Adauga Umbra",
+		"description": ""
+	},
+	"HidePlayerButton" : {
+		"message": "",
+		"description": "Ascunde Butonul Play"
+	},
+	"HideLogotypeMenu" : {
+		"message": "Ascunde Meniul Logo-ului",
+		"description": ""
+	},
+	"HidePopupMenu" : {
+		"message": "Ascunde Meniul Pop-up",
+		"description": ""
+	},
+	"Settings" : {
+		"message": "Setari",
+		"description": ""
+	},
+	"Decoration" : {
+		"message": "Decoratie",
+		"description": ""
+	},
+	"Style" : {
+		"message": "Stiluri",
+		"description": ""
+	},
+	"Font" : {
+		"message": "Fonturi",
+		"description": ""
+	},
+	"StandartFont" : {
+		"message": "Font Standart",
+		"description": "Default font"
+	},
+	"Default" : {
+		"message": "Implicit",
+		"description": ""
+	},
+	"ClearDecor" : {
+		"message": "Inlatura Decor",
+		"description": ""
+	},
+	"OriginalDecor" : {
+		"message": "Decor Original",
+		"description": ""
+	},
+	"SharePage" : {
+		"message": "Distrubuie Pagina",
+		"description": ""
+	}
+}
+

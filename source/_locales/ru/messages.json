@@ -1,0 +1,228 @@
+﻿{
+	"extDescription" : {
+		"message": "Настройки дизайна Одноклассников",
+		"description": ""
+	},
+	"buttonExit" : {
+		"message": "Выход",
+		"description": ""
+	},
+	"officialGroup" : {
+		"message": "официальная группа",
+		"description": ""
+	},
+	"General" : {
+		"message": "Основные",
+		"description": ""
+	},
+	"HideBlocks" : {
+		"message": "Скрыть блоки",
+		"description": ""
+	},
+	"SiteDesign" : {
+		"message": "Дизайн",
+		"description": ""
+	},
+	"PageOpacity" : {
+		"message": "Прозрачность страницы",
+		"description": "Opacity page"
+	},
+	"HidePanelMail" : {
+		"message": "Скрыть панель Mail.Ru",
+		"description": ""
+	},
+	"HideButtonMail" : {
+		"message": "Скрыть кнопку Mail.Ru",
+		"description": ""
+	},
+	"RedirectLinks" : {
+		"message": "Перенаправление ссылок",
+		"description": ""
+	},
+	"AdBlock" : {
+		"message": "Блокировка рекламы",
+		"description": ""
+	},
+	"ReducePage" : {
+		"message": "Уменьшить страницу",
+		"description": "Make page smaller"
+	},
+	"AutohideTopPanel" : {
+		"message": "Автоскрытие верхней панели",
+		"description": ""
+	},
+	"FriendsCommon" : {
+		"message": "Что общего?",
+		"description": ""
+	},
+	"Holidays" : {
+		"message": "Праздники",
+		"description": ""
+	},
+	"Familiar" : {
+		"message": "Вы знакомы?",
+		"description": "Are you know?"
+	},
+	"About" : {
+		"message": "О себе",
+		"description": ""
+	},
+	"Events" : {
+		"message": "Мероприятия",
+		"description": ""
+	},
+	"Worked" : {
+		"message": "Работали вместе?",
+		"description": ""
+	},
+	"Groups" : {
+		"message": "Группы",
+		"description": ""
+	},
+	"Recommended" : {
+		"message": "Рекомендуем",
+		"description": ""
+	},
+	"Games" : {
+		"message": "Игры для вас",
+		"description": "Games for you"
+	},
+	"Favorites" : {
+		"message": "Закладки",
+		"description": "Bookmarks"
+	},
+	"FriendOnline" : {
+		"message": "Вошел на сайт",
+		"description": ""
+	},
+	"Moderator" : {
+		"message": "Модератор Одноклассников",
+		"description": ""
+	},
+	"Popups" : {
+		"message": "Всплывающие оповещения",
+		"description": "Popup alerts"
+	},
+	"HideAllBlocks" : {
+		"message": "Скрыть все блоки",
+		"description": ""
+	},
+	"HideMarksOverPhoto" : {
+		"message": "Скрыть оценки над фотографиями",
+		"description": ""
+	},
+	"HideGifts" : {
+		"message": "Скрыть подарки",
+		"description": ""
+	},
+	"HideNotifCounters" : {
+		"message": "Убрать счетчики оповещений",
+		"description": ""
+	},
+	"AvatarDown": {
+		"message": "Опустить аватарку",
+		"description": ""
+	},
+	"BigSendButton" : {
+		"message": "Большая кнопка отправить",
+		"description": ""
+	},
+	"HideOnlineMarker" : {
+		"message": "Скрыть моргающий маркер онлайна",
+		"description": ""
+	},
+	"CircledTextStyles" : {
+		"message": "Стили текста кружочками",
+		"description": ""
+	},
+	"AdvShadows" : {
+		"message": "Дополнительные тени",
+		"description": ""
+	},
+	"HidePlayerButton" : {
+		"message": "Скрыть кнопку плеера",
+		"description": ""
+	},
+	"HideLogotypeMenu" : {
+		"message": "Убрать меню на логотипе",
+		"description": ""
+	},
+	"HidePopupMenu" : {
+		"message": "Убрать всплывающее меню",
+		"description": ""
+	},
+	"Settings" : {
+		"message": "Настройки",
+		"description": ""
+	},
+	"Decoration" : {
+		"message": "Декор",
+		"description": ""
+	},
+	"Style" : {
+		"message": "Стили",
+		"description": ""
+	},
+	"Font" : {
+		"message": "Шрифт",
+		"description": ""
+	},
+	"StandartFont" : {
+		"message": "Стандартный шрифт",
+		"description": "Default font"
+	},
+	"Default" : {
+		"message": "По умолчанию",
+		"description": ""
+	},
+	"ClearDecor" : {
+		"message": "Чистый декор",
+		"description": ""
+	},
+	"OriginalDecor" : {
+		"message": "Оригинальный декор от Одноклассников",
+		"description": ""
+	},
+	"SharePage" : {
+		"message": "Поделиться страницей",
+		"description": ""
+	},
+	"ShareLink" : {
+		"message": "Поделиться ссылкой",
+		"description": ""
+	},
+	"DownloadSong": {
+		"message": "Скачать песню",
+		"description": ""
+	},
+	"ThemesFromUsers": {
+		"message":	"От пользователей",
+		"description": ""
+	},
+	"ThemesDefault": {
+		"message": "Стандартные",
+		"description": ""
+	},
+	"ThemeSelected": {
+		"message":	"установлена",
+		"description": "Selected theme - selected"
+	},
+	"ServerIsDown": {
+		"message": "На сервере ведутся технические работы",
+		"description": ""
+	},
+	"ServerIsWork": {
+		"message": "На сервере ведутся технические работы",
+		"description": ""
+	},
+	"NoAuthor": {
+		"message": "автор не указан",
+		"description": ""
+	},
+	"CheckInternet": {
+		"message": "Проверьте соединение с интернет",
+		"description": ""
+	}
+	
+}
+

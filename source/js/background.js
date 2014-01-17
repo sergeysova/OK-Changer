@@ -337,7 +337,7 @@ chrome.tabs.onUpdated.addListener( bg.checkTab );
 
 // Добавление меню
 chrome.contextMenus.create({
-	title: "Поделиться ссылкой",
+	title: chrome.i18n.getMessage('ShareLink'),
 	contexts: ["link"], // ["page", "selection", "image", "link"],
 	onclick: bg.cmenu.linkHandler
 });
@@ -353,7 +353,7 @@ chrome.contextMenus.create({
 
 
 chrome.contextMenus.create({
-	title: "Поделиться страницей",
+	title: chrome.i18n.getMessage('SharePage'),
 	contexts: ["page"],
 	onclick: bg.cmenu.linkHandler
 });
