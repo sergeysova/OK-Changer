@@ -17,11 +17,11 @@
 	"permissions" : [
 		"http://okchanger.lestad.net/*",
 		"http://www.odnoklassniki.ru/*",
-		"http://odnoklassniki.ru/*",,
+		"http://odnoklassniki.ru/*",
 		"http://m.ok.ru/*",
 		"http://www.ok.ru/*",
 		"http://ok.ru/*",
-		"\u003Call_urls\u003E"
+		"\u003Call_urls\u003E",
 		"notifications",
 		"contextMenus",
 		"storage",
@@ -41,7 +41,12 @@
 	},
 	"content_scripts": [
 		{
-			"matches": ["*://odnoklassniki.ru/*", "*://www.odnoklassniki.ru/*"],
+			"matches": [
+				"*://odnoklassniki.ru/*",
+				"*://www.odnoklassniki.ru/*",
+				"*://ok.ru/*",
+				"*://www.ok.ru/*"
+			],
 			"js": ["js/jquery.js", "js/injected.js"],
 			"run_at":"document_start"
 		}

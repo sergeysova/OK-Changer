@@ -222,6 +222,14 @@
 	"CheckInternet": {
 		"message": "Verificați conexiunea la internet",
 		"description": ""
+	},
+	"Cursor": {
+		"message": "Cursor",
+		"description": ""
+	},
+	"Music4u": {
+		"message": "Muzica pentru tine",
+		"description": ""
 	}
 }
 

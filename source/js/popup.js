@@ -9,6 +9,7 @@ popup = {
 	decor: {},
 	styles: {},
 	fonts: {},
+	cursor: {},
 	debug: false
 };
 
@@ -65,6 +66,8 @@ popup.hideAll = function() {
 	$("#styles_block").hide();
 	$("#fonts_block").hide();
 }
+
+// =======================================================================
 
 // Отображение блока настроек
 popup.setts.show = function(event) {
@@ -138,6 +141,8 @@ popup.setts.clicked = function( event ) {
 	// Блокировка стандартного события
 	event.preventDefault();
 }
+
+// =======================================================================
 
 // Отображение списка декора
 popup.decor.show = function( event ) {
@@ -214,6 +219,8 @@ popup.decor.clicked = function( event ) {
 	event.preventDefault();
 }
 
+// =======================================================================
+
 // Отображение списка тем
 popup.styles.show = function( event ) {
 	// Скрываем все блоки
@@ -281,6 +288,8 @@ popup.styles.clicked = function( event ) {
 	event.preventDefault();
 }
 
+// =======================================================================
+
 popup.fonts.show = function( event ) {
 	popup.hideAll();
 	$("#fonts_block").show();
@@ -305,6 +314,27 @@ popup.fonts.clicked = function( event ) {
 	event.preventDefault();
 }
 
+// =======================================================================
+
+popup.cursor.show = function( event ) {
+	popup.hideAll();
+	$("#cursor_block").show();
+	event.preventDefault();
+}
+
+popup.cursor.load = function() {
+	//$("#fonts_block").on('click', '.decbutton', popup.fonts.clicked);
+}
+
+popup.cursor.clicked = function( event ) {
+	
+	event.preventDefault();
+}
+
+
+// =======================================================================
+
+
 // Готовность
 popup.ready = function() {
 	$("[data-lang]").each(function(id){
@@ -327,6 +357,7 @@ popup.ready = function() {
 		popup.decor.load();
 		popup.styles.load();
 		popup.fonts.load();
+		popup.cursor.load();
 	});
 	
 	// Отображение стандартного блока
@@ -339,6 +370,7 @@ popup.ready = function() {
 	$("#nav_decor").click(popup.decor.show);
 	$("#nav_styles").click(popup.styles.show);
 	$("#nav_fonts").click(popup.fonts.show);
+	$("#nav_cursor").click(popup.cursor.show);
 }
 
 // Хватаем завершение загрузки разметки Popup

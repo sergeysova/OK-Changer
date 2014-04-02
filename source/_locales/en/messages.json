@@ -222,6 +222,14 @@
 	"CheckInternet": {
 		"message": "Check the internet connection",
 		"description": ""
+	},
+	"Cursor": {
+		"message": "Cursor",
+		"description": ""
+	},
+	"Music4u": {
+		"message": "Music for you",
+		"description": ""
 	}
 }
 

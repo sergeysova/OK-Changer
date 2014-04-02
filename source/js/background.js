@@ -154,7 +154,9 @@ bg.checkTab = function( tabid, changeinfo, tab) {
 		// URL влкадки задан
 		if ( typeof changeinfo.url != "undefined" ) {
 			if ( changeinfo.url.substr(0,23) != "http://odnoklassniki.ru"
-			&& changeinfo.url.substr(0,27) != "http://www.odnoklassniki.ru" ) {
+			&& changeinfo.url.substr(0,27) != "http://www.odnoklassniki.ru"
+			&& changeinfo.url.substr(0,16) != "http://www.ok.ru"
+			&& changeinfo.url.substr(0,12) != "http://ok.ru" ) {
 				// Если вкладка не с одноклассниками,
 				// Удаляем
 				bg.removeTab(tabid);

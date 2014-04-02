@@ -1,7 +1,7 @@
 * { margin: 0; padding: 0; border: 0; outline: none; overflow: hidden; }
 
 body {
-	width: 400px;
+	width: 450px;
 	height: 540px; /* 540px */
 	padding-top: 48px;
 	font-family: arial,helvetica,sans-serif;
@@ -173,9 +173,13 @@ body {
 	background-position: 50% -53px;
 }
 
+.nav_cursor {
+	background-position: 50% -242px;
+}
+
 .nav_okchanger {
 	background-position: 50% -192px;
-	width: 92px;
+	width: 80px;
 }
 
 .toolbar_nav_i_tx-w {

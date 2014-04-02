@@ -428,6 +428,13 @@ inj.upd.s_games = function( value ) {
 	inj.storage.s_games = value;
 }
 
+inj.upd.s_music4u = function( value ) {
+	b.stylehiding('music4u', value, "\
+			#hook_Block_RightColumnMusicRecommendations {display: none;}\
+		");
+	inj.storage.s_music4u = value;
+}
+
 // Скрытие блока "Праздники друзей"
 inj.upd.s_holydays = function( value ) {
 	if ( value == 1 || value == true ) {
@@ -499,7 +506,7 @@ inj.upd.s_autohidebar = function( value ) {
 					#topPanel {transition: margin-top .3s}\
 				");
 		$(window).scroll(function(){
-			console.log($("body").scrollTop());
+			inj.log($("body").scrollTop());
 			if ( $(window).scrollTop() < 200 ) {
 				$("#topPanel").css("margin-top", "0px");
 			} else $("#topPanel").css("margin-top", "-50px");
@@ -535,6 +542,7 @@ inj.upd.s_shadows = function( value ) {
 inj.upd.s_avatardown = function( value ) {
 	b.stylehiding('avatardown', value, "\
 				.lcTc_avatar {margin-top: 0px;} \
+				.lcTc_status { margin-bottom: 20px; }\
 			");
 	inj.storage.s_avatardown = value;
 }
