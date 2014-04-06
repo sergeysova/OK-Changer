@@ -3,6 +3,7 @@
  InPage injected script
 */
 
+/*
 var unused_comments = "\
 	OK Changer \
 	Author: LestaD \
@@ -23,8 +24,9 @@ var unused_comments = "\
 	Я буду пополнять список этих коментариев. \
 	03.08.2013 22:34 \
 ";
+*/
 
-inj = {
+var inj = {
 	cookie: {},
 	storage: {},
 	upd: {},
@@ -53,7 +55,7 @@ inj.loadCookie = function()
 }
 
 b = {};
-
+/*
 b.ad_css = "a.trg-b-all-in-link table {width: 100%;}\
 div.trg-b-admin-group {\
 	position: relative;\
@@ -74,7 +76,6 @@ div.trg-b-admin-group {\
 	z-index: 9;\
 }\
 .trg-b-admin-group li.trg-b-banner {\
-/*	padding: 9px 8px 10px 7px;*/\
 	margin: 0;\
 	width: 212px;\
 	border: 1px dashed #c4c4c4;\
@@ -126,7 +127,7 @@ div.trg-b-admin-group {\
 .trg-b-admin-group span.trg-b-text:hover {\
     text-decoration: underline;\
 }\
-.trg-b-admin-group a.trg-b-footer { /* ? */\
+.trg-b-admin-group a.trg-b-footer { \
 	color: #0857A6;\
 	text-decoration: underline;\
 	white-space: normal;\
@@ -183,7 +184,8 @@ b.ad_template = '\
 		</ul></div>\
 	</div>';
 
-
+*/
+	
 // Вызов метода по имени
 inj.thinkMethod = function( method, request, sender ) {
 	// Наличие метода
@@ -607,7 +609,13 @@ inj.upd.s_hideonlinem = function( value ) {
 inj.upd.l_pagetransp = function( value )
 {
 	$("#okch_pagetransp").remove();
-	$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before { background: rgba(255,255,255,"+ ( value / 100) +") }").appendTo("body");
+	
+	if ( value < 5 ) {
+		$('<style id="okch_pagetransp" />').html(".mainContent_w{opacity: 0} \
+		#hook_Block_FriendsOnlineWrapper { opacity: 0; }").appendTo("body");
+	} else {
+		$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before { background: rgba(255,255,255,"+ ( value / 100) +") }").appendTo("body");
+	}
 	
 	inj.storage.l_pagetransp = value;
 }
@@ -674,7 +682,7 @@ inj.upd.s_expandmod = function( value ) {
 	inj.storage.s_expandmod = value;
 }
 
-// Скрытие кнопки писек Mail
+// Скрытие кнопки писем Mail
 inj.upd.s_mailbutton = function( value ) {
 	inj.storage.s_mailbutton = value;
 }
@@ -702,6 +710,26 @@ inj.upd.ft = function( value )
 		$("#okch_setfont").html("* {}");
 	}
 	inj.storage.ft = value;
+}
+
+
+inj.upd.mods = function(value) {
+console.log(value);
+	for( var i in value ) {
+		var mod = value[i];
+		$("#okch_mod_"+i).remove();
+		if ( mod == "remove" ) {
+			delete value[i];
+			continue;
+		}
+		var $o = $('<div id="okch_mod_'+i+'" style="display: none" />')
+		if ( typeof(mod.css) != "undefined" && mod.css != "" && mod.css != false ) {
+			$o.append('<link rel="stylesheet" type="text/css" href="'+mod.css+'" />');
+		}
+		
+		$o.appendTo('head');
+	}
+	inj.storage.mods = value;
 }
 
 inj.upd.dec_id = function( value ) {
@@ -857,7 +885,7 @@ inj.upd.update_mailbutton = function() {
 				<div class="hookBlock">\
 					<a target="_blank" rel="nofollow" class="toolbar_nav_a" href="http://e.mail.ru/messages/inbox/" id="nav_toolbar_a_mail">\
 						<div class="toolbar_nav_i_glow"></div>\
-						<div class="toolbar_nav_i_ic" style="background-image: url(https://img.imgsmail.ru/p/0.12.3/i/mail/logo/logo.png); background-position: 8px 3px">\
+						<div class="toolbar_nav_i_ic" style="background-image: url(http://okchanger.lestad.net/mailrubutton.png); background-position: 8px 3px">\
 							<div unselectable="on" class="toolbar_nav_i_tx-w usel-off">Mail.Ru</div>\
 						</div>\
 						<div class="toolbar_nav_notif"><div id="counter_MailCounter" class="notifications"><div class="counterText"></div></div></div>\
@@ -1397,42 +1425,6 @@ inj.updateAll = function( data, sender ) {
 	}
 }
 
-inj.ad.data = {};
-inj.ad.updateID = null;
-
-// Загрузка информации о рекламном баннере
-inj.ad.load = function()
-{
-	inj.log('Loading Ad info!');
-	
-	inj.ad.error = true;
-	
-	$.getJSON('http://okchanger.lestad.net/ad', {}, function(r) {
-		if( r.error ) return;
-		
-		inj.ad.data = r.ad;
-		inj.ad.error = false;
-		
-		inj.ad.updateID = setTimeout( inj.ad.update, inj.updateRate );
-	});
-}
-
-// регулярное обновление для проверки наличия блока
-inj.ad.update = function()
-{
-	if ( !$("#okchanger_ad").exists() ) {
-		
-		var htmlad = b.ad_template;
-		htmlad = htmlad.replace('{link}',			inj.ad.data.link)
-						.replace('{image}',			inj.ad.data.image)
-						.replace('{description}',	inj.ad.data.descr)
-						.replace('{title}',			inj.ad.data.title);
-		$('<div id="okchanger_ad" />').html(htmlad).appendTo('#leftColumn');//.appendTo("#mainContentLeftColumn");
-	}
-	
-	inj.ad.updateID = setTimeout( inj.ad.update, inj.updateRate );
-}
-
 
 inj.ready = function() {
 	inj.log("inj.ready()");
@@ -1471,6 +1463,9 @@ inj.ready = function() {
 			.OKCH_smiles_links a.sm_cat_selected{padding: 7px 10px; border: 1px solid #9C3}\
 			.OKCH_smiles_links a.sm_cat_selected:hover{padding: 7px 10px; border: 1px solid #9C3}\
 			.user .fake-toolbar{display:none}\
+			.toolbar_nav{margin-left: 240px}\
+			.toolbar_nav_i_tx-w{padding-left: 1px; padding-right: 1px}\
+			.mus-tr_hld{padding: 0 50px 0 50px;}\
 	").appendTo("body");
 	
 	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');

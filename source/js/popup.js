@@ -9,7 +9,7 @@ popup = {
 	decor: {},
 	styles: {},
 	fonts: {},
-	cursor: {},
+	mods: {},
 	debug: false
 };
 
@@ -65,6 +65,7 @@ popup.hideAll = function() {
 	$("#decor_block").hide();
 	$("#styles_block").hide();
 	$("#fonts_block").hide();
+	$("#mods_block").hide();
 }
 
 // =======================================================================
@@ -316,18 +317,91 @@ popup.fonts.clicked = function( event ) {
 
 // =======================================================================
 
-popup.cursor.show = function( event ) {
+popup.mods.show = function( event ) {
 	popup.hideAll();
-	$("#cursor_block").show();
+	$("#mods_block").show();
 	event.preventDefault();
 }
 
-popup.cursor.load = function() {
-	//$("#fonts_block").on('click', '.decbutton', popup.fonts.clicked);
+popup.mods.load = function() {
+	//$("#mods_block").on('click', '.decbutton', popup.fonts.clicked);
+	$("#mods_block").html("<div><div>");
+	$.ajax({
+		url: "http://okchanger.lestad.net/mods/",
+		dataType: "json",
+		success: function(data) {
+			if ( data.error <= 0 ) {
+				if ( data.mods.length > 0 ) {
+					var stMods = {};
+					if ( typeof( popup.storage.mods ) != "undefined" ) {
+						stMods = popup.storage.mods;
+						console.log(stMods);
+					}
+					
+					var opera = ifBrowser({
+						"chrome": false,
+						"opera": true
+					});
+					
+					for ( var i = 0; i < data.mods.length; i++ ) {
+						var mod = data.mods[i];
+						
+						// if mod has .js, don't load it in opera
+						if ( opera && typeof(mod.manifest.load.javascript) != "undefined") {
+							continue;
+						}
+						
+						$('<div id="mod_'+mod.id+'" class="sqbutton" />')
+							.attr("data-js", (!opera) ? mod.manifest.load.javascript : '')
+							.attr("data-css", mod.manifest.load.css)
+							.attr("data-id", mod.id)
+							.addClass(typeof(stMods[mod.manifest.type])=="undefined" ? '' : (stMods[mod.manifest.type]['id']==mod.id ? 'selected' : '') )
+							.attr("data-type", mod.manifest.type)
+							.attr("title", 'by ' + mod.manifest.author)
+							.html('<div class="insqimg"><img src="'+mod.manifest.image+'" /></div><div class="insqbtn">'+ mod.manifest.name +'</div>')
+							.appendTo("#mods_block");
+						
+					}
+					$("#mods_block").on('click', '.sqbutton', popup.mods.clicked);
+				} else {
+					$("#mods_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
+				}
+			} else {
+				$("#mods_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
+			}
+		},
+		error: function() {
+			$("#mods_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
+		}
+	});
+	
+	
 }
 
-popup.cursor.clicked = function( event ) {
+popup.mods.clicked = function( event ) {
 	
+	var $m = $(this);
+	
+	if ( typeof( popup.storage.mods ) == "undefined" ) {
+		popup.storage.mods = {};
+	}
+	
+	$('#mods_block div[data-type="'+$m.attr('data-type')+'"]').removeClass('selected');
+	
+	if ( typeof(popup.storage.mods[$m.attr('data-type')]) != "undefined"
+		&& popup.storage.mods[$m.attr('data-type')]['id'] == $m.attr('data-id') ) {
+			popup.storage.mods[$m.attr('data-type')] = "remove";
+	} else {
+		popup.storage.mods[$m.attr('data-type')] = {
+			'id': $m.attr('data-id'),
+			'js': $m.attr('data-js'),
+			'css': $m.attr('data-css'),
+			'type': $m.attr('data-type')
+		}
+		$m.addClass('selected');
+	}
+	
+	popup.saving();
 	event.preventDefault();
 }
 
@@ -357,7 +431,7 @@ popup.ready = function() {
 		popup.decor.load();
 		popup.styles.load();
 		popup.fonts.load();
-		popup.cursor.load();
+		popup.mods.load();
 	});
 	
 	// Отображение стандартного блока
@@ -370,7 +444,7 @@ popup.ready = function() {
 	$("#nav_decor").click(popup.decor.show);
 	$("#nav_styles").click(popup.styles.show);
 	$("#nav_fonts").click(popup.fonts.show);
-	$("#nav_cursor").click(popup.cursor.show);
+	$("#nav_mods").click(popup.mods.show);
 }
 
 // Хватаем завершение загрузки разметки Popup
