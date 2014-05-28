@@ -284,6 +284,12 @@ inj.upd.s_adblock = function( value ) {
 
 // Изменение размеров кнопок отправить и видеозвонок
 inj.upd.s_buttonsize = function( value ) {
+	b.stylehiding('buttonsize', value, "\
+		.mdialog_chat_add-comment.__redesign .disc_input_btn.__call {margin-left: 85px}\
+		.mdialog_chat_add-comment.__redesign .disc_input_btn {min-height: 32px; position: absolute; max-height: 103px; height: 100%}\
+		\
+	");
+/*
 	b.stylehiding('buttonsize',value,"\
 					.disc_simple_input_btn[uid=\"uidTrigerSendMsg\"], .disc_text_area_button[uid=\"uidTrigerSendMsg\"] \
 						{width:100px; right: 65px; background-position: center; font-size: 0} \
@@ -303,7 +309,7 @@ inj.upd.s_buttonsize = function( value ) {
 					.disc_text_area_button[uid=\"sendComment\"] {width: 100px; right: 0px; background-position: center; font-size: 0} \
 					\
 					.disc_simple_input_btn[id *= \"smplBtnId\"] {font-size: 0;background-position: center; background-repeat: no-repeat;} \
-					");
+					");*/
 	inj.storage.s_buttonsize = value;
 }
 
@@ -657,7 +663,7 @@ inj.upd.s_stylescircle = function( value )
 inj.upd.s_moderatorblock = function( value )
 {
 	b.stylehiding('moderatorblock', value, "\
-				#hook_Block_ModerationLauncher{display:none} \
+				#hook_Block_RightColumn #hook_Block_ModerationLauncher{display:none !important} \
 			");
 	inj.storage.s_moderatorblock = value;
 }
@@ -1466,6 +1472,7 @@ inj.ready = function() {
 			.toolbar_nav{margin-left: 240px}\
 			.toolbar_nav_i_tx-w{padding-left: 1px; padding-right: 1px}\
 			.mus-tr_hld{padding: 0 50px 0 50px;}\
+			#pointerOverlay{display: none !important}\
 	").appendTo("body");
 	
 	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');

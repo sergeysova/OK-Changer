@@ -338,21 +338,10 @@ popup.mods.load = function() {
 						console.log(stMods);
 					}
 					
-					var opera = ifBrowser({
-						"chrome": false,
-						"opera": true
-					});
-					
 					for ( var i = 0; i < data.mods.length; i++ ) {
 						var mod = data.mods[i];
 						
-						// if mod has .js, don't load it in opera
-						if ( opera && typeof(mod.manifest.load.javascript) != "undefined") {
-							continue;
-						}
-						
 						$('<div id="mod_'+mod.id+'" class="sqbutton" />')
-							.attr("data-js", (!opera) ? mod.manifest.load.javascript : '')
 							.attr("data-css", mod.manifest.load.css)
 							.attr("data-id", mod.id)
 							.addClass(typeof(stMods[mod.manifest.type])=="undefined" ? '' : (stMods[mod.manifest.type]['id']==mod.id ? 'selected' : '') )
