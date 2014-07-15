@@ -278,6 +278,7 @@ inj.upd.s_adblock = function( value ) {
 				.dialogWrapperBanner__inner, .banner_new__loaded, .dialogWrapperBanner__bottom \
 				{ display: none } \
 				.fo4c_h {padding-top: 15px} \
+				.mctc_link.__v1 {display:none}\
 			");
 	inj.storage.s_adblock = value;
 }
@@ -1023,13 +1024,13 @@ inj.bgs.check = function()
 					<a href="" class="mctc_navMenuSec" id="okth_load_def">'+chrome.i18n.getMessage('ThemesDefault')+'</a>\
 					</div>';
 		
-		$("div.covers_cat_t").attr("id", "def_title").append(tpl);
+		$("<div/>").attr("id", "def_title").html(tpl).insertAfter('#mainTopContentRow');
 		
 		inj.bgs.getthemes();
 		
-		$("#okth_load_ok").click(inj.bgs.mythemes);
-		$("#okth_load_def").click(inj.bgs.defthemes);
-		$("#okth_load_users").click(inj.bgs.userthemes);
+		$("#okth_load_ok").on('click', inj.bgs.mythemes);
+		$("#okth_load_def").on('click', inj.bgs.defthemes);
+		$("#okth_load_users").on('click', inj.bgs.userthemes);
 	}
 }
 
@@ -1473,6 +1474,8 @@ inj.ready = function() {
 			.toolbar_nav_i_tx-w{padding-left: 1px; padding-right: 1px}\
 			.mus-tr_hld{padding: 0 50px 0 50px;}\
 			#pointerOverlay{display: none !important}\
+			.mus-tr_cnt{margin-left:20px}\
+			#def_title{padding: 25px; z-index:3;display: block;position: relative;}\
 	").appendTo("body");
 	
 	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
