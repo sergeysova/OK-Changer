@@ -1,5 +1,5 @@
 #!/bin/bash
-clear
+
 echo ''
 echo '[=- Chrome Extension Building -=]'
 version=$1
@@ -9,7 +9,7 @@ if [[ -z $version ]]
 then
 echo "Error: hasn't set version"
 echo "Example:"
-echo "        ./build.sh 1.0.0.1"
+echo "          ./build.sh 1.0.0.1"
 exit 1
 fi
 
@@ -37,8 +37,12 @@ sed -i "s/0.0.0.0/$version/" build/chrome/manifest.json
 # remove exiting archive
 rm -f "./release/$zipname"
 
+cd './build/chrome/'
+
 # archive
-zip -r "./release/$zipname" "./build/chrome/"
+zip -rD "../../release/$zipname" "./"
+
+cd '../..'
 
 echo "File: $dir/release/$zipname"
 echo '[=- OK Changer build successful -=]'
