@@ -231,8 +231,8 @@ bg.updateTabs = function( data ) {
 		
 		// Отправка сообщения во вкладку
 		chrome.tabs.sendMessage(tabid, data, function(response){
-			console.log('Response from message!');
-			console.log(response);
+			// console.log('Response from message!');
+			// console.log(response);
 		});
 	}
 	var ret = {};

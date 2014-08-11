@@ -503,6 +503,7 @@ inj.upd.s_mailbar = function( value ) {
 					.ntf_spacer {margin-top:54px} \
 					.layer_hld {margin-top: 6px} \
 					.user #hook_Block_MainContainer{padding-top: 48px;}\
+					.modal.__toolbar-indent{ top: 48px; } \
 				");
 	inj.storage.s_mailbar = value;
 }
@@ -513,6 +514,7 @@ inj.upd.s_autohidebar = function( value ) {
 	if ( value ) {
 		b.stylehiding('autohidebar', value, "\
 					#topPanel {transition: margin-top .3s}\
+					.modal.__toolbar-indent{top: 0}\
 				");
 		$(window).scroll(function(){
 			inj.log($("body").scrollTop());
@@ -520,6 +522,7 @@ inj.upd.s_autohidebar = function( value ) {
 				$("#topPanel").css("margin-top", "0px");
 			} else $("#topPanel").css("margin-top", "-50px");
 		});
+		$(window).trigger("scroll");
 	} else {
 		b.stylehiding('autohidebar', false, "\
 					#topPanel {transition: margin-top .3s}\
@@ -841,19 +844,17 @@ inj.upd.update_officialpage = function()
 // Кнопка выход на панели
 inj.upd.update_exitbutton = function() {
 	if ( inj.storage.s_mailbar != 1 && inj.storage.s_mailbar != true ) {
-		$("#toolbar_nav_exit").remove();
+		b.stylehiding("searchfield", false, "");
 		return;
 	}
 	
 	if ( !$("#toolbar_nav_exit").exists() && $("#hook_Block_HeaderTopMenuInToolbar").exists() ) {
 		$(".toolbar_c").css("display", "inline-block");
-		$("#okch_searchfield").remove();
-		$('<style id="okch_searchfield" />')
-			.html( "\
+		b.stylehiding("searchfield", true, "\
 					div.toolbar_search {width: 150px} \
 					#liveSearchSugg #field_query {width: 125px} \
 					\
-				").appendTo("body");
+				");
 		
 		$('\
 			<li class="toolbar_nav_i" id="toolbar_nav_exit">\
@@ -915,24 +916,6 @@ inj.upd.update_mailbutton = function() {
 // Кнопка "Наверх"
 inj.upd.update_upbutton = function() {
 	return;
-	/*
-	if ( $("#okch_upbutton").exists() ) return;
-	//$('<div id="okch_scrollToTop" class="okch_gs_go-top" title="Наверх">Наверх</div>').appendTo("#hook_Block_MainContainer");
-	$('<style id="okch_upbutton" />').html( "\
-			.okch_gs_go-top {} \
-			.fcofw .okch_gs_go-top {margin-left: 307px;} \
-		").appendTo("body");
-	$("#okch_scrollToTop").on("click", function(event){
-		$("#hook_Block_MainContainer").animate({scrollTop: 0},"easy");
-		event.preventDefault();
-	});
-	
-	$("#hook_Block_MainContainer").scroll(function(){
-		if ( $("#hook_Block_MainContainer").scrollTop() < 350 ) {
-			$("#okch_scrollToTop").hide();
-		} else $("#okch_scrollToTop").show();
-	});
-	*/
 }
 
 
