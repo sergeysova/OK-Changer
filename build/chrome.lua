@@ -1,6 +1,7 @@
 Log("[=- Chrome build -=]");
 
 ChromeBuildFolder = buildFolder .. "chrome\\";
+Folder.SafeCreate(ChromeBuildFolder);
 Log("Copy files to: " .. ChromeBuildFolder);
 
 last = "";

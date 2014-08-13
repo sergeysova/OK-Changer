@@ -4,4 +4,8 @@
 project/*
 release/*
 build/chrome/*
+build/opera/*
 a/*
+
+*.crx
+*.nex

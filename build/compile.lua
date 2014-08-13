@@ -22,7 +22,7 @@ function File.SafeDelete( file )
 end
 
 function ll()
-	--Input.ScrollToLine("log", 100);
+	Input.ScrollToLine("log", -1);
 end
 
 Log("------------------------------------------------");
@@ -39,7 +39,8 @@ if ( String.CompareFileVersions(version, "0.0.0.1") >= 0 ) then
 	--Folder.SafeCreate(debugFolder);
 	
 	Application.RunScriptFile(_SourceFolder .. "\\chrome.lua");
-	Application.RunScriptFile(_SourceFolder .. "\\yandex.lua");
+	--Application.RunScriptFile(_SourceFolder .. "\\yandex.lua");
+	Application.RunScriptFile(_SourceFolder .. "\\opera.lua");
 	
 	Log("");
 else
