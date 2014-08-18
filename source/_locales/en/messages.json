@@ -230,6 +230,10 @@
 	"Music4u": {
 		"message": "Music for you",
 		"description": ""
+	},
+	"PageColor": {
+		"message": "Color of the page",
+		"description": ""
 	}
 }
 

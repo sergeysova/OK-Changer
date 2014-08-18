@@ -108,6 +108,63 @@ popup.setts.load = function() {
 			popup.saving();
 		}
 	});
+	/*
+	// gray
+	for (var t = 255; t > 0; t-=36 ) {
+		if(t < 0) t = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+t+','+t+','+t+')">');
+	}
+	
+	// red
+	for (var r = 235; r > 0; r-=30 ) {
+		if( r < 0 ) r = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb(255,'+r+','+r+')">');
+	}
+	
+	// green
+	for( var g  = 235; g > 0; g-=30 )  {
+		if (g < 0) g = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+g+',255,'+g+')">');
+	}
+	
+	// blue
+	for( var b  = 235; b > 0; b-=30 )  {
+		if (b < 0) b = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+b+','+b+',255)">');
+	}
+	
+	for( var b  = 235; b > 0; b-=30 )  {
+		if (b < 0) b = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+b+','+(255-b)+',255)">');
+	}
+	
+	for( var b  = 235; b > 0; b-=30 )  {
+		if (b < 0) b = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+(255-b)+',255,'+b+')">');
+	}
+	
+	for( var b  = 235; b > 0; b-=30 )  {
+		if (b < 0) b = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb(255,'+(255-b)+','+b+')">');
+	}
+	
+	for( var b  = 235; b > 0; b-=30 )  {
+		if (b < 0) b = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+b+','+(255-b)+','+b+')">');
+	}
+	
+	for( var b  = 235; b > 0; b-=30 )  {
+		if (b < 0) b = 0;
+		$("#pagecolor_selector").append('<div class="colorb" style="background: rgb('+b+','+b+','+(255-b)+')">');
+	}
+	*/
+	// Изменить цвет странички
+	$("#pagecolor_selector").on("click", ".colorb", function(){
+		var bgc = $(this).css('background-color');
+		bgc = bgc.replace('rgb', '');
+		popup.storage['l_pagecolor'] = bgc;
+		popup.saving();
+	});
 }
 
 // Клик на элементе из списка

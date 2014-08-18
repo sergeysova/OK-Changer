@@ -468,11 +468,20 @@ inj.upd.l_pagetransp = function( value )
 		$('<style id="okch_pagetransp" />').html(".mainContent_w{opacity: 0} \
 		#hook_Block_FriendsOnlineWrapper { opacity: 0; }").appendTo("body");
 	} else {
+		var bgc = typeof inj.storage.l_pagecolor == "undefined" ? "(255,255,255," : inj.storage.l_pagecolor.replace(')', ',');
 		$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before, .user #mainContent.__ntr, .fcofw .online-fr_block \
-		{ background: rgba(255,255,255,"+ ( value / 100) +") }").appendTo("body");
+		{ background: rgba"+bgc+""+ ( value / 100) +") }").appendTo("body");
 	}
 	
 	inj.storage.l_pagetransp = value;
+}
+
+
+// Цвет страницы
+inj.upd.l_pagecolor = function( value )
+{
+	inj.storage.l_pagecolor = value;
+	inj.upd.l_pagetransp( inj.storage.l_pagetransp );
 }
 
 

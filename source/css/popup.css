@@ -242,6 +242,8 @@ body {
 
 #settings_block {
 	padding-top: 10px;
+	overflow-y: auto;
+	height: 540px;
 }
 
 .ui-accordion .progbutton
@@ -333,6 +335,17 @@ body {
 	max-height: 50px;
 	display: inline-block;
 	position: relative;
+}
+
+.colorb {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	border: 3px solid white;
+	display: inline-block;
+	box-shadow: 0 2px 4px -1px rgba(0,0,0,.4);
+	cursor: pointer;
+	margin: 3px 0px;
 }
 
 
