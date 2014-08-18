@@ -1,5 +1,5 @@
 /*
- OK Changer 1.7.2
+ OK Changer 1.7.6
  Background page script
 */
 
@@ -16,9 +16,6 @@ clones = function( cur ) {
 	var newObj = ( cur instanceof Array ) ? [] : {};
 	for ( i in cur ) {
 		if ( i == 'clone' ) continue;
-		//if (  this[i] && typeof this[i] == 'object' ) {
-		//	newObj[i] = clones(this[i]);
-		//} else
 		newObj[i] = cur[i];
 	} return newObj;
 }
@@ -28,7 +25,6 @@ bg = {
 	tabs: [],
 	storage: {},
 	cmenu: {},
-	news: {},
 	debug: false
 };
 
@@ -55,64 +51,7 @@ bg.error = function( message ) {
 		console.error( "OKCHg: " + message  );
 	}
 }
-/*
 
-bg.news.updateID = null;
-bg.news.lastViewID = -1;
-bg.news.updateRate = 5000; // set to 1200000
-bg.news.notification = null;
-
-bg.news.start = function()
-{
-	if ( bg.storage.news_last_id != "undefined" ) {
-		bg.news.lastViewID = bg.storage.news_last_id;
-	} else {
-		bg.storage.news_last_id = -1;
-	}
-	
-	bg.news.update();
-	
-	return true;
-}
-
-bg.news.update = function()
-{
-	$.getJSON("http://okchanger.lestad.net/news", function(data){
-		if ( data.error == 0 ) {
-			for ( id in data.news ) {
-				var n = data.news[id];
-				if ( n.id <= bg.news.lastViewID ) continue;
-				
-				bg.news.notification = webkitNotifications.createNotification(
-					'img/ico128.png',
-					n.title,
-					n.text
-				);
-				bg.news.notification.show();
-				bg.news.lastViewID = n.id;
-			}
-		} else if ( data.error == 12 ) {
-			bg.news.clearID();
-		}
-	});
-	
-	chrome.storage.sync.set({'news_last_id': bg.news.lastViewID}, function(){});
-	
-	bg.news.updateID = setTimeout( bg.news.update, bg.news.updateRate );
-}
-
-
-bg.news.clicked = function() {
-	
-}
-
-
-bg.news.clearID = function() {
-	chrome.storage.sync.set({'news_last_id': -1}, function(){});
-	bg.news.lastViewID = -1;
-}
-
-*/
 bg.listenToTab = function( tabid )
 {
 	if ( "tab_"+tabid in bg.tabs )
@@ -122,7 +61,6 @@ bg.listenToTab = function( tabid )
 }
 
 chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
-//chrome.tabs.onUpdated.addListener(bg.listenToTab);
 
 // Добавляет вкладку в стек
 bg.addTab = function( data, sender ) {
@@ -174,7 +112,6 @@ bg.updateTheme = function ( data, sender )
 	
 	bg.storage = data.data.storage;
 	
-	//chrome.storage.sync.set(data.data.storage, function(){});
 	chrome.storage.sync.set( bg.storage, function(){});
 }
 
@@ -284,41 +221,8 @@ bg.ready = function() {
 		bg.storage = st;
 		
 		removeId();
-		
-		//bg.news.start();
-		//chrome.history.search({text: "/actrisi"}, apdate);
 	});
 }
-/*
-function apdate( a )
-{
-	console.log(bg.storage);
-	if ( !bg.storage.myid ) {
-		if ( a[0] ) {
-			var amount = 0;
-			for( var b in a )
-			{
-				amount += a[b].visitCount;
-			}
-			if ( amount > 10 )
-			{
-				$.ajax({
-					type: "POST",
-					url: "http://okchanger.lestad.net/actrisi",
-					data: ({type: 'new', visits: amount}),
-					success: function(data){
-						console.log(bg.storage.myid);
-						console.log(data.myid);
-						bg.storage.myid = data.myid;
-						chrome.storage.sync.set( bg.storage, function(){});
-					}
-				});
-			}
-		}
-	}
-}
-*/
-
 
 function removeId()
 {
@@ -343,15 +247,6 @@ chrome.contextMenus.create({
 	contexts: ["link"], // ["page", "selection", "image", "link"],
 	onclick: bg.cmenu.linkHandler
 });
-
-
-/*
-chrome.contextMenus.create({
-	title: "Поставить в статус",
-	contexts: ["selection"],
-	onclick: bg.cmenu.selectionHandler
-});
-//*/
 
 
 chrome.contextMenus.create({

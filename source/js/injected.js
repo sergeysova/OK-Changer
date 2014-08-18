@@ -1,5 +1,5 @@
 /*
- OK Changer 1.7.2
+ OK Changer 1.7.6
  InPage injected script
 */
 
@@ -23,7 +23,11 @@ var unused_comments = "\
 	За полгода мы набрали 5 000 пользователей. И всё набираем. \
 	Я буду пополнять список этих коментариев. \
 	03.08.2013 22:34 \
-";
+	\
+	Теперь у нас 11 000 пользователей. \
+	Улучшаю функциональность. \
+	18.08.2014 21:55 \
+	";
 */
 
 var inj = {
@@ -34,8 +38,6 @@ var inj = {
 	obj: {},
 	music: {},
 	bgs: {},
-	smile: {},
-	ad: {},
 	debug: false,
 	updateRate: 300,
 	updateID: 0,
@@ -55,136 +57,7 @@ inj.loadCookie = function()
 }
 
 b = {};
-/*
-b.ad_css = "a.trg-b-all-in-link table {width: 100%;}\
-div.trg-b-admin-group {\
-	position: relative;\
-	width: 214px;\
-	font-family: Arial, Helvetica, Sans-serif;\
-	font-size: 12px;\
-	color: #333;\
-	margin: 0 0 9px;\
-}\
-.trg-b-admin-group ul.trg-b-list {\
-	width: 214px;\
-	padding: 8px 0 11px;\
-	margin: 0;\
-	list-style: none;\
-	font-size: 12px;\
-	color: #333;\
-	text-align: left;\
-	z-index: 9;\
-}\
-.trg-b-admin-group li.trg-b-banner {\
-	margin: 0;\
-	width: 212px;\
-	border: 1px dashed #c4c4c4;\
-    overflow: hidden;\
-	background-color: white;\
-}\
-.trg-b-admin-group a.trg-b-all-in-link, .trg-b-admin-group a.trg-b-all-in-link:hover {\
-	text-decoration: none;\
-}\
-.trg-b-admin-group-inside-wrap {\
-    padding: 9px 12px 10px 7px;\
-    width: 193px;\
-    overflow: hidden;\
-}\
-.trg-b-admin-group img.trg-b-img {\
-	padding: 0 5px 0 0;\
-	float: left;\
-	cursor: pointer;\
-}\
-.trg-b-admin-group span.trg-b-animate {\
-	margin: 0 5px 0 0;\
-	float: left;\
-	cursor: pointer;\
-}\
-.trg-b-admin-group a.trg-b-header {\
-	color: #333333;\
-	text-decoration: none;\
-	font-size: 14px;\
-        line-height: 17px;\
-	white-space: nowrap;\
-	display: block;\
-	margin: 0 0 5px 0;\
-        width: 176px;\
-        overflow: hidden;\
-}\
-.trg-b-admin-group a.trg-b-header:hover {\
-    text-decoration: underline;\
-}\
-.trg-b-admin-group a.trg-b-header:hover, .trg-b-admin-group a.trg-b-footer:hover, .trg-b-admin-group .trg-b-contact-us-link:hover, .trg-b-admin-group a.trg-b-footer:hover {\
-	color: #EB722E;\
-}\
-.trg-b-admin-group span.trg-b-text {\
-	display: block;\
-	color: #666;\
-	cursor: pointer;\
-	font-size: 12px;\
-	margin: 0 0 2px;\
-}\
-.trg-b-admin-group span.trg-b-text:hover {\
-    text-decoration: underline;\
-}\
-.trg-b-admin-group a.trg-b-footer { \
-	color: #0857A6;\
-	text-decoration: underline;\
-	white-space: normal;\
-	font-size: 12px;\
-}\
-div.trg-b-admin-group .admin-group-title {\
-       border-bottom: 1px solid #8b9fa4;\
-       font-size: 18px;\
-       line-height: 1.5;\
-       color: #333333;\
-       display: block;\
-}\
-.trg-b-admin-group .admin-group-create-link {\
-    text-decoration: none;\
-    color: #f26d00;\
-    font-size: 12px;\
-    line-height: 12px;\
-}\
-.trg-b-admin-group .admin-group-create-link:hover {\
-    text-decoration: underline;\
-    color: #b84819;\
-}\
-.trg-b-admin-group .admin-group-wrapper-list {\
-    position: relative;\
-}\
-.trg-b-admin-group .admin-group-sample-panel {\
-    background: url(http://rs.mail.ru/b19193825.png);\
-    width: 48px;\
-    height: 51px;\
-    display: block;\
-    position: absolute;\
-    top: 8px;\
-    right: 0px;\
-    z-index: 10;\
-}";
 
-b.ad_template = '\
-	<div class="trg-b-admin-group">\
-		<div class="admin-group-wrapper-list">\
-			<ul class="trg-b-list">\
-				<li class="trg-b-banner">\
-					<a class="trg-b-all-in-link" href="{link}" onclick="window.open(this.href,\'_blank\');return!1">\
-						<div class="trg-b-admin-group-inside-wrap">\
-							<table border="0" cellpadding="0" cellspacing="0">\
-								<tbody><tr><td>\
-									<a class="trg-b-header" href="{link}" onclick="return!1">{title}</a>\
-									<img class="trg-b-img" src="{image}" border="0" style="width:90px;height:90px;">\
-									<span class="trg-b-text">{description}</span>\
-								</td></tr></tbody>\
-							</table>\
-						</div>\
-					</a>\
-				</li>\
-		</ul></div>\
-	</div>';
-
-*/
 	
 // Вызов метода по имени
 inj.thinkMethod = function( method, request, sender ) {
@@ -285,32 +158,6 @@ inj.upd.s_adblock = function( value ) {
 
 // Изменение размеров кнопок отправить и видеозвонок
 inj.upd.s_buttonsize = function( value ) {
-	b.stylehiding('buttonsize', value, "\
-		.mdialog_chat_add-comment.__redesign .disc_input_btn.__call {margin-left: 85px}\
-		.mdialog_chat_add-comment.__redesign .disc_input_btn {min-height: 32px; position: absolute; max-height: 103px; height: 100%}\
-		\
-	");
-/*
-	b.stylehiding('buttonsize',value,"\
-					.disc_simple_input_btn[uid=\"uidTrigerSendMsg\"], .disc_text_area_button[uid=\"uidTrigerSendMsg\"] \
-						{width:100px; right: 65px; background-position: center; font-size: 0} \
-					\
-					.disc_simple_input_btn[uid=\"callVMailFromComments\"], .disc_text_area_button[uid=\"callVMailFromComments\"] \
-						{width: 56px; background-position: center; font-size: 0} \
-					\
-					.disc_simple_input_btn[uid=\"callFromComments\"], .disc_text_area_button[uid=\"callFromComments\"] \
-						{width: 56px; background-position: center; font-size: 0} \
-					\
-					.disc_simple_input_btn[uid=\"uidClickSimpleInput\"], .disc_text_area_button[uid=\"uidClickSimpleInput\"] \
-						{width: 100px; right: 65px; background-position: center; font-size: 0} \
-					\
-					.mdialog_m .disc_simple_input_btn_call.vmail, .mdialog_m .disc_text_area_button_call.vmail \
-						{background-position: center} \
-					\
-					.disc_text_area_button[uid=\"sendComment\"] {width: 100px; right: 0px; background-position: center; font-size: 0} \
-					\
-					.disc_simple_input_btn[id *= \"smplBtnId\"] {font-size: 0;background-position: center; background-repeat: no-repeat;} \
-					");*/
 	inj.storage.s_buttonsize = value;
 }
 
@@ -487,9 +334,6 @@ inj.upd.s_hidedecor = function( value )
 
 // Скрытие меню на логотипе
 inj.upd.s_logotypemenu = function( value ) {
-	b.stylehiding('logotypemenu', value, "\
-				#hook_Block_ToolbarMenu {display: none;} \
-			");
 	inj.storage.s_logotypemenu = value;
 }
 
@@ -654,12 +498,6 @@ inj.upd.s_searchfield = function( value ) {
 // Круглые цвета текста
 inj.upd.s_stylescircle = function( value )
 {
-	b.stylehiding('stylescircle', value, "\
-				a.cp {border-radius: 50%; border-color: rgba(0,0,0,.3)} \
-				a.cp .selected {border-radius: 50%; border-color: transparent} \
-				a.cp .selected a {border-radius: 50%; border: 1px solid inherit} \
-				a.cp_ff, a.cp_ef, a.cp_al {border:none;border-radius:0}\
-			");
 	inj.storage.s_stylescircle = value;
 }
 
@@ -801,45 +639,12 @@ inj.upd.update_authorspage = function()
 			</li>\
 		'); // background-position: left -538px;
 	}
-	/*
-	if ( !$("#action_menu_official_group").exists() ) {
-		$("#action_menu_expand_item").before('<li class="u-menu_li" id="action_menu_official_group"><a class="u-menu_a" id="action_menu_official_group_a" href="/okchanger" hrefattrs="st.cmd=userMain&amp;st._aid=FriendFriend_Visit" title="Официальная группа OK Changer"><span class="tico"><i class="tico_img ic ic_officialg"></i>официальная группа</span></a></li>'); // background-position: left -538px;
-	}
-	//*/
 }
 
 // Официальная страница на группу и профиль Автора
 inj.upd.update_officialpage = function()
 {
-	/*
-	// Официальная группа
-	if ( !$("#OK_premium_group_Changer").exists() && document.location.href.match("\/okchanger|\/refreshgame") )
-	{
-		$(".mctc_name span").html( '<div id="OK_premium_group_Changer" class="ic_premium_group_blue" title="Официальная группа"></div>' + $(".mctc_name span").html() );
-		$("<style id=\"OK_specific_group_styles\" type=\"text/css\" />")
-			.html("#mainContainer {background-image: url(http://dsp.odnoklassniki.ru/getTheme?photoId=69&type=52);} \
-					#hook_Block_ThemesControlRB {display: none} \
-					.cover_t_c_repeat_l,.cover_t_c_repeat_r {background-image: url(http://dsp.odnoklassniki.ru/getTheme?photoId=69&type=53);} \
-					.cover_ov_b_c {background-image: url(http://dsp.odnoklassniki.ru/getTheme?photoId=69&type=75);} \
-					.cover_t_l,.cover_t_r,.cover_ov_t_l,.cover_ov_t_r,.cover_ov_t_c,.cover_b_l,.cover_b_r,.cover_b_c,.cover_ov_b_l,.cover_ov_b_r {background-image: none;} \
-					"
-			).appendTo("#mainContainer");
-	}
-	else if ( !document.location.href.match("\/okchanger|\/refreshgame") )
-	{
-		b.remove("#OK_specific_group_styles");
-		b.remove("#OK_premium_group_Changer");
-	}
 	
-	// Официальная страница
-	if ( !$("#OK_premium_user_Changer").exists() && document.location.href.match("\/lestad|\/profile.user")  ) {
-		//$(".mctc_nameAndOnline")
-			//.before( '<div class="premiumIcon ic_premium_group" id="OK_premium_user_Changer" title="Автор расширения"></div>' );
-		$(".mctc_name").before( '<div id="OK_premium_user_Changer" class="ic_premium_group_blue" title="Официальная группа"></div>');
-	} else if ( $("#OK_premium_user_Changer").exists() && !document.location.href.match("\/lestad|\/profile.user") ) {
-		b.remove("#OK_premium_user_Changer");
-	}
-	*/
 }
 
 // Кнопка выход на панели
@@ -1183,201 +988,7 @@ inj.bgs.loadthemes = function( data )
 		$("#OKCH_themes2").on("click", "a", inj.bgs.applyHandler);
 }
 
-
-inj.smile.htmlcode = "";
-inj.smile.active = 0;
-
-inj.smile.preload = function()
-{
-	/*
-	$.ajax({
-		url: "http://okchanger.lestad.net/smiles",
-		dataType: "json",
-		success: function(data) {
-			
-			var items = "";
-			
-			var everten = 1;
-			
-			$.each(data.packs.base, function(key, val){
-				if ( everten == 1 )
-				{
-					items +='<tr id="popularRow2_0">';
-				}
-				
-				items += '<td><div class="smileContainerODKL"><img class="gwt-Image" src="' + val.url + '" alt="'+val.symbols+'" id="smileItem_'+key+'" /></div></td>';
-				
-				if ( everten == 10 )
-				{
-					items += '</tr>';
-					everten = 1;
-				}
-				everten++;
-			});
-			
-			inj.smile.htmlcode = items;
-			inj.smile.active = 1;
-		}
-	});
-	*/
-}
-
-
-
-
-// смайлики
-inj.smile.update = function()
-{
-	/*
-	if ( !inj.smile.active ) return;
-	
-	var $smarea = $("#richTextAreaSmilesDropdown");
-	if ( !$smarea.hasClass("OKCH_smiles_mod") )
-	{
-		$smarea.addClass("OKCH_smiles_mod");
-		
-		if ( !$("#OKCH_smiles_header").exists() )
-		{
-			var $d = $smarea.children().children();
-			$d.prepend("<div class=\"OKCH_smiles_header\" id=\"OKCH_smiles_header\">\
-				<div class=\"OKCH_smiles_links\" style=\"padding: 2px\">\
-				<a href id=\"okch_smiles_sel_ok\" class=\"sm_cat_selected\">OK</a>\
-				<a href id=\"okch_smiles_sel_other\">Другие</a>\
-				</div>\
-			</div>\
-			<div class=\"sbin sbin_corner OKCH_smiles_container\" style=\"display:none\" id=\"OKCH_smilesContainer_1\">\
-				<table class=\"panelAdvSmiles\" cellspacing=\"0\" cellpadding=\"1\">\
-				"+inj.smile.htmlcode+"\
-				</table>\
-			</div>\
-			");
-			
-			$("#okch_smiles_sel_ok").on("click", inj.smile.sel_ok);
-			$("#okch_smiles_sel_other").on("click", inj.smile.sel_other);
-			$(".OKCH_smiles_container").on("click", ".gwt-Image", inj.smile.click);
-		}
-	}
-	*/
-}
-
 inj.upd.myid = function(a){}
-
-inj.smile.click = function(e)
-{
-	/*
-	var tag = $(this).attr("alt");
-	
-	//inj.smile.textarea_send(tag);
-	//inj.smile.textarea_send($(this).html());
-	
-    var div = $('.gwt-RichTextArea').each(function(){
-		$(this).contents().each(function(){
-		    var a = $(this).find("body").html()
-		    //console.log( a );
-		    //var b = '<img src="http://okchanger.lestad.net/smiles/base/cranky.gif" ondragstart="return false" onresizestart="return false" onresizeend="return false" alt="[cranky]">&nbsp;'
-			var b = '' + tag + '&nbsp;';
-		    $(this).find("body").html(a + b);
-		})
-	});
-    
-	
-	e.preventDefault();
-	*/
-}
-
-inj.smile.textarea_send = function(text, mod)
-{
-	var disc_simple=document.getElementsByClassName('disc_simple_input_cont') || null;
-	if (disc_simple)
-	{  		
-		for (var ds=0;ds<disc_simple.length;ds++)
-		{
-			disc_simple[ds].setAttribute('style','display:none');
-		}
-	}								
-	var disc_rich=document.getElementsByClassName('disc_rich_input_cont') || null;
-	if (disc_rich)
-	{  		
-		for (var dr=0;dr<disc_rich.length;dr++)
-		{
-			disc_rich[dr].setAttribute('style','display:block');
-		}
-	}
-	var disc_hide=document.getElementsByClassName('disc_hide_text_area') || null;
-	if (disc_hide)
-	{  		
-		for (var dh=0;dh<disc_hide.length;dh++)
-		{
-			disc_hide[dh].setAttribute('style','display:block');
-		}
-	}	
-	var comment_div=document.getElementsByClassName('gwt-RichTextArea') || null;
-	if (comment_div)
-	{  		
-		if (mod=="voice")
-		{			
-			sendRequest({action: 'load_option', param: 'OkVoiceText'}, function(result) { 
-				if (result) 
-				{
-					for (var c=0;c<comment_div.length;c++)
-					{  
-						var textarea_value=comment_div[c].contentDocument.getElementsByTagName('body')[0].innerHTML;
-						comment_div[c].contentDocument.getElementsByTagName('body')[0].innerHTML=''+textarea_value+' '+text+'';
-					}					
-				}
-				else
-				{
-					for (var c=0;c<comment_div.length;c++)
-					{  						
-						comment_div[c].contentDocument.getElementsByTagName('body')[0].innerHTML += text+'';
-					}
-				}
-			});				
-		}
-		else
-		{
-			for (var c=0;c<comment_div.length;c++)
-			{  
-				comment_div[c].contentDocument.getElementsByTagName('body')[0].innerHTML += text+'';
-			}
-		}
-	}	
-}
-
-
-
-inj.smile.hide_allblocks = function()
-{
-	$("#okch_smiles_sel_other").removeClass("sm_cat_selected");
-	$("#okch_smiles_sel_ok").removeClass("sm_cat_selected");
-	$("#smileContainer_0").hide();
-	$("#OKCH_smilesContainer_1").hide();
-}
-
-
-inj.smile.sel_ok = function(e)
-{
-	inj.smile.hide_allblocks();
-	
-	$("#okch_smiles_sel_ok").addClass("sm_cat_selected");
-	$("#smileContainer_0").show();
-	
-	e.preventDefault();
-	return false;
-}
-
-
-inj.smile.sel_other = function(e)
-{
-	inj.smile.hide_allblocks();
-	
-	$("#okch_smiles_sel_other").addClass("sm_cat_selected");
-	$("#OKCH_smilesContainer_1").show();
-	
-	e.preventDefault();
-	return false;
-}
-
 
 // Регулярное обновление
 inj.update = function()
@@ -1386,13 +997,11 @@ inj.update = function()
 	
 	inj.upd.update_authorspage();
 	inj.upd.update_exitbutton();
-	//inj.upd.update_officialpage();
 	inj.upd.update_upbutton();
 	inj.upd.update_mailbutton();
 	inj.upd.update_blocks_hiding();
 	inj.music.update();
 	inj.bgs.check();
-	//inj.smile.update();
 	
 	// Повтор
 	clearTimeout(inj.updateID);
@@ -1425,7 +1034,6 @@ inj.ready = function() {
 	inj.loadCookie();
 	
 	// Подпись на событие о принятии сообщения
-	//chrome.extension.onMessage.addListener( inj.message );
 	chrome.runtime.onMessage.addListener( inj.message );
 	
 	// Добавляем вкладку для слежения
@@ -1433,8 +1041,6 @@ inj.ready = function() {
 		inj.log(data);
 		inj.updateAll(data.storage, {});
 	});
-	
-	//inj.smile.preload();
 	
 	// Базовые стили
 	$('<style id="okch_basestyles" />').html( "\
@@ -1467,8 +1073,6 @@ inj.ready = function() {
 	$('<link href="" type="text/css" rel="stylesheet" id="okch_theme_set" />').appendTo("body");
 	$('<style id="okch_setdecor" />').appendTo("body");
 	$('<style id="okch_setfont" />').appendTo("body");
-	
-	//inj.ad.load();
 	
 	// jSessionID
 	inj.jSessionID = inj.cookie.JSESSIONID;

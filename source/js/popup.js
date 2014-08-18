@@ -1,5 +1,5 @@
 /*
- OK Changer 1.7.0
+ OK Changer 1.7.6
  Popup page
 */
 
@@ -39,13 +39,7 @@ popup.error = function( message ) {
 // Сохранение настроек
 popup.saving = function(event) {
 	// Загружаем данные в Chrome
-	chrome.storage.sync.set(popup.storage, function() {
-		// Чтобы смена состояния отображалась корректно
-		//setTimeout(function(){
-			// Меняем состояние кнопки сохранить
-			//$("#save_settings").addClass("pb_active").html("Сохранено");
-		//},100);
-	});
+	chrome.storage.sync.set(popup.storage, function() {});
 	
 	popup.log( popup.storage );
 	
@@ -83,7 +77,6 @@ popup.setts.show = function(event) {
 	$("#s_avatardown")		.attr("title", "Как было раньше");
 	$("#s_stylescircle")	.attr("title", "Выбор цвета для текста");
 	$("#s_minimize")		.attr("title", "Для отключения требуется перезагрузка страницы");
-	//$("#s_hidedecor")		.attr("title", "Игнорирование авторского оформления");
 }
 
 // Загрузка данных в блок
@@ -409,9 +402,6 @@ popup.ready = function() {
 	chrome.storage.sync.get(null, function(st) {
 		// Корректное клонирование объекта
 		popup.storage = clones(st);
-		
-		//delete popup.storage.theme_id;
-		//delete popup.storage.theme_file;
 		
 		popup.log(popup.storage);
 		
