@@ -624,7 +624,8 @@ inj.upd.l_pagetransp = function( value )
 		$('<style id="okch_pagetransp" />').html(".mainContent_w{opacity: 0} \
 		#hook_Block_FriendsOnlineWrapper { opacity: 0; }").appendTo("body");
 	} else {
-		$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before { background: rgba(255,255,255,"+ ( value / 100) +") }").appendTo("body");
+		$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before, .user #mainContent.__ntr, .fcofw .online-fr_block \
+		{ background: rgba(255,255,255,"+ ( value / 100) +") }").appendTo("body");
 	}
 	
 	inj.storage.l_pagetransp = value;
