@@ -385,7 +385,6 @@ popup.mods.load = function() {
 					var stMods = {};
 					if ( typeof( popup.storage.mods ) != "undefined" ) {
 						stMods = popup.storage.mods;
-						console.log(stMods);
 					}
 					
 					for ( var i = 0; i < data.mods.length; i++ ) {

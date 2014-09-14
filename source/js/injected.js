@@ -572,7 +572,6 @@ inj.upd.ft = function( value )
 
 
 inj.upd.mods = function(value) {
-console.log(value);
 	for( var i in value ) {
 		var mod = value[i];
 		$("#okch_mod_"+i).remove();

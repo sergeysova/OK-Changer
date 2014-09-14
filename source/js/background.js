@@ -25,7 +25,10 @@ bg = {
 	tabs: [],
 	storage: {},
 	cmenu: {},
-	debug: false
+	debug: true,
+	badexts: {
+	    'jicldjademmddamblmdllfneeaeeclik': 'OkTools'
+	}
 };
 
 
@@ -68,13 +71,13 @@ bg.addTab = function( data, sender ) {
 	bg.tabs["tab_"+tabid] = sender.tab;
 	bg.log("...adding tab: "+tabid);
 	//bg.log(bg.tabs);
-	var data = {
-		storage: bg.storage
+	var sdata = {
+		'storage': bg.storage
 	};
-	bg.log(data);
+	bg.log(sdata);
 	chrome.pageAction.show( tabid );
 	
-	return data;
+	return sdata;
 }
 
 // Удаление вкладки из стека
@@ -100,6 +103,7 @@ bg.checkTab = function( tabid, changeinfo, tab) {
 				bg.removeTab(tabid);
 			} else {
 				chrome.pageAction.show( tabid );
+				bg.checkBadExtensions();
 			}
 		}
 	}
@@ -125,6 +129,7 @@ bg.thinkMethod = function( method, request, sender ) {
 		return ret;
 	} else {
 		bg.error( "Method not exists!" );
+		return false;
 	}
 }
 
@@ -197,7 +202,56 @@ bg.cmenu.linkHandler = function( info, tab )
 	});
 }
 
+bg.batthertExts = function(bads)
+{
+    var list = '';
+    for (var i = 0; i < bads.length; i++)
+    {
+	list = list + bg.badexts[bads[i]];
+	if (i != bads.length - 1) {
+	    list = list + ', ';
+	}
+    }
+    var msg = 'У вас установлены нежелательные расширения: ' + list + '\r\nВыключить их?';
+    var res = confirm(msg);
+    if (res) {
+	for (i in bads) {
+	    chrome.management.setEnabled(bads[i], false);
+	}
+	alert('Нежелательные расширения были выключены:\r\n' + list + '\r\nВы можете включить их вручную позже');
+    } else {
+	bg.log('don\'t do anything');
+    }
+}
 
+bg.checkBadExtensions = function()
+{
+    bg.log('bg.checkBadExtensions');
+    var bads = [];
+    chrome.management.getAll(function(all){
+	for (i in all) {
+	    var ext = all[i];
+	    console.log(ext.name + ': ' + (ext.enabled ? 'enabled' : 'disabled')
+			+' - '+ (typeof bg.badexts[ext.id] !== "undefined" ? 'exists': 'hasnt'));
+	    if (typeof bg.badexts[ext.id] != "undefined") {
+		if (ext.enabled) {
+		    bads.push(ext.id);
+		}
+	    }
+	}
+	
+	console.log(bads);
+	if (bads.length > 0) {
+	    //if (typeof(bg.storage['batthert']) == "undefined" || bg.storage['batthert'] == false) {
+		bg.batthertExts(bads);
+	    //}
+	}
+    });
+    
+}
+
+/*
+ * maybe remove this?
 // Установка статуса
 bg.cmenu.selectionHandler = function( info, tab )
 {
@@ -211,7 +265,7 @@ bg.cmenu.selectionHandler = function( info, tab )
 		success: function(data){}
 	});
 }
-
+*/
 
 // Загрузка данных из локального хранилища
 bg.ready = function() {
@@ -219,18 +273,9 @@ bg.ready = function() {
 	
 	chrome.storage.sync.get( null, function(st) {
 		bg.storage = st;
-		
-		removeId();
+		bg.checkBadExtensions();
 	});
 }
-
-function removeId()
-{
-	delete bg.storage['myid'];
-	chrome.storage.sync.set(bg.storage, function() {});
-	return bg.storage;
-}
-
 
 // Событие по приходу сообщения
 chrome.extension.onMessage.addListener( bg.message );
