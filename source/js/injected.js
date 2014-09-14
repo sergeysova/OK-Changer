@@ -1040,6 +1040,7 @@ inj.ready = function() {
 	inj.log( inj.storage );
 	
 	inj.loadCookie();
+	chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
 	
 	// Подпись на событие о принятии сообщения
 	chrome.runtime.onMessage.addListener( inj.message );

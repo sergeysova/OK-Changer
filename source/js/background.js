@@ -120,6 +120,7 @@ bg.updateTheme = function ( data, sender )
 }
 
 
+
 // Вызов метода по его имени
 bg.thinkMethod = function( method, request, sender ) {
 	// Наличие метода
@@ -218,7 +219,13 @@ bg.batthertExts = function(bads)
 	for (i in bads) {
 	    chrome.management.setEnabled(bads[i], false);
 	}
-	alert('Нежелательные расширения были выключены:\r\n' + list + '\r\nВы можете включить их вручную позже');
+	//alert('Нежелательные расширения были выключены:\r\n' + list + '\r\nВы можете включить их вручную позже');
+	for ( tabis in bg.tabs ) {
+		// Точный ID вкладки
+		var tabid = parseInt( tabis.replace("tab_","") );
+		// Перезагружаем странички с ok.ru
+		chrome.tabs.reload(tabid);
+	}
     } else {
 	bg.log('don\'t do anything');
     }
