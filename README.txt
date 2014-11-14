@@ -32,4 +32,38 @@
 Соберет расширение где 0.0.0.0 это версия
 Архив для отправки в Chrome Webstore в каталоге ./release/
 
-Opera 15+ пока что не существует для Linux. По этой причине нет скриптов для сборки.
+
+
+-= ENGLISH =-
+
+[[ WINDOWS ]]
+
+DEBUG
+1. Create folder "a"
+2. Copy content of folder "source" to folder "a"
+3. Copy and rename file "build/chrome-manifest.json" to "a/manifest.json"
+4. Load unpacked extension to Google Chrome, Yandex or Opera 15+
+
+BUILD
+1. Build must be run ONLY after "DEBUG"
+2. Copy content from "a" to "source" (overwrite) (do not copy manifest.json!)
+   Don't change version in file a/manifest.json (must be 0.0.0.0)
+3. If you changed file a/manifest.json, copy and replace his to build/chrome-manifest.json
+4. Run build/build.exe
+5. In field Version set need version and click Build
+6. For Google CHrome Webstore archive placed in release/ by name okchanger_0.0.0.0-chrome.zip
+7. For Opera 15+ folder with sources -- build/opera/. Key is a.pem
+
+
+[[ GNU/Linux ]]
+Need /bin/bash
+
+./a-debug.sh
+Create dir ./a/ and pull sources
+
+./a-update.sh
+Move changes to ./source/
+
+./build.sh 0.0.0.0
+Build extension. 0.0.0.0 -- version
+For Google Chrome Webstore archive placed in ./release/
