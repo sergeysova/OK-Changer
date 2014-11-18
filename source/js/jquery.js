@@ -15,7 +15,7 @@ clones = function( cur ) {
 		//} else
 		newObj[i] = cur[i];
 	} return newObj;
-}
+};
 window.clones = clones;
 
 function translit(str) {

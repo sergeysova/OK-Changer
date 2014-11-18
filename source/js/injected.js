@@ -305,9 +305,9 @@ inj.upd.s_holydays = function( value ) {
 // Скрытие блока "Вы знакомы?"
 inj.upd.s_possible = function( value ) {
 	if ( value == 1 || value == true ) {
-		b.hide("#RightColumnFriendPossible");
+		b.hide("#leftPossibleFriendsPanel");
 	} else {
-		b.show("#RightColumnFriendPossible");
+		b.show("#leftPossibleFriendsPanel");
 	}
 	
 	inj.storage.s_possible = value;
