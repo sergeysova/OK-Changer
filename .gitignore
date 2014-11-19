@@ -5,7 +5,8 @@ project/*
 release/*
 build/chrome/*
 build/opera/*
-a/*
+# a/*
 
 *.crx
 *.nex
+/nbproject/*

@@ -57,7 +57,7 @@ mng.call = function( method, request, sender ) {
     else {
 	// Print warning to console
 	if (mng.debug) {
-	    console.warn.apply(console, ['OKChm:', 'Function does not exists', 'mng['+method+'], typeof -> ', typeof mng[method] ]);
+	    console.warn.apply(console, ['OKChm:', 'Function does not exists', 'mng.'+method+'()']);
 	}
     }
     return null;
@@ -130,7 +130,7 @@ mng.ready = function() {
 	chrome.runtime.onMessage.addListener( mng.onMessage );
 	
 	// Add this to tab to listen
-	chrome.runtime.sendMessage({method: "addManageTab", target: "manage"}, function(data) {
+	chrome.runtime.sendMessage({method: "addTab", target: "manage"}, function(data) {
 	    mng.log(data);
 	    mng.updateAll(data.storage, {});
 	});

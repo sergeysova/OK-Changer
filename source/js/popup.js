@@ -10,7 +10,7 @@
 
 
 popup = {
-    website: "http://changer.lestad.loca/", // "http://okchanger.lestad.net/",
+    website: "http://changer.lestad.local/ajax/", // "http://okchanger.lestad.net/",
     storage: {},
     setts: {},
     decor: {},
@@ -25,9 +25,12 @@ popup = {
  * 
  * @param {mixed} message
  */
-popup.log = function( message ) {
+popup.log = function( message, object ) {
     if ( !popup.debug ) return;
-    console.log.apply(console, ['OKChm:', message]);
+    if (typeof object === "undefined")
+	console.log.apply(console, ['OKChm:', message]);
+    else
+	console.log.apply(console, ['OKChm:', message, object]);
 };
 
 
@@ -36,9 +39,12 @@ popup.log = function( message ) {
  * 
  * @param {mixed} message
  */
-popup.error = function( message ) {
+popup.error = function( message, object ) {
     if ( !popup.debug ) return;
-    console.error.apply(console, ['OKChm:', message]);
+    if (typeof object === "undefined")
+	console.error.apply(console, ['OKChm:', message]);
+    else
+	console.error.apply(console, ['OKChm:', message, object]);
 };
 
 /**

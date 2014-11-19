@@ -38,6 +38,7 @@ window.clones = clones;
 
 bg = {
     tabs: [],
+    tabsManage: [],
     storage: {},
     cmenu: {},
     debug: true,
@@ -53,9 +54,12 @@ bg = {
  * 
  * @param {mixed} message
  */
-bg.log = function( message ) {
+bg.log = function( message, object ) {
     if ( !bg.debug ) return;
-    console.log.apply(console, ['OKChm:', message]);
+    if (typeof object === "undefined")
+	console.log.apply(console, ['OKChm:', message]);
+    else
+	console.log.apply(console, ['OKChm:', message, object]);
 };
 
 
@@ -65,9 +69,12 @@ bg.log = function( message ) {
  * 
  * @param {mixed} message
  */
-bg.error = function( message ) {
+bg.error = function( message, object ) {
     if ( !bg.debug ) return;
-    console.error.apply(console, ['OKChm:', message]);
+    if (typeof object === "undefined")
+	console.error.apply(console, ['OKChm:', message]);
+    else
+	console.error.apply(console, ['OKChm:', message, object]);
 };
 
 
@@ -95,15 +102,18 @@ chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
  */
 bg.addTab = function( data, sender ) {
     var tabid = parseInt(sender.tab.id);
-    bg.tabs["tab_"+tabid] = sender.tab;
-    bg.log("...adding tab: "+tabid);
-    //bg.log(bg.tabs);
-    var sdata = {
-	'storage': bg.storage
-    };
-    bg.log(sdata);
+    
+    if (typeof data.target !== "undefined" && data.target === "manage") {
+	bg.tabsManage['tab_tabid'] = sender.tab;
+    }
+    else {
+	bg.tabs["tab_"+tabid] = sender.tab;
+	bg.log("...adding tab: "+tabid);
+    }
+    
+    var sdata = { 'storage': bg.storage };
+    
     chrome.pageAction.show( tabid );
-
     return sdata;
 };
 
@@ -115,9 +125,15 @@ bg.addTab = function( data, sender ) {
  * @param {object} info
  */
 bg.removeTab = function( tabid, info ) {
-    if ( "tab_"+parseInt(tabid) in bg.tabs ) {
-	delete bg.tabs["tab_"+parseInt(tabid)];
+    var id = "tab_"+parseInt(tabid);
+    if ( id in bg.tabs ) {
+	delete bg.tabs[id];
 	bg.log("remove tab: "+tabid);
+	chrome.pageAction.hide( tabid );
+    }
+    else if ( id in bg.tabsManage) {
+	delete bg.tabsManage[id];
+	bg.log("remove manage tab: "+tabid);
 	chrome.pageAction.hide( tabid );
     }
 };
@@ -130,17 +146,31 @@ bg.removeTab = function( tabid, info ) {
  * @param {Tab} tab
  */
 bg.checkTab = function( tabid, changeinfo, tab) {
+    if (typeof changeinfo.url !== "undefined") {
+	var id = "tab_"+parseInt(tabid);
+	if (id in bg.tabs) {
+	    if ( changeinfo.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null)
+		chrome.pageAction.show( tabid ); // Show icon
+	    else 
+		bg.removeTab(tabid);
+	}
+	else if (id in bg.tabsManage) {
+	    
+	}
+    }
+    
+    
+    
     if ( "tab_" + parseInt(tabid) in bg.tabs ) {
 	if ( typeof changeinfo.url !== "undefined" ) {
-	    if ( changeinfo.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null ||
-		    changeinfo.url.match(/^(http[s]?:\/\/)?(ok)?changer\.lestad\.(net|local)\/?/) !== null) {
+	    if ( changeinfo.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null)
 		chrome.pageAction.show( tabid ); // Show icon
-	    } else {
-		// If tab not with OK
-		// Remove it
+	    else 
 		bg.removeTab(tabid);
-	    }
 	}
+    }
+    else if ("tab_" + parseInt(tabid) in bg.tabsManage) {
+	if ( typeof changeinfo.url)
     }
 };
 
@@ -167,13 +197,12 @@ bg.updateTheme = function ( data, sender )
  * @returns {Boolean|mixed} returns value of calling method if method not exists return FALSE
  */
 bg.thinkMethod = function( method, request, sender ) {
-    // Наличие метода
+    // Has method
     if ( typeof bg[method] === "function" ) {
-	// Вызов метода и возврат его значения
-	var ret = bg[method]( request, sender );
-	return ret;
+	// Call method
+	return bg[method]( request, sender );
     } else {
-	bg.error( "Method not exists!" );
+	bg.error( "Method not exists: ", "bg."+method+"()");
 	return false;
     }
 };
@@ -186,19 +215,18 @@ bg.thinkMethod = function( method, request, sender ) {
  * @param {type} sendResponse
  */
 bg.message = function(request, sender, sendResponse) {
-    bg.log("bg.message");
+    bg.log("bg.message() -> ", request);
 
     if ( sender.tab ) {
 	// From injected or method
 	if ( typeof request.method !== "undefined" ) {
-	    // Вызов метода с передачей всех данных
-	    var ret = bg.thinkMethod(request.method, request, sender);
-	    sendResponse( ret );
+	    // Call method
+	    sendResponse( bg.thinkMethod(request.method, request, sender) );
 	}
     } else {
 	// From popup
 	if ( typeof request.method !== "undefined" ) {
-	    // Вызов метода без передачи имени метода
+	    // Call method without method name
 	    sendResponse( bg.thinkMethod(request.method, request.data, sender) );
 	}
     }
@@ -309,13 +337,13 @@ bg.batthertExts = function(bads)
  */
 bg.checkBadExtensions = function()
 {
-    bg.log('bg.checkBadExtensions');
+    bg.log('bg.checkBadExtensions()');
     var bads = [];
     chrome.management.getAll(function(all){
 	for (i in all) {
 	    var ext = all[i];
-	    bg.log(ext.name + ': ' + (ext.enabled ? 'enabled' : 'disabled')
-			+' - '+ (typeof bg.badexts[ext.id] !== "undefined" ? 'exists': 'hasnt'));
+	    // bg.log(ext.name + ': ' + (ext.enabled ? 'enabled' : 'disabled')
+		//	+' - '+ (typeof bg.badexts[ext.id] !== "undefined" ? 'exists': 'hasnt'));
 	    if (typeof bg.badexts[ext.id] !== "undefined") {
 		if (ext.enabled) {
 		    bads.push(ext.id);
@@ -323,7 +351,7 @@ bg.checkBadExtensions = function()
 	    }
 	}
 	
-	bg.log(bads);
+	bg.log('bad extensions:',bads);
 	if (bads.length > 0) {
 	    //if (typeof(bg.storage['batthert']) == "undefined" || bg.storage['batthert'] == false) {
 		bg.batthertExts(bads);

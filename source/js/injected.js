@@ -73,7 +73,7 @@ inj.message = function( request, sender, sendResponse ) {
 
 // Печать сообщений в консоль
 inj.log = function( message, object ) {
-    if ( !mng.debug ) return;
+    if ( !inj.debug ) return;
     if (typeof object === "undefined")
 	console.log.apply(console, ['OKChm:', message]);
     else
@@ -86,7 +86,7 @@ inj.log = function( message, object ) {
  * @param {type} message
  */
 inj.error = function( message, object ) {
-    if ( !mng.debug ) return;
+    if ( !inj.debug ) return;
     if (typeof object === "undefined")
 	console.error.apply(console, ['OKChm:', message]);
     else
@@ -1026,11 +1026,10 @@ inj.updateAll = function( data, sender ) {
 
 inj.ready = function() {
 	inj.log("inj.ready()");
-	
-	inj.log( inj.storage );
-	
+	inj.log( 'inj.storage', inj.storage );
 	inj.loadCookie();
-	chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
+	
+	//chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
 	
 	// Подпись на событие о принятии сообщения
 	chrome.runtime.onMessage.addListener( inj.message );
@@ -1078,6 +1077,6 @@ inj.ready = function() {
 	
 	// Первый запуск таймера
 	inj.updateID = setTimeout( inj.update, inj.updateRate );
-}
+};
 
 document.addEventListener("DOMContentLoaded", inj.ready);
