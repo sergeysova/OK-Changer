@@ -165,26 +165,11 @@ bg.addTab = function( data, sender ) {
 	bg.tabs.push(sender.tab);
 	bg.log('...adding tab: ', sender.tab);
     }
+    
+    chrome.pageAction.show(sender.tab.id);
+    return {'storage': bg.storage};
 };
 
-
-
-bg.oldAddTab = function( data, sender ) {
-    var tabid = parseInt(sender.tab.id);
-    
-    if (typeof data.target !== "undefined" && data.target === "manage") {
-	bg.tabsManage['tab_tabid'] = sender.tab;
-    }
-    else {
-	bg.tabs["tab_"+tabid] = sender.tab;
-	bg.log("...adding tab: "+tabid);
-    }
-    
-    var sdata = { 'storage': bg.storage };
-    
-    chrome.pageAction.show( tabid );
-    return sdata;
-};
 
 /**
  * Remove tab from stack.
@@ -199,23 +184,9 @@ bg.removeTab = function(tabid, info) {
     
     bg.tabs = fix_array(bg.tabs);
     bg.tabsManage = fix_array(bg.tabsManage);
+    chrome.pageAction.hide(tabid);
 };
 
-
-bg.oldRemoveTab = function( tabid, info ) {
-    var id = "tab_"+parseInt(tabid);
-    if ( id in bg.tabs ) {
-	delete bg.tabs[id];
-	bg.log("remove tab: "+tabid);
-	chrome.pageAction.hide( tabid );
-    }
-    else if ( id in bg.tabsManage) {
-	delete bg.tabsManage[id];
-	bg.log("remove manage tab: "+tabid);
-	chrome.pageAction.hide( tabid );
-    }
-    
-};
 
 /**
  * Check tab for rights URI
