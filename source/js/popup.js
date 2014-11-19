@@ -27,13 +27,7 @@ popup = {
  */
 popup.log = function( message ) {
     if ( !popup.debug ) return;
-
-    if ( typeof message === "object" ) {
-	console.log( "OKCHp: [object]" );
-	console.log( message );
-    } else {
-	console.log( "OKCHp: " + message  );
-    }
+    console.log.apply(console, ['OKChm:', message]);
 };
 
 
@@ -44,13 +38,7 @@ popup.log = function( message ) {
  */
 popup.error = function( message ) {
     if ( !popup.debug ) return;
-
-    if ( typeof message === "object" ) {
-	console.error( "OKCHp: [object]" );
-	console.error( message );
-    } else {
-	console.error( "OKCHp: " + message  );
-    }
+    console.error.apply(console, ['OKChm:', message]);
 };
 
 /**

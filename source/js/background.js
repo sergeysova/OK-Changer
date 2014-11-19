@@ -55,13 +55,7 @@ bg = {
  */
 bg.log = function( message ) {
     if ( !bg.debug ) return;
-
-    if ( typeof message === "object" ) {
-	    console.log( "OKCHg: [object]" );
-	    console.log( message );
-    } else {
-	    console.log( "OKCHg: " + message  );
-    }
+    console.log.apply(console, ['OKChm:', message]);
 };
 
 
@@ -73,13 +67,7 @@ bg.log = function( message ) {
  */
 bg.error = function( message ) {
     if ( !bg.debug ) return;
-
-    if ( typeof message === "object" ) {
-	console.error( "OKCHg: [object]" );
-	console.error( message );
-    } else {
-	console.error( "OKCHg: " + message  );
-    }
+    console.error.apply(console, ['OKChm:', message]);
 };
 
 
@@ -144,16 +132,13 @@ bg.removeTab = function( tabid, info ) {
 bg.checkTab = function( tabid, changeinfo, tab) {
     if ( "tab_" + parseInt(tabid) in bg.tabs ) {
 	if ( typeof changeinfo.url !== "undefined" ) {
-	    if ( changeinfo.url.substr(0,23) !== "http://odnoklassniki.ru"
-	    && changeinfo.url.substr(0,27) !== "http://www.odnoklassniki.ru"
-	    && changeinfo.url.substr(0,16) !== "http://www.ok.ru"
-	    && changeinfo.url.substr(0,12) !== "http://ok.ru" ) {
+	    if ( changeinfo.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null ||
+		    changeinfo.url.match(/^(http[s]?:\/\/)?(ok)?changer\.lestad\.(net|local)\/?/) !== null) {
+		chrome.pageAction.show( tabid ); // Show icon
+	    } else {
 		// If tab not with OK
 		// Remove it
 		bg.removeTab(tabid);
-	    } else {
-		chrome.pageAction.show( tabid ); // Show icon
-		bg.checkBadExtensions();
 	    }
 	}
     }
@@ -204,7 +189,7 @@ bg.message = function(request, sender, sendResponse) {
     bg.log("bg.message");
 
     if ( sender.tab ) {
-	// From injected
+	// From injected or method
 	if ( typeof request.method !== "undefined" ) {
 	    // Вызов метода с передачей всех данных
 	    var ret = bg.thinkMethod(request.method, request, sender);
@@ -329,7 +314,7 @@ bg.checkBadExtensions = function()
     chrome.management.getAll(function(all){
 	for (i in all) {
 	    var ext = all[i];
-	    console.log(ext.name + ': ' + (ext.enabled ? 'enabled' : 'disabled')
+	    bg.log(ext.name + ': ' + (ext.enabled ? 'enabled' : 'disabled')
 			+' - '+ (typeof bg.badexts[ext.id] !== "undefined" ? 'exists': 'hasnt'));
 	    if (typeof bg.badexts[ext.id] !== "undefined") {
 		if (ext.enabled) {
@@ -338,7 +323,7 @@ bg.checkBadExtensions = function()
 	    }
 	}
 	
-	console.log(bads);
+	bg.log(bads);
 	if (bads.length > 0) {
 	    //if (typeof(bg.storage['batthert']) == "undefined" || bg.storage['batthert'] == false) {
 		bg.batthertExts(bads);
