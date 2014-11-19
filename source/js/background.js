@@ -36,6 +36,19 @@ clones = function( cur ) {
 };
 window.clones = clones;
 
+function fix_array(list) {
+    if (typeof list !== "object")
+	throw new Error("Undefined variable type: fix_array("+typeof list+")");
+    
+    var newlist = [];
+    for (var i = 0; i < list.length; i++) {
+	if ( typeof list[i] !== "undefined" ) {
+	    newlist.push(list[i]);
+	}
+    }
+    return newlist;
+}
+
 bg = {
     tabs: [],
     tabsManage: [],
@@ -93,6 +106,45 @@ bg.listenToTab = function( tabid )
 
 chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
 
+
+/**
+ * Find tab in stack
+ * 
+ * @param {number} tabid
+ */
+bg.getTabIndex = function(tabid, place) {
+    var pl = null;
+    if (place === "base")
+	pl = bg.tabs;
+    else if (place === "manage")
+	pl = bg.tabsManage;
+    for (var i = 0; pl.length; i++) {
+	if (pl[i].id == tabid)
+	    return i;
+    }
+    
+    return false;
+};
+
+/**
+ * Search tab by Id or return FALSE
+ * 
+ * 
+ * @param {type} tabid
+ * @returns {Tab} Tab object
+ */
+bg.getTab = function(tabid) {
+    if (typeof bg.tabs[tabindex = bg.getTabIndex(tabid, "base")] !== "undefined") {
+	return bg.tabs[tabindex];
+    }
+    else if (typeof bg.tabsManage[tabindex = bg.getTabIndex(tabid, "manage")] !== "undefined") { 
+	return bg.tabsManage[tabindex];
+    }
+    
+    return false;
+};
+
+
 /**
  * Add OK tab in stack for listen
  * 
@@ -101,6 +153,23 @@ chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
  * @returns {sdata} storage data for update
  */
 bg.addTab = function( data, sender ) {
+    // check if tab exists
+    if (bg.getTab(sender.tab.id))
+	return;
+    
+    if (typeof data.target !== "undefined" && data.target === "manage") {
+	bg.tabsManage.push(sender.tab);
+	bg.log('...adding manage tab: ', sender.tab);
+    }
+    else {
+	bg.tabs.push(sender.tab);
+	bg.log('...adding tab: ', sender.tab);
+    }
+};
+
+
+
+bg.oldAddTab = function( data, sender ) {
     var tabid = parseInt(sender.tab.id);
     
     if (typeof data.target !== "undefined" && data.target === "manage") {
@@ -124,7 +193,16 @@ bg.addTab = function( data, sender ) {
  * @param {number} tabid
  * @param {object} info
  */
-bg.removeTab = function( tabid, info ) {
+bg.removeTab = function(tabid, info) {
+    delete bg.tabs[bg.getTabIndex(tabid, 'base')];
+    delete bg.tabs[bg.getTabIndex(tabid, 'manage')];
+    
+    bg.tabs = fix_array(bg.tabs);
+    bg.tabsManage = fix_array(bg.tabsManage);
+};
+
+
+bg.oldRemoveTab = function( tabid, info ) {
     var id = "tab_"+parseInt(tabid);
     if ( id in bg.tabs ) {
 	delete bg.tabs[id];
@@ -136,41 +214,27 @@ bg.removeTab = function( tabid, info ) {
 	bg.log("remove manage tab: "+tabid);
 	chrome.pageAction.hide( tabid );
     }
+    
 };
 
 /**
- * Check tab for 
+ * Check tab for rights URI
  * 
  * @param {number} tabid
  * @param {object} changeinfo
  * @param {Tab} tab
  */
-bg.checkTab = function( tabid, changeinfo, tab) {
+bg.onTabUpdate = function( tabid, changeinfo, tab ) {
     if (typeof changeinfo.url !== "undefined") {
-	var id = "tab_"+parseInt(tabid);
-	if (id in bg.tabs) {
-	    if ( changeinfo.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null)
-		chrome.pageAction.show( tabid ); // Show icon
-	    else 
-		bg.removeTab(tabid);
+	var tab = bg.getTab(tabid);
+	if (tab.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null
+		&& tab.url.match(/^(http[s]?:\/\/)?(ok)?changer\.lestad\.(net|local)\/?/) !== null) {
+	    // tab url not correct
+	    bg.removeTab(tabid);
 	}
-	else if (id in bg.tabsManage) {
-	    
+	else {
+	    chrome.pageAction.show(tabid);
 	}
-    }
-    
-    
-    
-    if ( "tab_" + parseInt(tabid) in bg.tabs ) {
-	if ( typeof changeinfo.url !== "undefined" ) {
-	    if ( changeinfo.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null)
-		chrome.pageAction.show( tabid ); // Show icon
-	    else 
-		bg.removeTab(tabid);
-	}
-    }
-    else if ("tab_" + parseInt(tabid) in bg.tabsManage) {
-	if ( typeof changeinfo.url)
     }
 };
 
@@ -196,7 +260,7 @@ bg.updateTheme = function ( data, sender )
  * @param {Sender} sender 
  * @returns {Boolean|mixed} returns value of calling method if method not exists return FALSE
  */
-bg.thinkMethod = function( method, request, sender ) {
+bg.call = function( method, request, sender ) {
     // Has method
     if ( typeof bg[method] === "function" ) {
 	// Call method
@@ -214,20 +278,20 @@ bg.thinkMethod = function( method, request, sender ) {
  * @param {type} sender
  * @param {type} sendResponse
  */
-bg.message = function(request, sender, sendResponse) {
-    bg.log("bg.message() -> ", request);
+bg.onMessage = function(request, sender, sendResponse) {
+    bg.log("bg.onMessage() -> ", request);
 
     if ( sender.tab ) {
 	// From injected or method
 	if ( typeof request.method !== "undefined" ) {
 	    // Call method
-	    sendResponse( bg.thinkMethod(request.method, request, sender) );
+	    sendResponse( bg.call(request.method, request, sender) );
 	}
     } else {
 	// From popup
 	if ( typeof request.method !== "undefined" ) {
 	    // Call method without method name
-	    sendResponse( bg.thinkMethod(request.method, request.data, sender) );
+	    sendResponse( bg.call(request.method, request.data, sender) );
 	}
     }
 };
@@ -391,13 +455,13 @@ bg.ready = function() {
 };
 
 // On receive message from tab or popup
-chrome.extension.onMessage.addListener( bg.message );
+chrome.extension.onMessage.addListener( bg.onMessage );
 
 // On tab close. Remove tab from listen
 chrome.tabs.onRemoved.addListener( bg.removeTab );
 
 // On tab update
-chrome.tabs.onUpdated.addListener( bg.checkTab );
+chrome.tabs.onUpdated.addListener( bg.onTabUpdate );
 
 // Create context menu items
 chrome.contextMenus.create({

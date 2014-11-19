@@ -46,7 +46,7 @@ b = {};
  * @param {object} request
  * @param {type} sender
  */
-inj.thinkMethod = function( method, request, sender ) {
+inj.call = function( method, request, sender ) {
 	// Наличие метода
 	if ( typeof inj[method] === "function" ) {
 		// Вызов метода и возврат его значения
@@ -61,13 +61,13 @@ inj.thinkMethod = function( method, request, sender ) {
 
 
 // Отслеживание сообщений
-inj.message = function( request, sender, sendResponse ) {
+inj.onMessage = function( request, sender, sendResponse ) {
 	inj.log("message!");
 	inj.log( request );
 	
 	if ( typeof request.method !== "undefined" ) {
 		// Вызов метода с передачей всех данных
-		sendResponse( inj.thinkMethod( request.method, request.data, sender ) );
+		sendResponse( inj.call( request.method, request.data, sender ) );
 	}
 };
 
@@ -1032,7 +1032,7 @@ inj.ready = function() {
 	//chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
 	
 	// Подпись на событие о принятии сообщения
-	chrome.runtime.onMessage.addListener( inj.message );
+	chrome.runtime.onMessage.addListener( inj.onMessage );
 	
 	// Добавляем вкладку для слежения
 	chrome.runtime.sendMessage({method: "addTab"}, function(data) {
