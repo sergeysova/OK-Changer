@@ -1,34 +1,14 @@
-/*
- OK Changer 1.7.6
- InPage injected script
-*/
-
-/*
-var unused_comments = "\
-	OK Changer \
-	Author: LestaD \
-	Page: http://ok.ru/lestad \
-	\
-	Специально для автора плагина OkTools. \
-	Уважаемый Евгений Андреев, если Вы считаете свое расширение столь хорошим \
-	Зачем крадете чужой код? \
-	Видимо функции OK Changer Вам нравятся больше чем OkTools. \
-	Я долго изучал Ваш код и могу признать, функций у него много. \
-	Но, очень много глюков, не работающих вовсе функций и фич. \
-	Огромное количество тем просто ужасны. \
-	Если Вы хотите сделать свое расширение лучше, то займитесь им! \
-	Мы лучше Вас. Потому что мы отбираем каждую тему, проверяем каждую строчку кода. \
-	Исправляем все ошибки работы которые находим мы и наши пользователи. \
-	Такого качества кода у Вас нет. Мы любим своих пользователей. \
-	За полгода мы набрали 5 000 пользователей. И всё набираем. \
-	Я буду пополнять список этих коментариев. \
-	03.08.2013 22:34 \
-	\
-	Теперь у нас 11 000 пользователей. \
-	Улучшаю функциональность. \
-	18.08.2014 21:55 \
-	";
-*/
+/**
+ * Script injected to main OK page
+ * 
+ * Connects popup window and main page
+ * Manage tabs with OK pages.
+ * 
+ * 
+ * @author LestaD
+ * @package net.lestad.okchanger
+ * @version 2.0
+ */
 
 var inj = {
 	cookie: {},
@@ -38,7 +18,7 @@ var inj = {
 	obj: {},
 	music: {},
 	bgs: {},
-	debug: false,
+	debug: true,
 	updateRate: 300,
 	updateID: 0,
 	jSessionID: ""
@@ -59,49 +39,59 @@ inj.loadCookie = function()
 b = {};
 
 	
-// Вызов метода по имени
-inj.thinkMethod = function( method, request, sender ) {
+/**
+ * Call method from inj by his name
+ * 
+ * @param {string} method name
+ * @param {object} request
+ * @param {type} sender
+ */
+inj.call = function( method, request, sender ) {
 	// Наличие метода
-	if ( typeof inj[method] == "function" ) {
+	if ( typeof inj[method] === "function" ) {
 		// Вызов метода и возврат его значения
 		return inj[method]( request, sender );
 	}
-}
+	else {
+	    if (inj.debug) {
+		console.warn.apply(console, ['OKChm:', 'Function does not exists', 'inj[', method, '], typeof -> ', typeof inj[method] ])
+	    }
+	}
+};
 
 
 // Отслеживание сообщений
-inj.message = function( request, sender, sendResponse ) {
+inj.onMessage = function( request, sender, sendResponse ) {
 	inj.log("message!");
 	inj.log( request );
 	
-	if ( typeof request.method != "undefined" ) {
+	if ( typeof request.method !== "undefined" ) {
 		// Вызов метода с передачей всех данных
-		sendResponse( inj.thinkMethod( request.method, request.data, sender ) );
+		sendResponse( inj.call( request.method, request.data, sender ) );
 	}
-}
+};
 
 // Печать сообщений в консоль
-inj.log = function( message ) {
-	if ( !inj.debug ) return;
-	
-	if ( typeof message == "object" ) {
-		console.log( "OKCHi: [object] _______" );
-		console.log( message );
-	} else {
-		console.log( "OKCHi: " + message  );
-	}
-}
+inj.log = function( message, object ) {
+    if ( !inj.debug ) return;
+    if (typeof object === "undefined")
+	console.log.apply(console, ['OKChm:', message]);
+    else
+	console.log.apply(console, ['OKChm:', message, object]);
+};
 
-inj.error = function( message ) {
-	if ( !inj.debug ) return;
-	
-	if ( typeof message == "object" ) {
-		console.error( "OKCHi: [object] _______" );
-		console.error( message );
-	} else {
-		console.error( "OKCHi: " + message  );
-	}
-}
+/**
+ * Prints error message to console
+ * 
+ * @param {type} message
+ */
+inj.error = function( message, object ) {
+    if ( !inj.debug ) return;
+    if (typeof object === "undefined")
+	console.error.apply(console, ['OKChm:', message]);
+    else
+	console.error.apply(console, ['OKChm:', message, object]);
+};
 
 // Ссылка на пустую функцию
 inj.epmty = function(){};
@@ -305,9 +295,9 @@ inj.upd.s_holydays = function( value ) {
 // Скрытие блока "Вы знакомы?"
 inj.upd.s_possible = function( value ) {
 	if ( value == 1 || value == true ) {
-		b.hide("#RightColumnFriendPossible");
+		b.hide("#leftPossibleFriendsPanel");
 	} else {
-		b.show("#RightColumnFriendPossible");
+		b.show("#leftPossibleFriendsPanel");
 	}
 	
 	inj.storage.s_possible = value;
@@ -1018,12 +1008,12 @@ inj.update = function()
 
 // Обновление настроек
 inj.updateAll = function( data, sender ) {
-	inj.log("inj.updateAll()");
+	inj.log("inj.updateAll()", data);
 	//inj.log( data );
 	
 	for ( var i in data ) {
-		if ( data[i] != inj.storage[i] ) {
-			if ( typeof inj.upd[i] == "function" ) {
+		if ( data[i] !== inj.storage[i] ) {
+			if ( typeof inj.upd[i] === "function" ) {
 				inj.log( i + ": " + data[i] );
 				inj.upd[i]( data[i] );
 			} else {
@@ -1036,14 +1026,13 @@ inj.updateAll = function( data, sender ) {
 
 inj.ready = function() {
 	inj.log("inj.ready()");
-	
-	inj.log( inj.storage );
-	
+	inj.log( 'inj.storage', inj.storage );
 	inj.loadCookie();
-	chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
+	
+	//chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
 	
 	// Подпись на событие о принятии сообщения
-	chrome.runtime.onMessage.addListener( inj.message );
+	chrome.runtime.onMessage.addListener( inj.onMessage );
 	
 	// Добавляем вкладку для слежения
 	chrome.runtime.sendMessage({method: "addTab"}, function(data) {
@@ -1088,6 +1077,6 @@ inj.ready = function() {
 	
 	// Первый запуск таймера
 	inj.updateID = setTimeout( inj.update, inj.updateRate );
-}
+};
 
 document.addEventListener("DOMContentLoaded", inj.ready);
