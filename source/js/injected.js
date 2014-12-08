@@ -387,11 +387,11 @@ inj.upd.s_shadows = function( value ) {
 // Опустить аватарку
 inj.upd.s_avatardown = function( value ) {
 	b.stylehiding('avatardown', value, "\
-				.lcTc_avatar {margin-top: 0px;} \
-				.lcTc_status { margin-bottom: 20px; }\
+				#mainContent.grid #mainContentLeftColumn {margin-top: -20px}\
+				.user #mainContent:before{top: 0px !important;}\
 			");
 	inj.storage.s_avatardown = value;
-}
+};
 
 
 // Убрать оценки над фотографиями
@@ -653,7 +653,6 @@ inj.upd.update_exitbutton = function() {
 	}
 	
 	if ( !$("#toolbar_nav_exit").exists() && $("#hook_Block_HeaderTopMenuInToolbar").exists() ) {
-		$(".toolbar_c").css("display", "inline-block");
 		b.stylehiding("searchfield", true, "\
 					div.toolbar_search {width: 150px} \
 					#liveSearchSugg #field_query {width: 125px} \
@@ -1044,26 +1043,9 @@ inj.ready = function() {
 	$('<style id="okch_basestyles" />').html( "\
 			.ic_officialg {background-image: url(http://okchanger.lestad.net/themes/ico16.png);} \
 			#OKCH_themes, #OKCH_themes2 {margin-top: 2px; position: relative;min-height: 590px;background-color: #EFEFEF;padding-bottom: 20px;} \
-			.infothemes {padding: 30px; font-size: 16px;} \
-			#hook_Block_MusicFlash, #_music_flash_container { display: block; } \
-			#_music_flash_container {top: -100px; opacity: 0;}\
-			.m_search_input{border-radius: inherit;padding-left: 7px;} .m_search_input_wrapper{border-radius: inherit;} \
-			.m_search_input_container{border-radius: 26px;border-top-right-radius: 0;border-bottom-right-radius: 0;}\
-			.m_search_button{border-top-left-radius: 0;margin-top: 10px;border-bottom-left-radius: 0;}\
-			.toolbar_search.__redesign{width:160px}\
-			.OKCH_smiles_mod{height: 200px} .OKCH_smiles_header{height: 32px}\
-			.OKCH_smiles_container{padding-right:5px;margin-right:0px;overflow-y:auto;overflow-x:hidden;font-family:verdana;font-size:11px;position:relative;height: 170px; text-align: left} \
-			.OKCH_smiles_links a{text-decoration: none;padding: 7px 10px;display: inline-block;background: #EBF5D6;margin: 0px;outline: none;-webkit-transition: background-color .2s;}\
-			.OKCH_smiles_links a:hover{background: #EEF9D9}\
-			.OKCH_smiles_links a.sm_cat_selected{padding: 7px 10px; border: 1px solid #9C3}\
-			.OKCH_smiles_links a.sm_cat_selected:hover{padding: 7px 10px; border: 1px solid #9C3}\
-			.user .fake-toolbar{display:none}\
-			.toolbar_nav{margin-left: 240px}\
-			.toolbar_nav_i_tx-w{padding-left: 1px; padding-right: 1px}\
-			.mus-tr_hld{padding: 0 50px 0 50px;}\
-			#pointerOverlay{display: none !important}\
-			.mus-tr_cnt{margin-left:20px}\
-			#def_title{padding: 25px; z-index:3;display: block;position: relative;}\
+			.infothemes {padding: 30px; font-size: 16px;} \\n\
+			#fake-toolbar, .fake-toolbar-ok {display:none;}\
+			\
 	").appendTo("body");
 	
 	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
