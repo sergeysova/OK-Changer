@@ -102,7 +102,7 @@ b.hide = function( name ) {
 	if ( $block.css("display") != "none" ) {
 		$block.hide();
 	}
-}
+};
 
 // Показать блок
 b.show = function( name ) {
@@ -110,7 +110,7 @@ b.show = function( name ) {
 	if ( $block.css("display") == "none" ) {
 		$block.show();
 	}
-}
+};
 
 // Удалить блок
 b.remove = function( name ) {
@@ -118,8 +118,15 @@ b.remove = function( name ) {
 	if ( $block.exists() ) {
 		$block.remove();
 	}
-}
+};
 
+/**
+ * Update CSS-code block
+ * 
+ * @param {string} name Name of block with css code
+ * @param {boolean} value Current value of setting 
+ * @param {string} css CSS-code for set
+ */
 b.stylehiding = function(name,value,css)
 {
 	if ( value == 1 || value == true ) {
@@ -128,7 +135,7 @@ b.stylehiding = function(name,value,css)
 	} else {
 		$("#okch_"+name).remove();
 	}
-}
+};
 
 // Вырезание рекламы
 inj.upd.s_adblock = function( value ) {
@@ -144,11 +151,15 @@ inj.upd.s_adblock = function( value ) {
 				.mctc_link.__v1 {display:none}\
 			");
 	inj.storage.s_adblock = value;
-}
+};
 
-// Изменение размеров кнопок отправить и видеозвонок
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_buttonsize = function( value ) {
-	inj.storage.s_buttonsize = value;
+	delete inj.storage.s_buttonsize;;
 }
 
 // Автоматическое перенаправление по ссылкам
@@ -171,8 +182,14 @@ inj.upd.s_fullredirect = function( value ) {
 }
 
 
-// Уменьшить страницу
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_minimize = function( value ) {
+	delete inj.storage.s_minimize;
+	return;
 	
 	if ( value == 1 || value == true ) {
 		$("html, body").removeClass("fcofw");
@@ -315,17 +332,25 @@ inj.upd.s_friendonline = function ( value ) {
 }
 
 
-// Скрытие оформления панели
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_hidedecor = function( value )
 {
 	inj.storage.s_hidedecor = value;
 }
 
 
-// Скрытие меню на логотипе
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_logotypemenu = function( value ) {
-	inj.storage.s_logotypemenu = value;
-}
+	delete inj.storage.s_logotypemenu;
+};
 
 // Скрытие панели Mail.Ru
 inj.upd.s_mailbar = function( value ) {
@@ -369,18 +394,13 @@ inj.upd.s_autohidebar = function( value ) {
 }
 
 
-// Тень элементов дизайна
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_shadows = function( value ) {
-	b.stylehiding('shadows', value, "\
-					.topPanel .dialogWrapper, #nwsbw, #nwslc, table.mw_tbl, .modal_box, .pl_cw \
-						{box-shadow: 0 0 25px 0px rgba(0, 0, 0, 1);} \
-					.okch_gs_go-top, .friendOnlineWrapper, .go-top__show {box-shadow: 0 0 15px -1px rgba(0, 0, 0, .4);} \
-					.photoWrapper {box-shadow: 0 0 7px rgba(0, 0, 0, .2);} \
-					.lcTc .u-menu_li_ul {box-shadow: 0 1px 5px rgba(0, 0, 0, .3);} \
-					.liveSearchSuggPopup {box-shadow: 0 5px 15px rgba(0, 0, 0, .3);} \
-					.topPanel .dialogWrapper{bottom: 55px}\
-					");
-	inj.storage.s_shadows = value;
+	delete inj.storage.s_shadows;
 }
 
 
@@ -412,12 +432,12 @@ inj.upd.s_hidepresents = function( value ) {
 }
 
 
-// Убрать всплывающее меню
+/**
+ *  Убрать всплывающее меню
+ * @deprecated
+ */
 inj.upd.s_contentmenu = function( value ) {
-	b.stylehiding('contentmenu', value, "\
-				.gwt-shortcutMenu {display: none;} \
-			");
-	inj.storage.s_contentmenu = value;
+	delete inj.storage.s_contentmenu;
 }
 
 
@@ -459,8 +479,8 @@ inj.upd.l_pagetransp = function( value )
 		#hook_Block_FriendsOnlineWrapper { opacity: 0; }").appendTo("body");
 	} else {
 		var bgc = typeof inj.storage.l_pagecolor == "undefined" ? "(255,255,255," : inj.storage.l_pagecolor.replace(')', ',');
-		$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before, .user #mainContent.__ntr, .fcofw .online-fr_block \
-		{ background: rgba"+bgc+""+ ( value / 100) +") }").appendTo("body");
+		$('<style id="okch_pagetransp" />').html( "#mainContent.grid, .user #mainContent.grid, .user.fcofw #fthColWrp.grid:before, .fcofw .online-fr.grid .online-fr_block,.user #mainContent.grid:before \
+		{ background: rgba"+bgc+""+ ( value / 100) +") !important; }").appendTo("body");
 	}
 	
 	inj.storage.l_pagetransp = value;
