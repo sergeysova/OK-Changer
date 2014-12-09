@@ -183,7 +183,7 @@ bg.removeTab = function(tabid, info) {
     
     bg.tabs = fix_array(bg.tabs);
     bg.tabsManage = fix_array(bg.tabsManage);
-    chrome.pageAction.hide(tabid);
+    //chrome.pageAction.hide(tabid);
 };
 
 
@@ -192,12 +192,12 @@ bg.removeTab = function(tabid, info) {
  * 
  * @param {number} tabid
  * @param {object} changeinfo
- * @param {Tab} tab
+ * @param {Tab} t
  */
-bg.onTabUpdate = function( tabid, changeinfo, tab ) {
+bg.onTabUpdate = function( tabid, changeinfo, t ) {
     if (typeof changeinfo.url !== "undefined") {
 	var tab = bg.getTab(tabid);
-	if (tab.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null
+	if (typeof tab.url !== "undefined" && tab.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null
 		&& tab.url.match(/^(http[s]?:\/\/)?(ok)?changer\.lestad\.(net|local)\/?/) !== null) {
 	    // tab url not correct
 	    bg.removeTab(tabid);
