@@ -159,8 +159,8 @@ inj.upd.s_adblock = function( value ) {
  * @returns {undefined}
  */
 inj.upd.s_buttonsize = function( value ) {
-	delete inj.storage.s_buttonsize;;
-}
+	delete inj.storage.s_buttonsize;
+};
 
 // Автоматическое перенаправление по ссылкам
 inj.upd.t_fullredirect = 0;
