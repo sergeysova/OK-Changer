@@ -102,7 +102,7 @@ b.hide = function( name ) {
 	if ( $block.css("display") != "none" ) {
 		$block.hide();
 	}
-}
+};
 
 // Показать блок
 b.show = function( name ) {
@@ -110,7 +110,7 @@ b.show = function( name ) {
 	if ( $block.css("display") == "none" ) {
 		$block.show();
 	}
-}
+};
 
 // Удалить блок
 b.remove = function( name ) {
@@ -118,8 +118,15 @@ b.remove = function( name ) {
 	if ( $block.exists() ) {
 		$block.remove();
 	}
-}
+};
 
+/**
+ * Update CSS-code block
+ * 
+ * @param {string} name Name of block with css code
+ * @param {boolean} value Current value of setting 
+ * @param {string} css CSS-code for set
+ */
 b.stylehiding = function(name,value,css)
 {
 	if ( value == 1 || value == true ) {
@@ -128,7 +135,7 @@ b.stylehiding = function(name,value,css)
 	} else {
 		$("#okch_"+name).remove();
 	}
-}
+};
 
 // Вырезание рекламы
 inj.upd.s_adblock = function( value ) {
@@ -138,17 +145,21 @@ inj.upd.s_adblock = function( value ) {
 				#hook_Block_StickyBannerContainer, \
 				.fcofw .dialogWrapperBanner, \
 				.topPanel_m .dialogWrapperBanner, .topPanel_d .dialogWrapperBanner, \
-				.dialogWrapperBanner__inner, .banner_new__loaded, .dialogWrapperBanner__bottom \
-				{ display: none } \
-				.fo4c_h {padding-top: 15px} \
-				.mctc_link.__v1 {display:none}\
+				.dialogWrapperBanner__inner, .banner_new__loaded, .dialogWrapperBanner__bottom, #hook_Block_BlockAsyncFrOln4thCol, \
+				#hook_Block_LeftColumnAdCustom,\
+				#hook_Block_ViewportHeightAwareBanner,\
+				.mctc_link.__v1 {display:none !important;}\
 			");
 	inj.storage.s_adblock = value;
-}
+};
 
-// Изменение размеров кнопок отправить и видеозвонок
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_buttonsize = function( value ) {
-	inj.storage.s_buttonsize = value;
+	delete inj.storage.s_buttonsize;;
 }
 
 // Автоматическое перенаправление по ссылкам
@@ -171,14 +182,13 @@ inj.upd.s_fullredirect = function( value ) {
 }
 
 
-// Уменьшить страницу
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_minimize = function( value ) {
-	
-	if ( value == 1 || value == true ) {
-		$("html, body").removeClass("fcofw");
-	}
-	
-	inj.storage.s_minimize = value;
+	delete inj.storage.s_minimize;
 }
 
 
@@ -208,9 +218,9 @@ inj.upd.s_bookmarks = function( value ) {
 // Скрытие блока "Группы"
 inj.upd.s_groups = function( value ) {
 	if ( value == 1 || value == true ) {
-		b.hide("#hook_Block_UserGroupsPortlet");
+		b.hide("#hook_Block_RecommendedGroups");
 	} else {
-		b.show("#hook_Block_UserGroupsPortlet");
+		b.show("#hook_Block_RecommendedGroups");
 	}
 	
 	inj.storage.s_groups = value;
@@ -295,9 +305,9 @@ inj.upd.s_holydays = function( value ) {
 // Скрытие блока "Вы знакомы?"
 inj.upd.s_possible = function( value ) {
 	if ( value == 1 || value == true ) {
-		b.hide("#leftPossibleFriendsPanel");
+		b.hide("#hook_Block_UserRecommendationsWithTarget");
 	} else {
-		b.show("#leftPossibleFriendsPanel");
+		b.show("#hook_Block_UserRecommendationsWithTarget");
 	}
 	
 	inj.storage.s_possible = value;
@@ -315,17 +325,25 @@ inj.upd.s_friendonline = function ( value ) {
 }
 
 
-// Скрытие оформления панели
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_hidedecor = function( value )
 {
 	inj.storage.s_hidedecor = value;
 }
 
 
-// Скрытие меню на логотипе
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_logotypemenu = function( value ) {
-	inj.storage.s_logotypemenu = value;
-}
+	delete inj.storage.s_logotypemenu;
+};
 
 // Скрытие панели Mail.Ru
 inj.upd.s_mailbar = function( value ) {
@@ -369,29 +387,24 @@ inj.upd.s_autohidebar = function( value ) {
 }
 
 
-// Тень элементов дизайна
+/**
+ * @deprecated 
+ * @param {type} value
+ * @returns {undefined}
+ */
 inj.upd.s_shadows = function( value ) {
-	b.stylehiding('shadows', value, "\
-					.topPanel .dialogWrapper, #nwsbw, #nwslc, table.mw_tbl, .modal_box, .pl_cw \
-						{box-shadow: 0 0 25px 0px rgba(0, 0, 0, 1);} \
-					.okch_gs_go-top, .friendOnlineWrapper, .go-top__show {box-shadow: 0 0 15px -1px rgba(0, 0, 0, .4);} \
-					.photoWrapper {box-shadow: 0 0 7px rgba(0, 0, 0, .2);} \
-					.lcTc .u-menu_li_ul {box-shadow: 0 1px 5px rgba(0, 0, 0, .3);} \
-					.liveSearchSuggPopup {box-shadow: 0 5px 15px rgba(0, 0, 0, .3);} \
-					.topPanel .dialogWrapper{bottom: 55px}\
-					");
-	inj.storage.s_shadows = value;
+	delete inj.storage.s_shadows;
 }
 
 
 // Опустить аватарку
 inj.upd.s_avatardown = function( value ) {
 	b.stylehiding('avatardown', value, "\
-				.lcTc_avatar {margin-top: 0px;} \
-				.lcTc_status { margin-bottom: 20px; }\
+				#mainContent.grid #mainContentLeftColumn {margin-top: -20px}\
+				.user #mainContent:before{top: 0px !important;}\
 			");
 	inj.storage.s_avatardown = value;
-}
+};
 
 
 // Убрать оценки над фотографиями
@@ -412,12 +425,12 @@ inj.upd.s_hidepresents = function( value ) {
 }
 
 
-// Убрать всплывающее меню
+/**
+ *  Убрать всплывающее меню
+ * @deprecated
+ */
 inj.upd.s_contentmenu = function( value ) {
-	b.stylehiding('contentmenu', value, "\
-				.gwt-shortcutMenu {display: none;} \
-			");
-	inj.storage.s_contentmenu = value;
+	delete inj.storage.s_contentmenu;
 }
 
 
@@ -459,8 +472,8 @@ inj.upd.l_pagetransp = function( value )
 		#hook_Block_FriendsOnlineWrapper { opacity: 0; }").appendTo("body");
 	} else {
 		var bgc = typeof inj.storage.l_pagecolor == "undefined" ? "(255,255,255," : inj.storage.l_pagecolor.replace(')', ',');
-		$('<style id="okch_pagetransp" />').html( ".user #mainContent, .user.fcofw .mainContent_w:before, .user #mainContent.__ntr, .fcofw .online-fr_block \
-		{ background: rgba"+bgc+""+ ( value / 100) +") }").appendTo("body");
+		$('<style id="okch_pagetransp" />').html( "#mainContent.grid, .user #mainContent.grid, .user.fcofw #fthColWrp.grid:before, .fcofw .online-fr.grid .online-fr_block,.user #mainContent.grid:before \
+		{ background: rgba"+bgc+""+ ( value / 100) +") !important; }").appendTo("body");
 	}
 	
 	inj.storage.l_pagetransp = value;
@@ -505,7 +518,7 @@ inj.upd.s_stylescircle = function( value )
 inj.upd.s_moderatorblock = function( value )
 {
 	b.stylehiding('moderatorblock', value, "\
-				#hook_Block_RightColumn #hook_Block_ModerationLauncher{display:none !important} \
+				#hook_Block_ModerationLauncher {display:none !important} \
 			");
 	inj.storage.s_moderatorblock = value;
 }
@@ -517,22 +530,6 @@ inj.upd.s_adcustomblock = function( value )
 				leftCustomAdv, #hook_Block_LeftColumnAdCustom{display:none} \
 			");
 	inj.storage.s_moderatorblock = value;
-}
-
-
-// Скрыть все блоки
-inj.upd.s_expandmod = function( value ) {
-	b.stylehiding('expandmod', value, "\
-				.middleRightColumn {display: none;} \
-				#middleColumn {width: 725px} \
-				.gwt-RichTextArea-FormatDropdown .selected a {border-radius: 50%; border: 1px solid inherit} \
-			");
-	inj.storage.s_expandmod = value;
-}
-
-// Скрытие кнопки писем Mail
-inj.upd.s_mailbutton = function( value ) {
-	inj.storage.s_mailbutton = value;
 }
 
 // Вызов функции при изменении параметров
@@ -653,7 +650,6 @@ inj.upd.update_exitbutton = function() {
 	}
 	
 	if ( !$("#toolbar_nav_exit").exists() && $("#hook_Block_HeaderTopMenuInToolbar").exists() ) {
-		$(".toolbar_c").css("display", "inline-block");
 		b.stylehiding("searchfield", true, "\
 					div.toolbar_search {width: 150px} \
 					#liveSearchSugg #field_query {width: 125px} \
@@ -715,11 +711,6 @@ inj.upd.update_mailbutton = function() {
 	} else {
 		$('#counter_MailCounter').hide();
 	}
-}
-
-// Кнопка "Наверх"
-inj.upd.update_upbutton = function() {
-	return;
 }
 
 
@@ -995,8 +986,6 @@ inj.update = function()
 	
 	inj.upd.update_authorspage();
 	inj.upd.update_exitbutton();
-	inj.upd.update_upbutton();
-	inj.upd.update_mailbutton();
 	inj.upd.update_blocks_hiding();
 	inj.music.update();
 	inj.bgs.check();
@@ -1008,12 +997,12 @@ inj.update = function()
 
 // Обновление настроек
 inj.updateAll = function( data, sender ) {
-	inj.log("inj.updateAll()");
+	inj.log("inj.updateAll()", data);
 	//inj.log( data );
 	
 	for ( var i in data ) {
-		if ( data[i] != inj.storage[i] ) {
-			if ( typeof inj.upd[i] == "function" ) {
+		if ( data[i] !== inj.storage[i] ) {
+			if ( typeof inj.upd[i] === "function" ) {
 				inj.log( i + ": " + data[i] );
 				inj.upd[i]( data[i] );
 			} else {
@@ -1044,26 +1033,9 @@ inj.ready = function() {
 	$('<style id="okch_basestyles" />').html( "\
 			.ic_officialg {background-image: url(http://okchanger.lestad.net/themes/ico16.png);} \
 			#OKCH_themes, #OKCH_themes2 {margin-top: 2px; position: relative;min-height: 590px;background-color: #EFEFEF;padding-bottom: 20px;} \
-			.infothemes {padding: 30px; font-size: 16px;} \
-			#hook_Block_MusicFlash, #_music_flash_container { display: block; } \
-			#_music_flash_container {top: -100px; opacity: 0;}\
-			.m_search_input{border-radius: inherit;padding-left: 7px;} .m_search_input_wrapper{border-radius: inherit;} \
-			.m_search_input_container{border-radius: 26px;border-top-right-radius: 0;border-bottom-right-radius: 0;}\
-			.m_search_button{border-top-left-radius: 0;margin-top: 10px;border-bottom-left-radius: 0;}\
-			.toolbar_search.__redesign{width:160px}\
-			.OKCH_smiles_mod{height: 200px} .OKCH_smiles_header{height: 32px}\
-			.OKCH_smiles_container{padding-right:5px;margin-right:0px;overflow-y:auto;overflow-x:hidden;font-family:verdana;font-size:11px;position:relative;height: 170px; text-align: left} \
-			.OKCH_smiles_links a{text-decoration: none;padding: 7px 10px;display: inline-block;background: #EBF5D6;margin: 0px;outline: none;-webkit-transition: background-color .2s;}\
-			.OKCH_smiles_links a:hover{background: #EEF9D9}\
-			.OKCH_smiles_links a.sm_cat_selected{padding: 7px 10px; border: 1px solid #9C3}\
-			.OKCH_smiles_links a.sm_cat_selected:hover{padding: 7px 10px; border: 1px solid #9C3}\
-			.user .fake-toolbar{display:none}\
-			.toolbar_nav{margin-left: 240px}\
-			.toolbar_nav_i_tx-w{padding-left: 1px; padding-right: 1px}\
-			.mus-tr_hld{padding: 0 50px 0 50px;}\
-			#pointerOverlay{display: none !important}\
-			.mus-tr_cnt{margin-left:20px}\
-			#def_title{padding: 25px; z-index:3;display: block;position: relative;}\
+			.infothemes {padding: 30px; font-size: 16px;} \\n\
+			#fake-toolbar, .fake-toolbar-ok, .fake-toolbar-mail {display:none;}\
+			\
 	").appendTo("body");
 	
 	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');

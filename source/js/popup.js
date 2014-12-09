@@ -10,7 +10,7 @@
 
 
 popup = {
-    website: "http://changer.lestad.local/ajax/", // "http://okchanger.lestad.net/",
+    website: "http://okchanger.lestad.net/", // "http://changer.lestad.local/ajax/",
     storage: {},
     setts: {},
     decor: {},

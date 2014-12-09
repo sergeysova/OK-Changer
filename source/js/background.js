@@ -104,9 +104,6 @@ bg.listenToTab = function( tabid )
     }
 };
 
-chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
-
-
 /**
  * Find tab in stack
  * 
@@ -144,7 +141,6 @@ bg.getTab = function(tabid) {
     return false;
 };
 
-
 /**
  * Add OK tab in stack for listen
  * 
@@ -154,8 +150,10 @@ bg.getTab = function(tabid) {
  */
 bg.addTab = function( data, sender ) {
     // check if tab exists
-    if (bg.getTab(sender.tab.id))
-	return;
+    if (bg.getTab(sender.tab.id)) {
+		chrome.pageAction.show(sender.tab.id);
+		return {'storage': bg.storage};
+	}
     
     if (typeof data.target !== "undefined" && data.target === "manage") {
 	bg.tabsManage.push(sender.tab);
@@ -169,6 +167,7 @@ bg.addTab = function( data, sender ) {
     chrome.pageAction.show(sender.tab.id);
     return {'storage': bg.storage};
 };
+
 
 
 /**
@@ -274,7 +273,7 @@ bg.onMessage = function(request, sender, sendResponse) {
  * @param {Send} sender
  */
 bg.sendDataToInjected = function( data, sender ) {
-    bg.log("...sendDataToInjected");
+    bg.log("bg.sendDataToInjected()", data);
     bg.updateTabs( data );
 };
 
@@ -285,15 +284,15 @@ bg.sendDataToInjected = function( data, sender ) {
  * @param {object} data
  */
 bg.updateTabs = function( data ) {
-    bg.log("bg.updateTabs");
+    bg.log("bg.updateTabs()", data);
 
     // Обновление базовых данных
     bg.storage = clones(data.data);
-
+	console.log('bg.tabs',bg.tabs);
     // Перебор отслеживаемых вкладок
-    for ( tabis in bg.tabs ) {
+    for ( var i = 0; i < bg.tabs.length; i++ ) {
 	// Точный ID вкладки
-	var tabid = parseInt( tabis.replace("tab_","") );
+	var tabid = bg.tabs[i].id;
 
 	// Отправка сообщения во вкладку
 	chrome.tabs.sendMessage(tabid, data, function(response){
@@ -433,6 +432,8 @@ chrome.tabs.onRemoved.addListener( bg.removeTab );
 
 // On tab update
 chrome.tabs.onUpdated.addListener( bg.onTabUpdate );
+
+chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
 
 // Create context menu items
 chrome.contextMenus.create({
