@@ -145,10 +145,10 @@ inj.upd.s_adblock = function( value ) {
 				#hook_Block_StickyBannerContainer, \
 				.fcofw .dialogWrapperBanner, \
 				.topPanel_m .dialogWrapperBanner, .topPanel_d .dialogWrapperBanner, \
-				.dialogWrapperBanner__inner, .banner_new__loaded, .dialogWrapperBanner__bottom \
-				{ display: none } \
-				.fo4c_h {padding-top: 15px} \
-				.mctc_link.__v1 {display:none}\
+				.dialogWrapperBanner__inner, .banner_new__loaded, .dialogWrapperBanner__bottom, #hook_Block_BlockAsyncFrOln4thCol, \
+				#hook_Block_LeftColumnAdCustom,\
+				#hook_Block_ViewportHeightAwareBanner,\
+				.mctc_link.__v1 {display:none !important;}\
 			");
 	inj.storage.s_adblock = value;
 };
@@ -189,13 +189,6 @@ inj.upd.s_fullredirect = function( value ) {
  */
 inj.upd.s_minimize = function( value ) {
 	delete inj.storage.s_minimize;
-	return;
-	
-	if ( value == 1 || value == true ) {
-		$("html, body").removeClass("fcofw");
-	}
-	
-	inj.storage.s_minimize = value;
 }
 
 
@@ -225,9 +218,9 @@ inj.upd.s_bookmarks = function( value ) {
 // Скрытие блока "Группы"
 inj.upd.s_groups = function( value ) {
 	if ( value == 1 || value == true ) {
-		b.hide("#hook_Block_UserGroupsPortlet");
+		b.hide("#hook_Block_RecommendedGroups");
 	} else {
-		b.show("#hook_Block_UserGroupsPortlet");
+		b.show("#hook_Block_RecommendedGroups");
 	}
 	
 	inj.storage.s_groups = value;
@@ -312,9 +305,9 @@ inj.upd.s_holydays = function( value ) {
 // Скрытие блока "Вы знакомы?"
 inj.upd.s_possible = function( value ) {
 	if ( value == 1 || value == true ) {
-		b.hide("#leftPossibleFriendsPanel");
+		b.hide("#hook_Block_UserRecommendationsWithTarget");
 	} else {
-		b.show("#leftPossibleFriendsPanel");
+		b.show("#hook_Block_UserRecommendationsWithTarget");
 	}
 	
 	inj.storage.s_possible = value;
@@ -525,7 +518,7 @@ inj.upd.s_stylescircle = function( value )
 inj.upd.s_moderatorblock = function( value )
 {
 	b.stylehiding('moderatorblock', value, "\
-				#hook_Block_RightColumn #hook_Block_ModerationLauncher{display:none !important} \
+				#hook_Block_ModerationLauncher {display:none !important} \
 			");
 	inj.storage.s_moderatorblock = value;
 }
@@ -537,22 +530,6 @@ inj.upd.s_adcustomblock = function( value )
 				leftCustomAdv, #hook_Block_LeftColumnAdCustom{display:none} \
 			");
 	inj.storage.s_moderatorblock = value;
-}
-
-
-// Скрыть все блоки
-inj.upd.s_expandmod = function( value ) {
-	b.stylehiding('expandmod', value, "\
-				.middleRightColumn {display: none;} \
-				#middleColumn {width: 725px} \
-				.gwt-RichTextArea-FormatDropdown .selected a {border-radius: 50%; border: 1px solid inherit} \
-			");
-	inj.storage.s_expandmod = value;
-}
-
-// Скрытие кнопки писем Mail
-inj.upd.s_mailbutton = function( value ) {
-	inj.storage.s_mailbutton = value;
 }
 
 // Вызов функции при изменении параметров
@@ -734,11 +711,6 @@ inj.upd.update_mailbutton = function() {
 	} else {
 		$('#counter_MailCounter').hide();
 	}
-}
-
-// Кнопка "Наверх"
-inj.upd.update_upbutton = function() {
-	return;
 }
 
 
@@ -1014,8 +986,6 @@ inj.update = function()
 	
 	inj.upd.update_authorspage();
 	inj.upd.update_exitbutton();
-	inj.upd.update_upbutton();
-	inj.upd.update_mailbutton();
 	inj.upd.update_blocks_hiding();
 	inj.music.update();
 	inj.bgs.check();
@@ -1064,7 +1034,7 @@ inj.ready = function() {
 			.ic_officialg {background-image: url(http://okchanger.lestad.net/themes/ico16.png);} \
 			#OKCH_themes, #OKCH_themes2 {margin-top: 2px; position: relative;min-height: 590px;background-color: #EFEFEF;padding-bottom: 20px;} \
 			.infothemes {padding: 30px; font-size: 16px;} \\n\
-			#fake-toolbar, .fake-toolbar-ok {display:none;}\
+			#fake-toolbar, .fake-toolbar-ok, .fake-toolbar-mail {display:none;}\
 			\
 	").appendTo("body");
 	

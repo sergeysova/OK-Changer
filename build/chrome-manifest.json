@@ -1,4 +1,4 @@
-﻿{
+{
 	"manifest_version" : 2,
 	"name" : "OK Changer",
 	"short_name": "OKCh",
@@ -16,6 +16,7 @@
 	},
 	"permissions" : [
 		"*://okchanger.lestad.net/*",
+		"*://changer.lestad.local/*",
 		"management",
 		"notifications",
 		"contextMenus",
@@ -23,7 +24,7 @@
 		"tabs"
 	],
 	"externally_connectable": {
-		"matches": ["*://okchanger.lestad.net/*"]
+		"matches": ["*://okchanger.lestad.net/*", "*://changer.lestad.local/*"]
 	},
 	"web_accessible_resources": [
 		"img/ico128.png",
@@ -44,6 +45,13 @@
 			],
 			"js": ["js/jquery.js", "js/injected.js"],
 			"run_at":"document_start"
+		},
+		{
+		    "matches": [
+			"*://changer.lestad.local/*"
+		    ],
+		    "js": ["js/jquery.js", "js/manage.js"],
+		    "run_at": "document_start"
 		}
 	],
 	"background": {
