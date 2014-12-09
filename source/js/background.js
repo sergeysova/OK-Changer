@@ -183,7 +183,6 @@ bg.removeTab = function(tabid, info) {
     
     bg.tabs = fix_array(bg.tabs);
     bg.tabsManage = fix_array(bg.tabsManage);
-    //chrome.pageAction.hide(tabid);
 };
 
 
@@ -199,11 +198,12 @@ bg.onTabUpdate = function( tabid, changeinfo, t ) {
 	var tab = bg.getTab(tabid);
 	if (typeof tab.url !== "undefined" && tab.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null
 		&& tab.url.match(/^(http[s]?:\/\/)?(ok)?changer\.lestad\.(net|local)\/?/) !== null) {
-	    // tab url not correct
-	    bg.removeTab(tabid);
+		// tab url not correct
+		chrome.pageAction.hide(tabid);
+		bg.removeTab(tabid);
 	}
 	else {
-	    chrome.pageAction.show(tabid);
+		chrome.pageAction.show(tabid);
 	}
     }
 };
