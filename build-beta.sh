@@ -3,13 +3,13 @@
 echo ''
 echo '[=- Chrome Extension Building -=]'
 version=$1
-zipname="okchanger_$version-chrome.zip"
+zipname="okchanger_$version-beta-chrome.zip"
 dir=$DIRSTACK
 if [[ -z $version ]]
 then
 echo "Error: hasn't set version"
 echo "Example:"
-echo "          ./build.sh 1.0.0.1"
+echo "          ./build-beta.sh 1.0.0.1"
 exit 1
 fi
 
@@ -32,7 +32,7 @@ cp -f "./build/chrome-manifest.json" "./build/chrome/manifest.json"
 
 # replace manifest version
 sed -i "s/0.0.0.0/$version/" build/chrome/manifest.json
-sed -i "s/{m}//" build/chrome/manifest.json
+sed -i "s/{m}/ beta/" build/chrome/manifest.json
 
 mkdir -p "./release/"
 
