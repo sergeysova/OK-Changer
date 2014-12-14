@@ -234,6 +234,10 @@
 	"PageColor": {
 		"message": "Цвет страницы",
 		"description": ""
+	},
+	"OldMessages":{
+		"message": "Вернуть старый вид сообщений",
+		"description": ""
 	}
 }
 

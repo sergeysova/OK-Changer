@@ -19,7 +19,7 @@ var inj = {
 	music: {},
 	bgs: {},
 	debug: true,
-	updateRate: 300,
+	updateRate: 500,
 	updateID: 0,
 	jSessionID: ""
 };
@@ -34,7 +34,7 @@ inj.loadCookie = function()
 		var z = $bsd[i].split('=');
 		inj.cookie[z[0]] = z[1];
 	}
-}
+};
 
 b = {};
 
@@ -323,6 +323,17 @@ inj.upd.s_friendonline = function ( value ) {
 	
 	inj.storage.s_friendonline = value;
 }
+
+
+/**
+ * Revert old messages view
+ * 
+ * @param {boolean} value
+ */
+inj.upd.s_oldmessages = function(value) {
+	b.stylehiding('oldmessages', value, "");
+	inj.storage.s_oldmessages = value;
+};
 
 
 /**
@@ -730,7 +741,7 @@ inj.upd.update_blocks_hiding = function()
 	inj.upd.s_friendonline	( inj.storage.s_friendonline );
 	inj.upd.s_recommended	( inj.storage.s_recommended );
 	inj.upd.s_adcustomblock	( inj.storage.s_adcustomblock );
-}
+};
 
 
 
@@ -993,7 +1004,7 @@ inj.update = function()
 	// Повтор
 	clearTimeout(inj.updateID);
 	inj.updateID = setTimeout( inj.update, inj.updateRate );
-}
+};
 
 // Обновление настроек
 inj.updateAll = function( data, sender ) {
@@ -1010,7 +1021,7 @@ inj.updateAll = function( data, sender ) {
 			}
 		}
 	}
-}
+};
 
 
 inj.ready = function() {

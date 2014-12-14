@@ -234,6 +234,10 @@
 	"PageColor": {
 		"message": "Color of the page",
 		"description": ""
+	},
+	"OldMessages":{
+		"message": "Revert old messages view",
+		"description": ""
 	}
 }
 
