@@ -1041,13 +1041,10 @@ inj.ready = function() {
 	});
 	
 	// Базовые стили
-	$('<style id="okch_basestyles" />').html( "\
-			.ic_officialg {background-image: url(http://okchanger.lestad.net/themes/ico16.png);} \
-			#OKCH_themes, #OKCH_themes2 {margin-top: 2px; position: relative;min-height: 590px;background-color: #EFEFEF;padding-bottom: 20px;} \
-			.infothemes {padding: 30px; font-size: 16px;} \\n\
-			#fake-toolbar, .fake-toolbar-ok, .fake-toolbar-mail {display:none;}\
-			\
-	").appendTo("body");
+	$('<link type="stylesheet" />')
+		.attr('id', 'base_styles')
+		.attr('href', chrome.extension.getURL('css/injected.css'))
+		.appendTo("head");
 	
 	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
 	$('<link href="" type="text/css" rel="stylesheet" id="okch_style_set" />').appendTo("body");

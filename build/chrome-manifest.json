@@ -4,7 +4,7 @@
 	"short_name": "OKCh",
 	"version" : "0.0.0.0",
 	"description" : "__MSG_extDescription__",
-	"homepage_url": "http://okchanger.lestad.net/",
+	"homepage_url": "http://okchanger.net/",
 	"content_security_policy": "script-src 'self'; object-src 'self'",
 	"default_locale": "en",
 	"page_action": {
@@ -15,8 +15,8 @@
 		"default_popup": "popup.html"
 	},
 	"permissions" : [
-		"*://okchanger.lestad.net/*",
-		"*://changer.lestad.local/*",
+		"*://okchanger.net/*",
+		"*://okchanger.local/*",
 		"management",
 		"notifications",
 		"contextMenus",
@@ -24,7 +24,7 @@
 		"tabs"
 	],
 	"externally_connectable": {
-		"matches": ["*://okchanger.lestad.net/*", "*://changer.lestad.local/*"]
+		"matches": ["*://okchanger.net/*", "*://okchanger.local/*"]
 	},
 	"web_accessible_resources": [
 		"img/ico128.png",
@@ -48,7 +48,7 @@
 		},
 		{
 		    "matches": [
-			"*://changer.lestad.local/*"
+			"*://okchanger.local/*"
 		    ],
 		    "js": ["js/jquery.js", "js/manage.js"],
 		    "run_at": "document_start"
