@@ -106,100 +106,79 @@ bg.listenToTab = function( tabid )
     }
 };
 
-/**
- * Find tab in stack
- * 
- * @param {number} tabid
- */
-bg.getTabIndex = function(tabid, place) {
-    var pl = null;
-    if (place === "base")
-	   pl = bg.tabs;
-    else if (place === "manage")
-	   pl = bg.tabsManage;
-    for (var i = 0; pl.length; i++) {
-    	if (pl[i].id == tabid)
-    	    return i;
-    }
-    
-    return false;
-};
 
 /**
- * Search tab by Id or return FALSE
  * 
- * 
- * @param {type} tabid
- * @returns {Tab} Tab object
+ * @return {bool}
  */
-bg.getTab = function(tabid) {
-    if (typeof bg.tabs[tabindex = bg.getTabIndex(tabid, "base")] !== "undefined") {
-	   return bg.tabs[tabindex];
+bg.hasTab = function(tabid) {
+    if (bg.findTabIndex(tabid) !== false) {
+        return true;
     }
-    else if (typeof bg.tabsManage[tabindex = bg.getTabIndex(tabid, "manage")] !== "undefined") { 
-	   return bg.tabsManage[tabindex];
+
+    return false;
+}
+
+/**
+ * Find tab by his ID
+ * @return {Tab} object
+ */
+bg.findTab = function(tabid) {
+    bg.log('findTab', tabid);
+
+    return bg.tabs[bg.findTabIndex(tabid)];
+};
+
+
+/**
+ * Find tab index by his id
+ * @return {int}
+ */
+bg.findTabIndex = function(tabid) {
+    if (bg.tabs.length > 0) {
+        for (var i = 0; i < bg.tabs.length; i++) {
+            var tab = bg.tabs[i];
+            if (tab.id === tabid) {
+                return i;
+            }
+        }
     }
-    
     return false;
 };
 
 /**
  * Add OK tab in stack for listen
  * 
- * @param {object} data
- * @param {object} sender
- * @returns {sdata} storage data for update
+ * @param {Tab} tab
+ * @param {string} where
  */
 bg.addTab = function( tab, where ) {
-    console.log(tab);
-    console.log(where);
-
-    if (where === "base") {
-        tab.where = where;
-        bg.tabs.push(tab);
-    }
-    else if (where === "manage") {
-        tab.where = where;
-        bg.tabsManage.push(tab);
-    }
-
-    return;
-
-    // check if tab exists
-    if (bg.getTab(sender.tab.id)) {
-		chrome.pageAction.show(sender.tab.id);
-		return {'storage': bg.storage};
-	}
-    
-    if (typeof data.target !== "undefined" && data.target === "manage") {
-    	bg.tabsManage.push(sender.tab);
-    	bg.log('...adding manage tab: ', sender.tab);
-    }
-    else {
-    	bg.tabs.push(sender.tab);
-    	bg.log('...adding tab: ', sender.tab);
-    }
-    
-    chrome.pageAction.show(sender.tab.id);
-    return {'storage': bg.storage};
-};
-
-
-bg.onAddTab = function(data, sender) {
-    console.log('onAddTab', data);
+    var i = bg.tabs.push(tab);
+    bg.log('AddTab('+tab.id+') under bg.tabs['+i+']');
+    chrome.pageAction.show(tab.id);
 };
 
 
 /**
- * Check if tab belong to ok.ru
- * @return boolean
+ * 
+ * 
  */
-bg.checkTab = function(tab, belong) {
-    if (typeof tab !== "object") {
-        throw new Error("Tab is not object or ID");
+bg.onAddTab = function(data, sender) {
+    var tab = data[2];
+    if (data[1] !== "complete") return {'storage': bg.storage};
+
+    if (tab.url.match(bg.regex_ok) !== null) {
+        tab.place = "base";
+        bg.addTab(tab);
+    }
+    else if (tab.url.match(bg.regex_tool) !== null) {
+        tab.place = "place";
+        bg.addTab(tab);
     }
 
+    return {'storage': bg.storage};
 };
+
 
 
 /**
@@ -210,11 +189,13 @@ bg.checkTab = function(tab, belong) {
  * @param {object} info
  */
 bg.removeTab = function(tabid, info) {
-    delete bg.tabs[bg.getTabIndex(tabid, 'base')];
-    delete bg.tabs[bg.getTabIndex(tabid, 'manage')];
-    
-    bg.tabs = fix_array(bg.tabs);
-    bg.tabsManage = fix_array(bg.tabsManage);
+    var tab = bg.findTabIndex(tabid);
+    if (tab !== false) {
+        bg.tabs.splice(tab, 1);
+        bg.log('Tab('+tabid+') removed - bg.tabs['+tab+']');
+    }
+    chrome.pageAction.hide(tabid);
+    return;
 };
 
 
@@ -230,16 +211,32 @@ bg.onTabUpdate = function( tabid, changeinfo, tab ) {
         // wait for load
         return;
     }
-
-    if (tab.url.match(bg.regex_ok) !== null || tab.url.match(bg.regex_tool) !== null) {
-        chrome.pageAction.show(tabid);
+    var tix = bg.findTabIndex(tab.id);
+    
+    // If tab already in list (bg.tabs)
+    if (tix !== false) {
+        if (tab.url.match(bg.regex_ok) !== null) { // ok.ru
+            tab.place = 'base';
+            bg.tabs[tix] = tab;
+        }
+        else if (tab.url.match(bg.regex_tool) !== null) { // okchanger.net
+            tab.place = 'manage';
+            bg.tabs[tix] = tab;
+        }
+        else { // left
+            bg.removeTab(tabid);
+        }
     }
-    else {
-        chrome.pageAction.hide(tabid);
-        bg.removeTab(tabid);
+    else { // If new tab
+        if (tab.url.match(bg.regex_ok) !== null) { // ok.ru
+            tab.place = 'base';
+            bg.addTab(tab);
+        }
+        else if (tab.url.match(bg.regex_tool) !== null) { // okchanger.net
+            tab.place = 'manage';
+            bg.addTab(tab);
+        }
     }
-
-    console.log('onTabUpdate', arguments);
 };
 
 /**
@@ -457,6 +454,16 @@ bg.checkBadExtensions = function()
     });
 };
 
+
+// FIXME: Returns tab is undefined
+bg.onCommand = function(command) {
+    console.log('Pressed special key');
+    chrome.tabs.getCurrent(function(tab){
+        console.log(tab);
+        chrome.pageAction.show(tab.id);
+    });
+};
+
 /*
  * maybe remove this?
 // Установка статуса
@@ -500,6 +507,9 @@ chrome.tabs.onUpdated.addListener( bg.onTabUpdate );
 //
 chrome.tabs.onActivated.addListener(bg.listenToTab);
 
+// Commands
+// chrome.commands.onCommand.addListener(bg.onCommand);
+
 
 // Create context menu items
 chrome.contextMenus.create({
@@ -515,6 +525,7 @@ chrome.contextMenus.create({
     contexts: ["page"],
     onclick: bg.cmenu.linkHandler
 });
+
 
 
 // Run

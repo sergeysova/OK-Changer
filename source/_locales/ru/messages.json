@@ -241,6 +241,9 @@
 	},
 	"manageInstalled":{
 		"message": "Установлено"
+	},
+	"keyOpen": {
+		"message": "Открыть/скрыть окно"
 	}
 }
 

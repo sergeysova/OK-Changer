@@ -20,6 +20,7 @@
 		"management",
 		"notifications",
 		"contextMenus",
+		"commands",
 		"storage",
 		"tabs"
 	],
@@ -56,6 +57,14 @@
 	],
 	"background": {
 		"scripts": ["js/background.js"]
+	},
+	"commands": {
+		"toggle-pageAction": {
+			"suggested_key": {
+				"default": "Alt+Shift+O"
+			},
+			"description": "__MSG_keyOpen__"
+		}
 	}
 }
 
