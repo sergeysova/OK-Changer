@@ -704,7 +704,7 @@ inj.upd.update_mailbutton = function() {
 				<div class="hookBlock">\
 					<a target="_blank" rel="nofollow" class="toolbar_nav_a" href="http://e.mail.ru/messages/inbox/" id="nav_toolbar_a_mail">\
 						<div class="toolbar_nav_i_glow"></div>\
-						<div class="toolbar_nav_i_ic" style="background-image: url(http://okchanger.lestad.net/mailrubutton.png); background-position: 8px 3px">\
+						<div class="toolbar_nav_i_ic" style="background-image: url(http://okchanger.net/mailrubutton.png); background-position: 8px 3px">\
 							<div unselectable="on" class="toolbar_nav_i_tx-w usel-off">Mail.Ru</div>\
 						</div>\
 						<div class="toolbar_nav_notif"><div id="counter_MailCounter" class="notifications"><div class="counterText"></div></div></div>\
@@ -829,7 +829,7 @@ inj.bgs.getthemes = function()
 	inj.log("---GetThemes()---");
 		$.ajax({
 			type: "GET",
-			url: "http://okchanger.lestad.net/themes/",
+			url: "http://okchanger.net/themes/",
 			dataType: "json",
 			success: inj.bgs.loadthemes,
 			error: function()
