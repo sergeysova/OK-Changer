@@ -38,13 +38,13 @@ window.clones = clones;
 
 function fix_array(list) {
     if (typeof list !== "object")
-	throw new Error("Undefined variable type: fix_array("+typeof list+")");
+	   throw new Error("Undefined variable type: fix_array("+typeof list+")");
     
     var newlist = [];
     for (var i = 0; i < list.length; i++) {
-	if ( typeof list[i] !== "undefined" ) {
-	    newlist.push(list[i]);
-	}
+    	if ( typeof list[i] !== "undefined" ) {
+    	    newlist.push(list[i]);
+    	}
     }
     return newlist;
 }
@@ -55,8 +55,10 @@ bg = {
     storage: {},
     cmenu: {},
     debug: true,
+    regex_ok: '^http(s)?\:\/\/(www.)?(ok|odnoklassniki).ru/?(.*)$',
+    regex_tool: '^http(s)?\:\/\/(beta.)?okchanger.net/?(.*)$',
     badexts: {
-	'jicldjademmddamblmdllfneeaeeclik': 'OkTools'
+	   'jicldjademmddamblmdllfneeaeeclik': 'OkTools'
     }
 };
 
@@ -98,9 +100,9 @@ bg.error = function( message, object ) {
  */
 bg.listenToTab = function( tabid )
 {
-    if ( "tab_"+tabid in bg.tabs )
+    if ( ("tab_"+tabid in bg.tabs) || ("tab_"+tabid in bg.tabsManage) )
     {
-	chrome.pageAction.show( tabid );
+	   chrome.pageAction.show( tabid );
     }
 };
 
@@ -112,12 +114,12 @@ bg.listenToTab = function( tabid )
 bg.getTabIndex = function(tabid, place) {
     var pl = null;
     if (place === "base")
-	pl = bg.tabs;
+	   pl = bg.tabs;
     else if (place === "manage")
-	pl = bg.tabsManage;
+	   pl = bg.tabsManage;
     for (var i = 0; pl.length; i++) {
-	if (pl[i].id == tabid)
-	    return i;
+    	if (pl[i].id == tabid)
+    	    return i;
     }
     
     return false;
@@ -132,10 +134,10 @@ bg.getTabIndex = function(tabid, place) {
  */
 bg.getTab = function(tabid) {
     if (typeof bg.tabs[tabindex = bg.getTabIndex(tabid, "base")] !== "undefined") {
-	return bg.tabs[tabindex];
+	   return bg.tabs[tabindex];
     }
     else if (typeof bg.tabsManage[tabindex = bg.getTabIndex(tabid, "manage")] !== "undefined") { 
-	return bg.tabsManage[tabindex];
+	   return bg.tabsManage[tabindex];
     }
     
     return false;
@@ -148,7 +150,21 @@ bg.getTab = function(tabid) {
  * @param {object} sender
  * @returns {sdata} storage data for update
  */
-bg.addTab = function( data, sender ) {
+bg.addTab = function( tab, where ) {
+    console.log(tab);
+    console.log(where);
+
+    if (where === "base") {
+        tab.where = where;
+        bg.tabs.push(tab);
+    }
+    else if (where === "manage") {
+        tab.where = where;
+        bg.tabsManage.push(tab);
+    }
+
+    return;
+
     // check if tab exists
     if (bg.getTab(sender.tab.id)) {
 		chrome.pageAction.show(sender.tab.id);
@@ -156,18 +172,34 @@ bg.addTab = function( data, sender ) {
 	}
     
     if (typeof data.target !== "undefined" && data.target === "manage") {
-	bg.tabsManage.push(sender.tab);
-	bg.log('...adding manage tab: ', sender.tab);
+    	bg.tabsManage.push(sender.tab);
+    	bg.log('...adding manage tab: ', sender.tab);
     }
     else {
-	bg.tabs.push(sender.tab);
-	bg.log('...adding tab: ', sender.tab);
+    	bg.tabs.push(sender.tab);
+    	bg.log('...adding tab: ', sender.tab);
     }
     
     chrome.pageAction.show(sender.tab.id);
     return {'storage': bg.storage};
 };
 
+
+bg.onAddTab = function(data, sender) {
+    console.log('onAddTab', data);
+};
+
+
+/**
+ * Check if tab belong to ok.ru
+ * @return boolean
+ */
+bg.checkTab = function(tab, belong) {
+    if (typeof tab !== "object") {
+        throw new Error("Tab is not object or ID");
+    }
+
+};
 
 
 /**
@@ -193,20 +225,51 @@ bg.removeTab = function(tabid, info) {
  * @param {object} changeinfo
  * @param {Tab} t
  */
-bg.onTabUpdate = function( tabid, changeinfo, t ) {
-    if (typeof changeinfo.url !== "undefined") {
-	var tab = bg.getTab(tabid);
-	if (typeof tab.url !== "undefined" && tab.url.match(/^(http[s]?:\/\/)?(www\.)?(odnoklassniki|ok).ru\/?/) !== null
-		&& tab.url.match(/^(http[s]?:\/\/)?(ok)?changer\.lestad\.(net|local)\/?/) !== null) {
-		// tab url not correct
-		chrome.pageAction.hide(tabid);
-		bg.removeTab(tabid);
-	}
-	else {
-		chrome.pageAction.show(tabid);
-	}
+bg.onTabUpdate = function( tabid, changeinfo, tab ) {
+    if ( changeinfo.status === "loading") {
+        // wait for load
+        return;
     }
+
+    if (tab.url.match(bg.regex_ok) !== null || tab.url.match(bg.regex_tool) !== null) {
+        chrome.pageAction.show(tabid);
+    }
+    else {
+        chrome.pageAction.hide(tabid);
+        bg.removeTab(tabid);
+    }
+
+    console.log('onTabUpdate', arguments);
 };
+
+/**
+ * 
+ * 
+ * 
+ */
+bg.findNeedTabs = function() {
+    chrome.tabs.query({url: [
+            '*://ok.ru/*',
+            '*://www.ok.ru/*',
+            '*://okchanger.net/*',
+            '*://beta.okchanger.net/*']}, function(tabs){
+                console.log(arguments);
+        for (var i = 0, tab = tabs[i]; i < tabs.length; tab = tabs[++i]) {
+            /**
+            var where = "base";
+            if( tab.url.match(bg.regex_ok) !== null ) {
+                where = 'base';
+            }
+            else if( tab.url.match(bg.regex_tool) !== null ) {
+                where = 'manage';
+            }
+            bg.addTab(tab, where);
+            //*/
+            chrome.tabs.reload(tab.id);
+        }
+    });
+};
+
 
 /**
  * Update theme in main page
@@ -233,11 +296,11 @@ bg.updateTheme = function ( data, sender )
 bg.call = function( method, request, sender ) {
     // Has method
     if ( typeof bg[method] === "function" ) {
-	// Call method
-	return bg[method]( request, sender );
+    	// Call method
+    	return bg[method]( request, sender );
     } else {
-	bg.error( "Method not exists: ", "bg."+method+"()");
-	return false;
+    	bg.error( "Method not exists: ", "bg."+method+"()");
+    	return false;
     }
 };
 
@@ -252,17 +315,17 @@ bg.onMessage = function(request, sender, sendResponse) {
     bg.log("bg.onMessage() -> ", request);
 
     if ( sender.tab ) {
-	// From injected or method
-	if ( typeof request.method !== "undefined" ) {
-	    // Call method
-	    sendResponse( bg.call(request.method, request, sender) );
-	}
+    	// From injected or method
+    	if ( typeof request.method !== "undefined" ) {
+    	    // Call method
+    	    sendResponse( bg.call(request.method, request, sender) );
+    	}
     } else {
-	// From popup
-	if ( typeof request.method !== "undefined" ) {
-	    // Call method without method name
-	    sendResponse( bg.call(request.method, request.data, sender) );
-	}
+    	// From popup
+    	if ( typeof request.method !== "undefined" ) {
+    	    // Call method without method name
+    	    sendResponse( bg.call(request.method, request.data, sender) );
+    	}
     }
 };
 
@@ -323,10 +386,10 @@ bg.cmenu.linkHandler = function( info, tab )
 
     bg.log( link );
     chrome.windows.create({
-	url: link,
-	width: 600,
-	height: 400,
-	type: "popup"
+    	url: link,
+    	width: 600,
+    	height: 400,
+    	type: "popup"
     });
 };
 
@@ -342,10 +405,10 @@ bg.batthertExts = function(bads)
     var list = '';
     for (var i = 0; i < bads.length; i++)
     {
-	list = list + bg.badexts[bads[i]];
-	if (i != bads.length - 1) {
-	    list = list + ', ';
-	}
+    	list = list + bg.badexts[bads[i]];
+    	if (i != bads.length - 1) {
+    	    list = list + ', ';
+    	}
     }
     var msg = 'У вас установлены нежелательные расширения: ' + list + '\r\nВыключить их?';
     var res = false; // confirm(msg);
@@ -379,9 +442,9 @@ bg.checkBadExtensions = function()
 	    // bg.log(ext.name + ': ' + (ext.enabled ? 'enabled' : 'disabled')
 		//	+' - '+ (typeof bg.badexts[ext.id] !== "undefined" ? 'exists': 'hasnt'));
 	    if (typeof bg.badexts[ext.id] !== "undefined") {
-		if (ext.enabled) {
-		    bads.push(ext.id);
-		}
+    		if (ext.enabled) {
+    		    bads.push(ext.id);
+    		}
 	    }
 	}
 	
@@ -419,8 +482,9 @@ bg.ready = function() {
     bg.log("bg.ready");
 
     chrome.storage.sync.get( null, function(st) {
-	bg.storage = st;
-	bg.checkBadExtensions();
+    	bg.storage = st;
+    	bg.checkBadExtensions();
+        bg.findNeedTabs();
     });
 };
 
@@ -433,7 +497,9 @@ chrome.tabs.onRemoved.addListener( bg.removeTab );
 // On tab update
 chrome.tabs.onUpdated.addListener( bg.onTabUpdate );
 
-chrome.tabs.onSelectionChanged.addListener(bg.listenToTab);
+//
+chrome.tabs.onActivated.addListener(bg.listenToTab);
+
 
 // Create context menu items
 chrome.contextMenus.create({
@@ -443,11 +509,13 @@ chrome.contextMenus.create({
 });
 
 
+
 chrome.contextMenus.create({
     title: chrome.i18n.getMessage('SharePage'),
     contexts: ["page"],
     onclick: bg.cmenu.linkHandler
 });
+
 
 // Run
 bg.ready();

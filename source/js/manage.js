@@ -130,7 +130,7 @@ mng.ready = function() {
 	chrome.runtime.onMessage.addListener( mng.onMessage );
 	
 	// Add this to tab to listen
-	chrome.runtime.sendMessage({method: "addTab", target: "manage"}, function(data) {
+	chrome.runtime.sendMessage({method: "onAddTab", target: "manage"}, function(data) {
 	    mng.log(data);
 	    mng.updateAll(data.storage, {});
 	});

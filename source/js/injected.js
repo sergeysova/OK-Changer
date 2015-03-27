@@ -1035,7 +1035,7 @@ inj.ready = function() {
 	chrome.runtime.onMessage.addListener( inj.onMessage );
 	
 	// Добавляем вкладку для слежения
-	chrome.runtime.sendMessage({method: "addTab"}, function(data) {
+	chrome.runtime.sendMessage({method: "onAddTab", manage: "base"}, function(data) {
 		inj.log(data);
 		inj.updateAll(data.storage, {});
 	});
