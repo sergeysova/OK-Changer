@@ -238,6 +238,9 @@
 	"OldMessages":{
 		"message": "Revert old messages view",
 		"description": ""
+	},
+	"manageInstalled":{
+		"message": "Installed"
 	}
 }
 

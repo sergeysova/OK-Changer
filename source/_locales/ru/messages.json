@@ -238,6 +238,9 @@
 	"OldMessages":{
 		"message": "Вернуть старый вид сообщений",
 		"description": ""
+	},
+	"manageInstalled":{
+		"message": "Установлено"
 	}
 }
 

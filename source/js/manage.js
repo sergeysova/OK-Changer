@@ -123,6 +123,11 @@ mng.onMessage = function( request, sender, callback ) {
 mng.ready = function() {
 	mng.log("mng.ready()");
 	mng.log( mng.storage );
+
+	$('a[href="/install"]').removeClass('primary')
+						.removeClass('with-icon')
+						.addClass('transparent')
+						.text(chrome.i18n.getMessage("manageInstalled"));
 	
 	chrome.runtime.sendMessage({method: "checkBadExtensions", data: {} });
 	
