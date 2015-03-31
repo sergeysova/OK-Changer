@@ -588,8 +588,12 @@ inj.upd.mods = function(value) {
 }
 
 // Dummy for statistic
-inf.upd.stat_date = function( value ) {
+inj.upd.stat_date = function( value ) {
 	inj.storage.stat_date = value;
+}
+
+inj.upd.stat_useragent = function( value ) {
+  inj.storage.stat_useragent = value;
 }
 
 inj.upd.dec_id = function( value ) {
