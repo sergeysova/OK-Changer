@@ -56,7 +56,7 @@
 		}
 	],
 	"background": {
-		"scripts": ["js/background.js"]
+		"scripts": ["js/background.js", "js/jquery.js"]
 	},
 	"commands": {
 		"toggle-pageAction": {

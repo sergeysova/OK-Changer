@@ -587,6 +587,11 @@ inj.upd.mods = function(value) {
 	inj.storage.mods = value;
 }
 
+// Dummy for statistic
+inf.upd.stat_date = function( value ) {
+	inj.storage.stat_date = value;
+}
+
 inj.upd.dec_id = function( value ) {
 	// ...
 	

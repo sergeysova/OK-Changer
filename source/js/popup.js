@@ -28,9 +28,9 @@ popup = {
 popup.log = function( message, object ) {
     if ( !popup.debug ) return;
     if (typeof object === "undefined")
-	console.log.apply(console, ['OKChm:', message]);
+		console.log.apply(console, ['OKChm:', message]);
     else
-	console.log.apply(console, ['OKChm:', message, object]);
+		console.log.apply(console, ['OKChm:', message, object]);
 };
 
 
@@ -64,7 +64,6 @@ popup.saving = function(event) {
 	data: popup.storage
     };
     chrome.runtime.sendMessage({method: "sendDataToInjected", data: sdata }, function(response){});
-
     if ( event ) event.preventDefault();
 };
 
@@ -191,7 +190,7 @@ popup.decor.show = function( event ) {
 popup.decor.load = function() {
     // Event listeners for default buttons
     $("#dc_none, #dc_default").click(popup.decor.clicked);
-
+    
     // Call server
     $.ajax({
 	url: popup.website+"decor/",

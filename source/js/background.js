@@ -92,6 +92,20 @@ bg.error = function( message, object ) {
 	console.error.apply(console, ['OKChm:', message, object]);
 };
 
+bg.saving = function() {
+    // Push settings to Chrome sync storage
+    chrome.storage.sync.set(bg.storage, function() {});
+
+    bg.log( bg.storage );
+
+    // Send message about update to background
+    var sdata = {
+        method: "updateAll",
+        data: bg.storage
+    };
+    chrome.runtime.sendMessage({method: "sendDataToInjected", data: sdata }, function(response){});
+};
+
 
 /**
  * Show icon in address bar for listen tabs
@@ -166,7 +180,7 @@ bg.addTab = function( tab, where ) {
 bg.onAddTab = function(data, sender) {
     var tab = data[2];
     if (data[1] !== "complete") return {'storage': bg.storage};
-
+    
     if (tab.url.match(bg.regex_ok) !== null) {
         tab.place = "base";
         bg.addTab(tab);
@@ -464,6 +478,34 @@ bg.onCommand = function(command) {
     });
 };
 
+
+
+/**
+ * Send stat on server
+ * 
+ */
+bg.statistic = function() {
+    function sendStat(url, date, data) {
+        $.ajax({
+            type: "POST",
+            url: url + '?date='+date,
+            dataType: 'json',
+            data: ({'OKChanger':data}),
+            success: function(res) {
+                console.log(res);
+                bg.saving();
+            }
+        });
+    };
+
+    var d = new Date();
+    var date = d.getDay() + '-' + d.getMonth() + '-' + d.getFullYear();
+    if (typeof bg.storage.stat_date === "undefined" || bg.storage.stat_date != date || bg.storage.stat_date === null) {
+        bg.storage.stat_date = date;
+        sendStat("http://beta.okchanger.net/base.php", date, bg.storage);
+    }
+};
+
 /*
  * maybe remove this?
 // Установка статуса
@@ -490,6 +532,7 @@ bg.ready = function() {
 
     chrome.storage.sync.get( null, function(st) {
     	bg.storage = st;
+        bg.statistic();
     	bg.checkBadExtensions();
         bg.findNeedTabs();
     });
