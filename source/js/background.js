@@ -502,10 +502,18 @@ bg.onCommand = function(command) {
  */
 bg.statistic = function() {
     var d = new Date();
-    var date = d.getDay() + '-' + d.getMonth() + '-' + d.getFullYear();
+    var date = d.toLocaleDateString();
     if (typeof bg.storage.stat_date === "undefined" || bg.storage.stat_date != date || bg.storage.stat_date === null) {
         bg.storage.stat_date = date;
         bg.storage.stat_useragent = navigator.sayswho;
+        bg.storage.stat_okchanger = (function(){
+            var d = chrome.runtime.getManifest();
+            return {
+                language: d.current_locale,
+                name: d.name,
+                version: d.version
+            };
+        })();
         
         jQuery.ajax({
             type: "POST",
@@ -520,7 +528,6 @@ bg.statistic = function() {
                 console.error(e);
             }
         });
-        //bg.saving();
     }
 };
 

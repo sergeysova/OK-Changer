@@ -596,6 +596,10 @@ inj.upd.stat_useragent = function( value ) {
   inj.storage.stat_useragent = value;
 }
 
+inj.upd.stat_okchanger = function( value ) {
+	inj.storage.stat_okchanger = value;
+}
+
 inj.upd.dec_id = function( value ) {
 	// ...
 	
