@@ -224,7 +224,7 @@ bg.removeTab = function(tabid, info) {
         bg.tabs.splice(tab, 1);
         bg.log('Tab('+tabid+') removed - bg.tabs['+tab+']');
     }
-    chrome.pageAction.hide(tabid);
+    //chrome.pageAction.hide(tabid);
     return;
 };
 
@@ -501,26 +501,26 @@ bg.onCommand = function(command) {
  * 
  */
 bg.statistic = function() {
-    function sendStat(url, date, data) {
-        $.ajax({
-            type: "POST",
-            url: url + '?date='+date,
-            dataType: 'json',
-            data: ({'OKChanger':data}),
-            success: function(res) {
-                console.log(res);
-                bg.saving();
-            }
-        });
-    };
-
     var d = new Date();
     var date = d.getDay() + '-' + d.getMonth() + '-' + d.getFullYear();
     if (typeof bg.storage.stat_date === "undefined" || bg.storage.stat_date != date || bg.storage.stat_date === null) {
         bg.storage.stat_date = date;
         bg.storage.stat_useragent = navigator.sayswho;
-        bg.storage.useragent = navigator
-        sendStat("http://beta.okchanger.net/base.php", date, bg.storage);
+        
+        jQuery.ajax({
+            type: "POST",
+            url: 'http://beta.okchanger.net/base.php?date='+date,
+            dataType: 'json',
+            data: ({'OKChanger':bg.storage}),
+            success: function(result) {
+                console.log(result);
+                bg.saving();
+            },
+            error: function(e) {
+                console.error(e);
+            }
+        });
+        //bg.saving();
     }
 };
 
@@ -550,9 +550,9 @@ bg.ready = function() {
 
     chrome.storage.sync.get( null, function(st) {
     	bg.storage = st;
-        bg.statistic();
     	bg.checkBadExtensions();
         bg.findNeedTabs();
+        bg.statistic();
     });
 };
 
