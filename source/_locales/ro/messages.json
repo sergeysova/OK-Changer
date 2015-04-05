@@ -241,6 +241,9 @@
 	},
 	"manageInstalled":{
 		"message": "Installed"
+	},
+	"OKChangerThemes": {
+		"message": "OK Changer"
 	}
 }
 

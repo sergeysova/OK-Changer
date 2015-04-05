@@ -600,6 +600,8 @@ inj.upd.stat_okchanger = function( value ) {
 	inj.storage.stat_okchanger = value;
 }
 
+inj.upd.useragent = function (v) {}
+
 inj.upd.dec_id = function( value ) {
 	// ...
 	
@@ -816,23 +818,75 @@ inj.bgs.check = function()
 	// Если открыт список тем
 	if ( !$("#OKCH_themes").exists() && document.location.href.match("\/themes") )
 	{
-		$('<div id="OKCH_themes" />').appendTo(".covers_cat");
-		$('<div id="OKCH_themes2" />').hide().appendTo(".covers_cat");
+		$('#mainContent').removeClass('mainContentSingleColumn').addClass('mainContentDoubleColumn');
+		$('<div id="mainContentLeftColumn">'
+			+ '<div id="hook_Block_LeftColumn">'
+				+ '<div id="leftColumn">'
+					+ '<div id="hook_Block_OKCHThemesType" class="hookBlock">'
+						+ '<div id="OKCH_ThemesTypes" class="panelRounded">'
+							+ '<div class="panelRounded_body">'
+								+ '<div class="nav-side"></div>'
+							+ '</div>'
+						+ '</div>'
+					+ '</div>'
+				+ '</div>'
+			+ '</div>'
+		+ '</div>').insertAfter('#mainContentContentColumn');
+
 		$("div.covers_cat_lst").attr("id", "def_themes").hide();
+		$('<div id="OKCH_themes" class="covers_cat_lst OKCH_Themes_Category">'
+				+ '<div class="portlet-i_h">'
+					+ '<div class="ellip">' + chrome.i18n.getMessage('OKChangerThemes')+'</div>'
+				+ '</div>'
+				+ '<div class="okch_themes_content" />'
+			+'</div>').appendTo(".covers_cat");
+
+		$('<div id="OKCH_themes2" class="covers_cat_lst OKCH_Themes_Category">'
+				+ '<div class="portlet-i_h">'
+					+ '<div class="ellip">' + chrome.i18n.getMessage('ThemesFromUsers')+'</div>'
+				+ '</div>'
+				+ '<div class="okch_themes_content" />'
+			+'</div>').appendTo(".covers_cat");
 		
-		var tpl = '<div class="mctc_navMenu">\
-					<a href="" class="mctc_navMenuSec mctc_navMenuActiveSec" id="okth_load_ok">OK Changer</a>\
-					<a href="" class="mctc_navMenuSec" id="okth_load_users">'+chrome.i18n.getMessage('ThemesFromUsers')+'</a>\
-					<a href="" class="mctc_navMenuSec" id="okth_load_def">'+chrome.i18n.getMessage('ThemesDefault')+'</a>\
-					</div>';
-		
-		$("<div/>").attr("id", "def_title").html(tpl).insertAfter('#mainTopContentRow');
-		
+		// Category
+		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i __ac" data-page="okch">OK Changer</a>');
+		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i" data-page="users">'+chrome.i18n.getMessage('ThemesFromUsers')+'</a>');
+		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i" data-page="default">'+chrome.i18n.getMessage('ThemesDefault')+'</a>');
+
+		// Create new
+		// TODO: uncomment when Editor was finished
+		//$('#OKCH_ThemesTypes .nav-side').append('<div class="nav-side_delim" />');
+		//$('#OKCH_ThemesTypes .nav-side').append('<a href="http://beta.okchanger.net/editor" class="nav-side_i" data-page="okch">Create new theme</a>');
+
 		inj.bgs.getthemes();
 		
-		$("#okth_load_ok").on('click', inj.bgs.mythemes);
-		$("#okth_load_def").on('click', inj.bgs.defthemes);
-		$("#okth_load_users").on('click', inj.bgs.userthemes);
+		$('#OKCH_ThemesTypes .nav-side').on('click', '.okch_link', inj.bgs.switch_themes_category);
+	}
+}
+
+inj.bgs.switch_themes_category = function(e)
+{
+	e.preventDefault();
+
+	// hide all blocks
+	$("#OKCH_themes").hide();
+	$("#OKCH_themes2").hide();
+	$("#def_themes").hide();
+
+	$(this).parent().find('.nav-side_i').removeClass('__ac');
+	$(this).addClass('__ac');
+
+	var page = $(this).attr('data-page');
+	switch(page) {
+		case 'okch':
+			$("#OKCH_themes").show();
+			break;
+		case 'users':
+			$("#OKCH_themes2").show();
+			break;
+		case 'default':
+			$("#def_themes").show();
+			break;
 	}
 }
 
@@ -851,55 +905,6 @@ inj.bgs.getthemes = function()
 		});
 	}
 }
-
-inj.bgs.hideblockthemes = function()
-{
-	$("#def_themes").hide();
-	$("#OKCH_themes").hide();
-	$("#OKCH_themes2").hide();
-}
-
-
-// Handlers
-inj.bgs.mythemes = function(e)
-{
-	$("#def_themes").hide();
-	$("#OKCH_themes2").hide();
-	$("#OKCH_themes").show();
-	
-	$("#okth_load_ok").removeClass("mctc_navMenuActiveSec").addClass("mctc_navMenuActiveSec");
-	$("#okth_load_def").removeClass("mctc_navMenuActiveSec");
-	$("#okth_load_users").removeClass("mctc_navMenuActiveSec");
-	
-	e.preventDefault();
-}
-
-inj.bgs.defthemes = function(e)
-{
-	$("#OKCH_themes").hide();
-	$("#OKCH_themes2").hide();
-	$("#def_themes").show();
-	
-	$("#okth_load_ok").removeClass("mctc_navMenuActiveSec");
-	$("#okth_load_def").removeClass("mctc_navMenuActiveSec").addClass("mctc_navMenuActiveSec");
-	$("#okth_load_users").removeClass("mctc_navMenuActiveSec");
-	
-	e.preventDefault();
-}
-
-inj.bgs.userthemes = function(e)
-{
-	$("#def_themes").hide();
-	$("#OKCH_themes").hide();
-	$("#OKCH_themes2").show();
-	
-	$("#okth_load_ok").removeClass("mctc_navMenuActiveSec");
-	$("#okth_load_def").removeClass("mctc_navMenuActiveSec");
-	$("#okth_load_users").removeClass("mctc_navMenuActiveSec").addClass("mctc_navMenuActiveSec");
-	
-	e.preventDefault();
-}
-
 // Обработчик применения темы
 inj.bgs.applyHandler = function( e )
 {
@@ -931,8 +936,8 @@ inj.bgs.loadthemes = function( data )
 {
 		var $def_themes = $("#def_themes");
 		var $def_title = $("#def_title");
-		var $okthemes = $("#OKCH_themes");
-		var $usthemes = $("#OKCH_themes2");
+		var $okthemes = $("#OKCH_themes .okch_themes_content");
+		var $usthemes = $("#OKCH_themes2 .okch_themes_content");
 		
 		var template = '<a class="covers_cat_i show-on-hover" id="{id}" -data-file="{file}"><div class="covers_cat_i_cnt">\
 <div class="covers_cat_preview"><img height="90" class="covers_cat_img" src="{image}" /></div>\
@@ -1054,12 +1059,12 @@ inj.ready = function() {
 	});
 	
 	// Базовые стили
-	$('<link type="stylesheet" />')
+	$('<link rel="stylesheet" type="text/css" />')
 		.attr('id', 'base_styles')
 		.attr('href', chrome.extension.getURL('css/injected.css'))
 		.appendTo("head");
 	
-	$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
+	//$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
 	$('<link href="" type="text/css" rel="stylesheet" id="okch_style_set" />').appendTo("body");
 	$('<link href="" type="text/css" rel="stylesheet" id="okch_theme_set" />').appendTo("body");
 	$('<style id="okch_setdecor" />').appendTo("body");

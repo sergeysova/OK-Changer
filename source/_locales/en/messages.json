@@ -241,6 +241,12 @@
 	},
 	"manageInstalled":{
 		"message": "Installed"
+	},
+	"keyOpen": {
+		"message": "Open/hide popup window"
+	},
+	"OKChangerThemes": {
+		"message": "OK Changer Themes"
 	}
 }
 

@@ -19,3 +19,50 @@
 #fake-toolbar, .fake-toolbar-ok, .fake-toolbar-mail {
 	display:none;
 }
+
+.mainContent_w {
+	z-index: 1000;
+}
+
+#mainContent {
+	&.grid .covers_cat .covers_cat_i,
+	&.grid .covers_cat .covers_cat_i_placeholder {
+		margin-left: 20px;
+	}
+
+	&.grid.wide-profile.covers-front .covers_cat_lst.OKCH_Themes_Category {
+		padding-top: 0;
+	}
+}
+
+#mainContentLeftColumn {
+	padding: 0;
+	margin-top: 0;
+	background: 0 0;
+	width: 240px;
+
+	#hook_Block_LeftColumn {
+		#leftColumn {
+			#hook_Block_ThemesTypes {
+				#OKCH_ThemesTypes.panelRounded {
+					.panelRounded_body {
+						.nav-side {
+							// contents links
+
+							a.nav-side_i {
+								// link for every
+								&.__ac {
+									// selected
+								}
+							}
+
+							div.nav-side_delim {
+								// delimiter
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
