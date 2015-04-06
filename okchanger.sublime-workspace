@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"hide",
+				"hideblockthemes()	injected.js"
+			],
+			[
+				"okch_them",
+				"OKCH_themes"
+			],
+			[
 				"styl",
 				"stylesheet"
 			]
@@ -12,42 +20,29 @@
 	"buffers":
 	[
 		{
-			"file": "a/manifest.json",
-			"settings":
-			{
-				"buffer_size": 1499,
-				"line_ending": "Windows"
-			}
-		},
-		{
 			"file": "a/js/injected.js",
 			"settings":
 			{
-				"buffer_size": 27665,
+				"buffer_size": 28254,
 				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "a/js/popup.js",
-			"settings":
-			{
-				"buffer_size": 12709,
-				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "a/css/injected.less",
 			"settings":
 			{
-				"buffer_size": 364,
+				"buffer_size": 1086,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "a/popup.html",
+			"contents": "{\n	\"manifest_version\" : 2,\n	\"name\" : \"OK Changer{m}\",\n	\"short_name\": \"OKCh\",\n	\"version\" : \"0.0.0.0\",\n	\"description\" : \"__MSG_extDescription__\",\n	\"homepage_url\": \"http://okchanger.net/\",\n	\"content_security_policy\": \"script-src 'self'; object-src 'self'\",\n	\"default_locale\": \"en\",\n	\"page_action\": {\n		\"default_icon\": {\n			\"19\": \"img/ico128.png\"\n		},\n		\"default_title\": \"OK Changer{m}\",\n		\"default_popup\": \"popup.html\"\n	},\n	\"permissions\" : [\n		\"*://okchanger.net/*\",\n		\"*://okchanger.local/*\",\n		\"management\",\n		\"notifications\",\n		\"contextMenus\",\n		\"commands\",\n		\"storage\",\n		\"tabs\"\n	],\n	\"externally_connectable\": {\n		\"matches\": [\"*://okchanger.net/*\", \"*://okchanger.local/*\"]\n	},\n	\"web_accessible_resources\": [\n		\"img/ico128.png\",\n		\"js/jquery-1.10.2.min.map\",\n		\"css/injected.css\"\n	],\n	\"icons\": {\n		\"128\": \"img/ico128.png\",\n		\"48\": \"img/ico48.png\",\n		\"16\": \"img/ico16.png\"\n	},\n	\"content_scripts\": [\n		{\n			\"matches\": [\n				\"*://odnoklassniki.ru/*\",\n				\"*://www.odnoklassniki.ru/*\",\n				\"*://ok.ru/*\",\n				\"*://www.ok.ru/*\",\n				\"*:/\"\n			],\n			\"js\": [\"js/jquery.js\", \"js/injected.js\"],\n			\"run_at\":\"document_start\"\n		},\n		{\n		    \"matches\": [\n				\"*://okchanger.net/*\", \"*://beta.okchanger.net/*\", \"*://okchanger.local/*\"\n		    ],\n		    \"js\": [\"js/jquery.js\", \"js/manage.js\"],\n		    \"run_at\": \"document_start\"\n		}\n	],\n	\"background\": {\n		\"scripts\": [\"js/background.js\", \"js/jquery.js\"]\n	},\n	\"commands\": {\n		\"toggle-pageAction\": {\n			\"suggested_key\": {\n				\"default\": \"Alt+Shift+O\"\n			},\n			\"description\": \"__MSG_keyOpen__\"\n		}\n	}\n}\n\n",
+			"file": "a/manifest.json",
+			"file_size": 1592,
+			"file_write_time": 130727360599470763,
 			"settings":
 			{
-				"buffer_size": 13457,
+				"buffer_size": 1532,
 				"line_ending": "Windows"
 			}
 		}
@@ -89,12 +84,21 @@
 	"expanded_folders":
 	[
 		"/home/lestad/projects/okchanger/a",
+		"/home/lestad/projects/okchanger/a/_locales",
+		"/home/lestad/projects/okchanger/a/_locales/en",
+		"/home/lestad/projects/okchanger/a/_locales/ru",
 		"/home/lestad/projects/okchanger/a/css",
 		"/home/lestad/projects/okchanger/a/img",
 		"/home/lestad/projects/okchanger/a/js"
 	],
 	"file_history":
 	[
+		"/home/lestad/projects/okchanger/a/_locales/en/messages.json",
+		"/home/lestad/projects/okchanger/a/_locales/ru/messages.json",
+		"/home/lestad/projects/okchanger/a/_locales/ro/messages.json",
+		"/home/lestad/projects/okchanger/a/popup.html",
+		"/home/lestad/projects/okchanger/a/manifest.json",
+		"/home/lestad/projects/okchanger/a/js/popup.js",
 		"/home/lestad/projects/okchanger/a/css/injected.css",
 		"/home/lestad/.config/sublime-text-3/Packages/User/LESS.sublime-settings",
 		"/home/lestad/.config/sublime-text-3/Packages/LESS/LESS.sublime-settings",
@@ -109,7 +113,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -123,6 +127,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ad_css",
+			"Themes",
+			".them"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -145,48 +152,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "a/manifest.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1499,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
 					"file": "a/js/injected.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 27665,
+						"buffer_size": 28254,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								21855,
+								21855
 							]
 						],
 						"settings":
@@ -195,95 +173,67 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 17004.0,
+						"translation.y": 13906.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "a/js/popup.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12709,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
+					"buffer": 1,
 					"file": "a/css/injected.less",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 364,
+						"buffer_size": 1086,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								168,
-								168
+								558,
+								558
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/LESS/LESS.tmLanguage"
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": -0.0,
+						"translation.y": 204.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "a/popup.html",
+					"buffer": 2,
+					"file": "a/manifest.json",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 13457,
+						"buffer_size": 1532,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								49,
-								49
+								614,
+								614
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 238.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]

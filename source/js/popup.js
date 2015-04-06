@@ -42,9 +42,9 @@ popup.log = function( message, object ) {
 popup.error = function( message, object ) {
     if ( !popup.debug ) return;
     if (typeof object === "undefined")
-	console.error.apply(console, ['OKChm:', message]);
+		console.error.apply(console, ['OKChm:', message]);
     else
-	console.error.apply(console, ['OKChm:', message, object]);
+		console.error.apply(console, ['OKChm:', message, object]);
 };
 
 /**
@@ -60,8 +60,8 @@ popup.saving = function(event) {
 
     // Send message about update to background
     var sdata = {
-	method: "updateAll",
-	data: popup.storage
+		method: "updateAll",
+		data: popup.storage
     };
     chrome.runtime.sendMessage({method: "sendDataToInjected", data: sdata }, function(response){});
     if ( event ) event.preventDefault();
@@ -104,40 +104,40 @@ popup.setts.show = function(event) {
  */
 popup.setts.load = function() {
     for ( var it in popup.storage ) {
-	// value is setting
-	if ( popup.storage[it] == 1 && it.substr(0,2) == "s_" ) {
-	    var id = it+"";
-	    // Check item if "on"
-	    $("#" + id).addClass("pb_active");
-	}
+		// value is setting
+		if ( popup.storage[it] == 1 && it.substr(0,2) == "s_" ) {
+		    var id = it+"";
+		    // Check item if "on"
+		    $("#" + id).addClass("pb_active");
+		}
     }
 
     // Settings accordion categories
     $("#hidingblocks_accord").accordion({
-	collapsible: true,
-	d_active: false,
-	heightStyle: "content"
+		collapsible: true,
+		d_active: false,
+		heightStyle: "content"
     });
 
     // Page transparency slider
     $("#l_pagetransp").slider({
-	range: "min",
-	min: 0,
-	max: 100,
-	value: popup.storage['l_pagetransp'],
-	slide: function( event, ui )
-	{
-	    popup.storage['l_pagetransp'] = ui.value;
-	    popup.saving();
-	}
+		range: "min",
+		min: 0,
+		max: 100,
+		value: popup.storage['l_pagetransp'],
+		slide: function( event, ui )
+		{
+		    popup.storage['l_pagetransp'] = ui.value;
+		    popup.saving();
+		}
     });
 
     // Change page color
     $("#pagecolor_selector").on("click", ".colorb", function(){
-	var bgc = $(this).css('background-color');
-	bgc = bgc.replace('rgb', '');
-	popup.storage['l_pagecolor'] = bgc;
-	popup.saving();
+		var bgc = $(this).css('background-color');
+		bgc = bgc.replace('rgb', '');
+		popup.storage['l_pagecolor'] = bgc;
+		popup.saving();
     });
 };
 
@@ -193,45 +193,45 @@ popup.decor.load = function() {
     
     // Call server
     $.ajax({
-	url: popup.website+"decor/",
-	dataType: "json",
-	success: function(data) {
-	    // Check to errors
-	    if ( data.error <= 0 ) {
-		// Has decor
-		if ( data.decor.length > 0 ) {
-		    popup.log("decor_ajax 1");
-		    // Each decor item
-		    for ( var i = 0; i < data.decor.length; i++ ) {
-			// Decor object
-			var dec = data.decor[i];
+		url: popup.website+"decor/",
+		dataType: "json",
+		success: function(data) {
+		    // Check to errors
+		    if ( data.error <= 0 ) {
+				// Has decor
+				if ( data.decor.length > 0 ) {
+				    popup.log("decor_ajax 1");
+				    // Each decor item
+				    for ( var i = 0; i < data.decor.length; i++ ) {
+						// Decor object
+						var dec = data.decor[i];
 
-			// Div item for select decor item
-			$('<div id="dec_'+ dec.id +'" class="decbutton" />')
-			    // Button background
-			    .attr("style", (popup.storage.th_url ? "background: url("+popup.storage.th_url+"');" : "none") )
-			    .attr("data-url", dec.url)
-			    .attr("data-id", dec.id)
-			    .attr("data-skip", "none")
-			    // Set button background as decor
-			    .html('<div class="decbg" style="background-image: url(\''+ dec.url +'\');">'+ dec.name +'</div>')
-			    .appendTo("#decor_block");
+						// Div item for select decor item
+						$('<div id="dec_'+ dec.id +'" class="decbutton" />')
+						    // Button background
+						    .attr("style", (popup.storage.th_url ? "background: url("+popup.storage.th_url+"');" : "none") )
+						    .attr("data-url", dec.url)
+						    .attr("data-id", dec.id)
+						    .attr("data-skip", "none")
+						    // Set button background as decor
+						    .html('<div class="decbg" style="background-image: url(\''+ dec.url +'\');">'+ dec.name +'</div>')
+						    .appendTo("#decor_block");
+				    }
+				    // Event for all decor buttons
+				    $("#decor_block").on('click', '.decbutton', popup.decor.clicked);
+				} else {
+				    // If decor not found
+				    $("#decor_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
+				}
+		    } else {
+				// If has error
+				$("#decor_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
 		    }
-		    // Event for all decor buttons
-		    $("#decor_block").on('click', '.decbutton', popup.decor.clicked);
-		} else {
-		    // If decor not found
-		    $("#decor_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
+		},
+		error: function() {
+		    // AJAX request is down
+		    $("#decor_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
 		}
-	    } else {
-		// If has error
-		$("#decor_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
-	    }
-	},
-	error: function() {
-	    // AJAX request is down
-	    $("#decor_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
-	}
     });
 };
 
@@ -275,41 +275,41 @@ popup.styles.load = function() {
     $("#st_none, #st_default").off('click').click(popup.styles.clicked);
 
     $.ajax({
-	url: popup.website+"styles/",
-	dataType: "json",
-	success: function(data) {
-	    // Check for errors from server
-	    if ( data.error <= 0 ) {
-		// Has styles
-		if ( data.styles.length > 0 ) {
-		    // Each style item
-		    for ( var i = 0; i < data.styles.length; i++ ) {
-			// Style object
-			var th = data.styles[i];
-			// Create style select button
-			$('<div id="st_'+ th.id +'" class="stylebutton" />')
-			    .attr("data-url", th.url)
-			    .attr("data-id", th.id)
-			    .attr("data-skip", "none")
-			    .attr("style", "background-image: url('"+ th.preview +"');")
-			    .html('<div class="stylebg">'+ th.title + "</div>")
-			    .appendTo("#styles_block");
+		url: popup.website+"styles/",
+		dataType: "json",
+		success: function(data) {
+		    // Check for errors from server
+		    if ( data.error <= 0 ) {
+				// Has styles
+				if ( data.styles.length > 0 ) {
+				    // Each style item
+				    for ( var i = 0; i < data.styles.length; i++ ) {
+						// Style object
+						var th = data.styles[i];
+						// Create style select button
+						$('<div id="st_'+ th.id +'" class="stylebutton" />')
+						    .attr("data-url", th.url)
+						    .attr("data-id", th.id)
+						    .attr("data-skip", "none")
+						    .attr("style", "background-image: url('"+ th.preview +"');")
+						    .html('<div class="stylebg">'+ th.title + "</div>")
+						    .appendTo("#styles_block");
+				    }
+				    // Event on style item clicked
+				    $("#styles_block").on('click', '.stylebutton', popup.styles.clicked);
+				} else {
+				    // No styles
+				    $("#styles_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
+				}
+		    } else {
+				// Has errors
+				$("#styles_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
 		    }
-		    // Event on style item clicked
-		    $("#styles_block").on('click', '.stylebutton', popup.styles.clicked);
-		} else {
-		    // No styles
-		    $("#styles_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
+		},
+		error: function() {
+		    // AJAX-request is down
+		    $("#styles_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
 		}
-	    } else {
-		// Has errors
-		$("#styles_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
-	    }
-	},
-	error: function() {
-	    // AJAX-request is down
-	    $("#styles_block").html("<center>"+chrome.i18n.getMessage('CheckInternet')+"!</center>");
-	}
     });
 };
 
@@ -365,8 +365,8 @@ popup.fonts.clicked = function( event ) {
     var $t = $(this);
 
     popup.storage.ft = {
-	'name': $t.attr("data-font"),
-	'url': $t.attr('data-google')
+		'name': $t.attr("data-font"),
+		'url': $t.attr('data-google')
     };
 
     popup.saving();
@@ -396,30 +396,30 @@ popup.mods.load = function() {
 	dataType: "json",
 	success: function(data) {
 	    if ( data.error <= 0 ) {
-		if ( data.mods.length > 0 ) {
-		    var stMods = {};
-		    if ( typeof( popup.storage.mods ) !== "undefined" ) {
-			stMods = popup.storage.mods;
-		    }
+			if ( data.mods.length > 0 ) {
+			    var stMods = {};
+			    if ( typeof( popup.storage.mods ) !== "undefined" ) {
+					stMods = popup.storage.mods;
+			    }
 
-		    for ( var i = 0; i < data.mods.length; i++ ) {
-			var mod = data.mods[i];
+			    for ( var i = 0; i < data.mods.length; i++ ) {
+					var mod = data.mods[i];
 
-			$('<div id="mod_'+mod.id+'" class="sqbutton" />')
-			    .attr("data-css", mod.manifest.load.css)
-			    .attr("data-id", mod.id)
-			    .addClass(typeof(stMods[mod.manifest.type])=="undefined" ? '' : (stMods[mod.manifest.type]['id']==mod.id ? 'selected' : '') )
-			    .attr("data-type", mod.manifest.type)
-			    .attr("title", 'by ' + mod.manifest.author)
-			    .html('<div class="insqimg"><img src="'+mod.manifest.image+'" /></div><div class="insqbtn">'+ mod.manifest.name +'</div>')
-			    .appendTo("#mods_block");
-		    }
-		    $("#mods_block").on('click', '.sqbutton', popup.mods.clicked);
-		} else {
-		    $("#mods_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
-		}
+					$('<div id="mod_'+mod.id+'" class="sqbutton" />')
+					    .attr("data-css", mod.manifest.load.css)
+					    .attr("data-id", mod.id)
+					    .addClass(typeof(stMods[mod.manifest.type])=="undefined" ? '' : (stMods[mod.manifest.type]['id']==mod.id ? 'selected' : '') )
+					    .attr("data-type", mod.manifest.type)
+					    .attr("title", 'by ' + mod.manifest.author)
+					    .html('<div class="insqimg"><img src="'+mod.manifest.image+'" /></div><div class="insqbtn">'+ mod.manifest.name +'</div>')
+					    .appendTo("#mods_block");
+			    }
+			    $("#mods_block").on('click', '.sqbutton', popup.mods.clicked);
+			} else {
+			    $("#mods_block").append("<center>"+chrome.i18n.getMessage('ServerIsDown')+"!<br/></center>");
+			}
 	    } else {
-		$("#mods_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
+			$("#mods_block").append("<center>"+chrome.i18n.getMessage('ServerIsWork')+"!</center>");
 	    }
 	},
 	error: function() {
@@ -444,16 +444,16 @@ popup.mods.clicked = function( event ) {
     $('#mods_block div[data-type="'+$m.attr('data-type')+'"]').removeClass('selected');
 
     if ( typeof(popup.storage.mods[$m.attr('data-type')]) !== "undefined"
-	&& popup.storage.mods[$m.attr('data-type')]['id'] == $m.attr('data-id') ) {
+		&& popup.storage.mods[$m.attr('data-type')]['id'] == $m.attr('data-id') ) {
 	    popup.storage.mods[$m.attr('data-type')] = "remove";
     } else {
-	popup.storage.mods[$m.attr('data-type')] = {
-	    'id': $m.attr('data-id'),
-	    'js': $m.attr('data-js'),
-	    'css': $m.attr('data-css'),
-	    'type': $m.attr('data-type')
-	};
-	$m.addClass('selected');
+		popup.storage.mods[$m.attr('data-type')] = {
+		    'id': $m.attr('data-id'),
+		    'js': $m.attr('data-js'),
+		    'css': $m.attr('data-css'),
+		    'type': $m.attr('data-type')
+		};
+		$m.addClass('selected');
     }
 
     popup.saving();
@@ -463,6 +463,21 @@ popup.mods.clicked = function( event ) {
 
 // =======================================================================
 
+/**
+ * Triggers on click on toolbar button
+ *
+ * @param {Event} e
+ */
+popup.button_click = function(e) {
+	var page = $(this).attr('href');
+	if (typeof popup[page]) {
+		popup[page].show(e);
+	}
+	else {
+		popup.error("The page '"+page+"' is not exists.");
+	}
+}
+
 
 /**
  * Load settings from chrome storage
@@ -471,22 +486,22 @@ popup.mods.clicked = function( event ) {
  */
 popup.ready = function() {
     $("[data-lang]").each(function(id){
-	$(this).html(chrome.i18n.getMessage($(this).attr('data-lang')));
+		$(this).html(chrome.i18n.getMessage($(this).attr('data-lang')));
     });
 
     // Read settings from syncronized storage
     chrome.storage.sync.get(null, function(st) {
-	// Clone settings object
-	popup.storage = clones(st);
+		// Clone settings object
+		popup.storage = clones(st);
 
-	popup.log(popup.storage);
+		popup.log(popup.storage);
 
-	// Load data to all blocks
-	popup.setts.load();
-	popup.decor.load();
-	popup.styles.load();
-	popup.fonts.load();
-	popup.mods.load();
+		// Load data to all blocks
+		popup.setts.load();
+		popup.decor.load();
+		popup.styles.load();
+		popup.fonts.load();
+		popup.mods.load();
     });
 
     // Default settings tab
@@ -494,12 +509,8 @@ popup.ready = function() {
 
     // Listeners for buttons
     $(".progbutton").click(popup.setts.clicked);
-    $("#save_settings").click(popup.saving);
-    $("#nav_setts").click(popup.setts.show);
-    $("#nav_decor").click(popup.decor.show);
-    $("#nav_styles").click(popup.styles.show);
-    $("#nav_fonts").click(popup.fonts.show);
-    $("#nav_mods").click(popup.mods.show);
+
+    $('.toolbar_button').click(popup.button_click);
 };
 
 // Run popup.ready after load DOM
