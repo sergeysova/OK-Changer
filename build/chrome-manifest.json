@@ -15,8 +15,6 @@
 		"default_popup": "popup.html"
 	},
 	"permissions" : [
-		"*://okchanger.net/*",
-		"*://okchanger.local/*",
 		"management",
 		"notifications",
 		"contextMenus",
@@ -25,7 +23,7 @@
 		"tabs"
 	],
 	"externally_connectable": {
-		"matches": ["*://okchanger.net/*", "*://okchanger.local/*"]
+		"matches": ["*://okchanger.net/*", "*://okchanger.local/*", "*://*.okchanger.net/*", "*://*.okchanger.local/*"]
 	},
 	"web_accessible_resources": [
 		"img/ico128.png",
@@ -43,7 +41,8 @@
 				"*://odnoklassniki.ru/*",
 				"*://www.odnoklassniki.ru/*",
 				"*://ok.ru/*",
-				"*://www.ok.ru/*"
+				"*://www.ok.ru/*",
+				"*://*.mycdn.me/*"
 			],
 			"js": ["js/jquery.js", "js/injected.js"],
 			"run_at":"document_start"
