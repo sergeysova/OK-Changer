@@ -21,7 +21,9 @@ var inj = {
 	debug: true,
 	updateRate: 500,
 	updateID: 0,
-	jSessionID: ""
+	jSessionID: "",
+	_userdata: null,
+	_guestdata: null
 };
 
 inj.loadCookie = function()
@@ -1025,21 +1027,135 @@ inj.update = function()
 };
 
 // Обновление настроек
-inj.updateAll = function( data, sender ) {
+inj.updateAll = function( data, sender )
+{
 	inj.log("inj.updateAll()", data);
 	//inj.log( data );
 	
-	for ( var i in data ) {
-		if ( data[i] !== inj.storage[i] ) {
-			if ( typeof inj.upd[i] === "function" ) {
+	for ( var i in data )
+	{
+		if ( data[i] !== inj.storage[i] )
+		{
+			if ( typeof inj.upd[i] === "function" )
+			{
 				inj.log( i + ": " + data[i] );
 				inj.upd[i]( data[i] );
-			} else {
+			}
+			else
+			{
 				inj.error( "Function \"inj.upd."+ i + "\" doesn't exists!" );
 			}
 		}
 	}
 };
+
+/**
+ * Load current user data from page
+ *
+ * {
+ *   id: string,
+ *   name: string,
+ *   surname: string,
+ *   link: null or string,
+ *   lang: string (ru, en),
+ *   male: boolean (false = female)
+ * }
+ * 
+ * 
+ * @return {object}  id, name, surname, link, lang, male
+ */
+inj.getUser = function(debug)
+{
+	if (inj._userdata != null)
+	{
+		return inj._userdata;
+	}
+
+	var _userconfig = document.getElementById('hook_Cfg_CurrentUser').innerHTML;
+	if (_userconfig)
+	{
+		_userconfig = _userconfig.replace('<!--', '').replace('-->', '');
+
+		var userconfig = JSON.parse(_userconfig);
+		if (debug == true) return userconfig;
+		return inj._userdata = {
+			id: Number(userconfig.oid),
+			name: userconfig.firstName,
+			surname: userconfig.lastName,
+			link: userconfig.custLink,
+			lang: userconfig.lang,
+			male: userconfig.male
+		}
+	}
+	return null;
+};
+
+
+
+/**
+ * Get information about guest
+ *
+ * {
+ *   id: string,
+ *   name: string,
+ *   surname: string,
+ *   link: null or string,
+ *   lang: string (ru, en),
+ *   male: boolean (false = female)
+ * }
+ * 
+ * @param  {boolean} reload If reload set true, information will be reloaded from page
+ * @return {object}  id, name, surname, link, lang, male
+ */
+inj.getGuest = function(reload, debug)
+{
+	if (inj._guestdata != null && reload != true)
+	{
+		return inj._guestdata;
+	}
+
+	var hookBlock = $('[id^="hook_ShortcutMenu_"]')[0];
+	if (hookBlock)
+	{
+		var _data = JSON.parse(hookBlock.innerHTML.replace('<!--', '').replace('-->', ''));
+		if (debug == true) return _data;
+		var fio = _data.fio.split(' ');
+		var link = _data.photoLink.match(/^\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/);
+		if (link) link = link[1];
+		else link = null;
+
+		return inj._guestdata = {
+			id: Number(_data.userId),
+			name: fio[0],
+			surname: fio[1],
+			link: link, // BAD CODE HERE!!!
+			male: _data.male
+		}
+	}
+	return inj._guestdata = null;
+}
+
+inj.isCurrentGuest = function()
+{
+	var guestLink = inj.getGuest(true).link;
+	var currentLink = window.location.href.match(/^http[s]?:\/\/(odnoklassniki|ok).ru\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/i);
+	if (currentLink) currentLink = currentLink[2];
+	else false;
+	return guestLink == currentLink;
+}
+
+
+/**
+ * Checks if opened page owned by current user
+ * 
+ * @return {Boolean} Current user own
+ */
+inj.isCurrentUser = function()
+{
+
+
+	return inj.getUser().id == inj.getGuest(true).id;
+}
 
 
 inj.ready = function() {
@@ -1076,5 +1192,7 @@ inj.ready = function() {
 	// Первый запуск таймера
 	inj.updateID = setTimeout( inj.update, inj.updateRate );
 };
+
+window.inj = inj;
 
 document.addEventListener("DOMContentLoaded", inj.ready);
