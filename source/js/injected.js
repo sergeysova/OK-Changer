@@ -848,7 +848,7 @@ inj.bgs.check = function()
 					+ '<div class="ellip">' + chrome.i18n.getMessage('ThemesFromUsers')+'</div>'
 				+ '</div>'
 				+ '<div class="okch_themes_content" />'
-			+'</div>').appendTo(".covers_cat");
+			+'</div>').appendTo(".covers_cat").hide();
 		
 		// Category
 		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i __ac" data-page="okch">OK Changer</a>');
@@ -910,7 +910,7 @@ inj.bgs.getthemes = function()
 // Обработчик применения темы
 inj.bgs.applyHandler = function( e )
 {
-	var cfile = $(this).attr("-data-file");
+	var cfile = $(this).attr("data-file");
 	var cid = $(this).attr("id");
 	
 	inj.bgs.apply( cid, cfile );
@@ -941,12 +941,12 @@ inj.bgs.loadthemes = function( data )
 		var $okthemes = $("#OKCH_themes .okch_themes_content");
 		var $usthemes = $("#OKCH_themes2 .okch_themes_content");
 		
-		var template = '<a class="covers_cat_i show-on-hover" id="{id}" -data-file="{file}"><div class="covers_cat_i_cnt">\
+		var template = '<a class="covers_cat_i show-on-hover" id="{id}" data-file="{file}"><div class="covers_cat_i_cnt">\
 <div class="covers_cat_preview"><img height="90" class="covers_cat_img" src="{image}" /></div>\
 <div class="covers_cat_descr_w"><div class="covers_cat_descr"><div class="covers_cat_name ellip">{name}</div></div></div>\
 <div class="covers_cat_i_footer"><div class="covers_cat_inf"><span class="tico" style="padding-left:0" title="Автор темы">{author}</span></div></div></div></a>';
 		
-		var selectedtpl = '<div class="covers_cat_i covers_cat_i__selected show-on-hover" id="{id}" -data-file="{file}"><div class="covers_cat_i_cnt">\
+		var selectedtpl = '<div class="covers_cat_i covers_cat_i__selected show-on-hover" id="{id}" data-file="{file}"><div class="covers_cat_i_cnt">\
 <div class="covers_cat_preview"><img height="90" class="covers_cat_img" src="{image}"></div>\
 <div class="covers_cat_descr_w"><div class="covers_cat_descr"><div class="covers_cat_name ellip">{name}</div>\
 <div class="covers_cat_inf"><span class="tico"><i class="tico_img ic ic_ok"></i>'+chrome.i18n.getMessage('ThemeSelected')+'</span></div></div></div>\
@@ -981,12 +981,12 @@ inj.bgs.loadthemes = function( data )
 			{
 			
 				$okthemes.append( tpl
-									.replace( "{id}",		data.themes[it].id )
-									.replace( "{image}",	data.themes[it].preview )
-									.replace( "{name}",		data.themes[it].title )
-									.replace( "{file}",		data.themes[it].file)
-									.replace( "{author}",	"" )
-								);
+								.replace( "{id}",		data.themes[it].id )
+								.replace( "{image}",	data.themes[it].preview )
+								.replace( "{name}",		data.themes[it].title )
+								.replace( "{file}",		data.themes[it].file)
+								.replace( "{author}",	"" )
+							);
 			}
 			else
 			{
@@ -1135,12 +1135,20 @@ inj.getGuest = function(reload, debug)
 	return inj._guestdata = null;
 }
 
+
+/**
+ * Checks if opened page own bu guest
+ * 
+ * @return {Boolean}
+ */
 inj.isCurrentGuest = function()
 {
 	var guestLink = inj.getGuest(true).link;
 	var currentLink = window.location.href.match(/^http[s]?:\/\/(odnoklassniki|ok).ru\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/i);
+
 	if (currentLink) currentLink = currentLink[2];
 	else false;
+
 	return guestLink == currentLink;
 }
 
@@ -1152,12 +1160,13 @@ inj.isCurrentGuest = function()
  */
 inj.isCurrentUser = function()
 {
-
-
 	return inj.getUser().id == inj.getGuest(true).id;
 }
 
 
+/**
+ * Run all functions
+ */
 inj.ready = function() {
 	inj.log("inj.ready()");
 	inj.log( 'inj.storage', inj.storage );
@@ -1180,19 +1189,16 @@ inj.ready = function() {
 		.attr('href', chrome.extension.getURL('css/injected.css'))
 		.appendTo("head");
 	
-	//$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
-	$('<link href="" type="text/css" rel="stylesheet" id="okch_style_set" />').appendTo("body");
-	$('<link href="" type="text/css" rel="stylesheet" id="okch_theme_set" />').appendTo("body");
-	$('<style id="okch_setdecor" />').appendTo("body");
-	$('<style id="okch_setfont" />').appendTo("body");
+	$('<link href="" type="text/css" rel="stylesheet" id="okch_style_set" />').appendTo("body"); // Style
+	$('<link href="" type="text/css" rel="stylesheet" id="okch_theme_set" />').appendTo("body"); // Theme
+	$('<style id="okch_setdecor" />').appendTo("body"); // Decor
+	$('<style id="okch_setfont" />').appendTo("body"); // Font
 	
 	// jSessionID
-	inj.jSessionID = inj.cookie.JSESSIONID;
+	//inj.jSessionID = inj.cookie.JSESSIONID;
 	
 	// Первый запуск таймера
 	inj.updateID = setTimeout( inj.update, inj.updateRate );
 };
-
-window.inj = inj;
 
 document.addEventListener("DOMContentLoaded", inj.ready);
