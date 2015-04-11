@@ -122,13 +122,14 @@ bg.savingRemote = function() {
     // need userID (ok.ru)
     var uid = 0;
     $.ajax({
-        url: bg.getApi('settings/'+0),
+        url: bg.getApi('settings/'+uid),
         method: 'PUT',
         dataType: 'json',
+        data: (JSON.stringify(bg.storage)),
         success: function(result) {
             if (result.error) console.error(result.error, result.__uid);
             else console.log('Saved successfully uid:'+result.__uid);
-        };
+        }
     });
 };
 

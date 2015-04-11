@@ -23,7 +23,6 @@ var inj = {
 	updateID: 0,
 	jSessionID: "",
 	_userdata: null,
-	_guestdata: null
 };
 
 inj.loadCookie = function()
@@ -1066,7 +1065,7 @@ inj.updateAll = function( data, sender )
  */
 inj.getUser = function(debug)
 {
-	if (inj._userdata != null)
+	if (inj._userdata != null && !debug)
 	{
 		return inj._userdata;
 	}
@@ -1084,7 +1083,10 @@ inj.getUser = function(debug)
 			surname: userconfig.lastName,
 			link: userconfig.custLink,
 			lang: userconfig.lang,
-			male: userconfig.male
+			male: userconfig.male,
+			_: {
+				pbhid: userconfig.pbhid
+			}
 		}
 	}
 	return null;
@@ -1104,52 +1106,43 @@ inj.getUser = function(debug)
  *   male: boolean (false = female)
  * }
  * 
- * @param  {boolean} reload If reload set true, information will be reloaded from page
  * @return {object}  id, name, surname, link, lang, male
  */
-inj.getGuest = function(reload, debug)
+inj.getGuest = function(debug)
 {
-	if (inj._guestdata != null && reload != true)
-	{
-		return inj._guestdata;
-	}
+	var hookBlocks = $('[id^="hook_ShortcutMenu_"]');
+	for (var i = 0; i < hookBlocks.length; i++) {
+		var hookBlock = hookBlocks[i];
+		if (hookBlock)
+		{
+			var _data = JSON.parse(hookBlock.innerHTML.replace('<!--', '').replace('-->', ''));
+			
+			console.log(_data);
 
-	var hookBlock = $('[id^="hook_ShortcutMenu_"]')[0];
-	if (hookBlock)
-	{
-		var _data = JSON.parse(hookBlock.innerHTML.replace('<!--', '').replace('-->', ''));
-		if (debug == true) return _data;
-		var fio = _data.fio.split(' ');
-		var link = _data.photoLink.match(/^\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/);
-		if (link) link = link[1];
-		else link = null;
+			var fio = _data.fio.split(' ');
+			if (!_data.photoLink) continue;
+			var link = _data.photoLink.match(/^\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/);
+			if (link) link = link[1];
+			else link = null;
 
-		return inj._guestdata = {
-			id: Number(_data.userId),
-			name: fio[0],
-			surname: fio[1],
-			link: link, // BAD CODE HERE!!!
-			male: _data.male
+			var currentLink = window.location.href.match(/^http[s]?:\/\/(odnoklassniki|ok).ru\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/i);
+			if (currentLink) currentLink = currentLink[2];
+			
+			if (currentLink != link) {
+				continue;
+			}
+
+			return {
+				id: Number(_data.userId),
+				name: fio[0],
+				surname: fio[1],
+				link: link, // BAD CODE HERE!!!
+				male: _data.male
+			}
 		}
 	}
-	return inj._guestdata = null;
-}
-
-
-/**
- * Checks if opened page own bu guest
- * 
- * @return {Boolean}
- */
-inj.isCurrentGuest = function()
-{
-	var guestLink = inj.getGuest(true).link;
-	var currentLink = window.location.href.match(/^http[s]?:\/\/(odnoklassniki|ok).ru\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/i);
-
-	if (currentLink) currentLink = currentLink[2];
-	else false;
-
-	return guestLink == currentLink;
+	
+	return false;
 }
 
 
@@ -1160,7 +1153,7 @@ inj.isCurrentGuest = function()
  */
 inj.isCurrentUser = function()
 {
-	return inj.getUser().id == inj.getGuest(true).id;
+	return inj.getUser().id == (g = inj.getGuest() ? g.id : false);
 }
 
 
