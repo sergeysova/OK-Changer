@@ -21,9 +21,7 @@ var inj = {
 	debug: true,
 	updateRate: 500,
 	updateID: 0,
-	jSessionID: "",
-	_userdata: null,
-	_guestdata: null
+	jSessionID: ""
 };
 
 inj.loadCookie = function()
@@ -848,7 +846,7 @@ inj.bgs.check = function()
 					+ '<div class="ellip">' + chrome.i18n.getMessage('ThemesFromUsers')+'</div>'
 				+ '</div>'
 				+ '<div class="okch_themes_content" />'
-			+'</div>').appendTo(".covers_cat").hide();
+			+'</div>').appendTo(".covers_cat");
 		
 		// Category
 		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i __ac" data-page="okch">OK Changer</a>');
@@ -898,7 +896,7 @@ inj.bgs.getthemes = function()
 	inj.log("---GetThemes()---");
 		$.ajax({
 			type: "GET",
-			url: "http://okchanger.net/themes/",
+			url: "http://localhost:2020/themes",
 			dataType: "json",
 			success: inj.bgs.loadthemes,
 			error: function()
@@ -910,7 +908,7 @@ inj.bgs.getthemes = function()
 // Обработчик применения темы
 inj.bgs.applyHandler = function( e )
 {
-	var cfile = $(this).attr("data-file");
+	var cfile = $(this).attr("-data-file");
 	var cid = $(this).attr("id");
 	
 	inj.bgs.apply( cid, cfile );
@@ -936,17 +934,18 @@ inj.bgs.apply = function( cid, cfile )
 // Ajax handler
 inj.bgs.loadthemes = function( data )
 {
+	console.log('Themes: ', data);
 		var $def_themes = $("#def_themes");
 		var $def_title = $("#def_title");
 		var $okthemes = $("#OKCH_themes .okch_themes_content");
 		var $usthemes = $("#OKCH_themes2 .okch_themes_content");
 		
-		var template = '<a class="covers_cat_i show-on-hover" id="{id}" data-file="{file}"><div class="covers_cat_i_cnt">\
+		var template = '<a class="covers_cat_i show-on-hover" id="{id}" -data-file="{file}"><div class="covers_cat_i_cnt">\
 <div class="covers_cat_preview"><img height="90" class="covers_cat_img" src="{image}" /></div>\
 <div class="covers_cat_descr_w"><div class="covers_cat_descr"><div class="covers_cat_name ellip">{name}</div></div></div>\
 <div class="covers_cat_i_footer"><div class="covers_cat_inf"><span class="tico" style="padding-left:0" title="Автор темы">{author}</span></div></div></div></a>';
 		
-		var selectedtpl = '<div class="covers_cat_i covers_cat_i__selected show-on-hover" id="{id}" data-file="{file}"><div class="covers_cat_i_cnt">\
+		var selectedtpl = '<div class="covers_cat_i covers_cat_i__selected show-on-hover" id="{id}" -data-file="{file}"><div class="covers_cat_i_cnt">\
 <div class="covers_cat_preview"><img height="90" class="covers_cat_img" src="{image}"></div>\
 <div class="covers_cat_descr_w"><div class="covers_cat_descr"><div class="covers_cat_name ellip">{name}</div>\
 <div class="covers_cat_inf"><span class="tico"><i class="tico_img ic ic_ok"></i>'+chrome.i18n.getMessage('ThemeSelected')+'</span></div></div></div>\
@@ -968,6 +967,8 @@ inj.bgs.loadthemes = function( data )
 		
 		$okthemes.html("");
 		$usthemes.html("");
+
+		var retina = window.devicePixelRatio > 1;
 		
 		for ( it in data.themes )
 		{
@@ -981,18 +982,18 @@ inj.bgs.loadthemes = function( data )
 			{
 			
 				$okthemes.append( tpl
-								.replace( "{id}",		data.themes[it].id )
-								.replace( "{image}",	data.themes[it].preview )
-								.replace( "{name}",		data.themes[it].title )
-								.replace( "{file}",		data.themes[it].file)
-								.replace( "{author}",	"" )
-							);
+									.replace( "{id}",		data.themes[it].id )
+									.replace( "{image}",	retina ? data.themes[it].preview2x : data.themes[it].preview )
+									.replace( "{name}",		data.themes[it].title )
+									.replace( "{file}",		data.themes[it].file)
+									.replace( "{author}",	"" )
+								);
 			}
 			else
 			{
 				$usthemes.append( tpl
 								.replace( "{id}",		data.themes[it].id )
-								.replace( "{image}",	data.themes[it].preview )
+								.replace( "{image}",	retina ? data.themes[it].preview2x : data.themes[it].preview )
 								.replace( "{name}",		data.themes[it].title )
 								.replace( "{file}",		data.themes[it].file )
 								.replace( "{author}",	data.themes[it].author ? data.themes[it].author : chrome.i18n.getMessage('NoAuthor') )
@@ -1027,146 +1028,23 @@ inj.update = function()
 };
 
 // Обновление настроек
-inj.updateAll = function( data, sender )
-{
+inj.updateAll = function( data, sender ) {
 	inj.log("inj.updateAll()", data);
 	//inj.log( data );
 	
-	for ( var i in data )
-	{
-		if ( data[i] !== inj.storage[i] )
-		{
-			if ( typeof inj.upd[i] === "function" )
-			{
+	for ( var i in data ) {
+		if ( data[i] !== inj.storage[i] ) {
+			if ( typeof inj.upd[i] === "function" ) {
 				inj.log( i + ": " + data[i] );
 				inj.upd[i]( data[i] );
-			}
-			else
-			{
+			} else {
 				inj.error( "Function \"inj.upd."+ i + "\" doesn't exists!" );
 			}
 		}
 	}
 };
 
-/**
- * Load current user data from page
- *
- * {
- *   id: string,
- *   name: string,
- *   surname: string,
- *   link: null or string,
- *   lang: string (ru, en),
- *   male: boolean (false = female)
- * }
- * 
- * 
- * @return {object}  id, name, surname, link, lang, male
- */
-inj.getUser = function(debug)
-{
-	if (inj._userdata != null)
-	{
-		return inj._userdata;
-	}
 
-	var _userconfig = document.getElementById('hook_Cfg_CurrentUser').innerHTML;
-	if (_userconfig)
-	{
-		_userconfig = _userconfig.replace('<!--', '').replace('-->', '');
-
-		var userconfig = JSON.parse(_userconfig);
-		if (debug == true) return userconfig;
-		return inj._userdata = {
-			id: Number(userconfig.oid),
-			name: userconfig.firstName,
-			surname: userconfig.lastName,
-			link: userconfig.custLink,
-			lang: userconfig.lang,
-			male: userconfig.male
-		}
-	}
-	return null;
-};
-
-
-
-/**
- * Get information about guest
- *
- * {
- *   id: string,
- *   name: string,
- *   surname: string,
- *   link: null or string,
- *   lang: string (ru, en),
- *   male: boolean (false = female)
- * }
- * 
- * @param  {boolean} reload If reload set true, information will be reloaded from page
- * @return {object}  id, name, surname, link, lang, male
- */
-inj.getGuest = function(reload, debug)
-{
-	if (inj._guestdata != null && reload != true)
-	{
-		return inj._guestdata;
-	}
-
-	var hookBlock = $('[id^="hook_ShortcutMenu_"]')[0];
-	if (hookBlock)
-	{
-		var _data = JSON.parse(hookBlock.innerHTML.replace('<!--', '').replace('-->', ''));
-		if (debug == true) return _data;
-		var fio = _data.fio.split(' ');
-		var link = _data.photoLink.match(/^\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/);
-		if (link) link = link[1];
-		else link = null;
-
-		return inj._guestdata = {
-			id: Number(_data.userId),
-			name: fio[0],
-			surname: fio[1],
-			link: link, // BAD CODE HERE!!!
-			male: _data.male
-		}
-	}
-	return inj._guestdata = null;
-}
-
-
-/**
- * Checks if opened page own bu guest
- * 
- * @return {Boolean}
- */
-inj.isCurrentGuest = function()
-{
-	var guestLink = inj.getGuest(true).link;
-	var currentLink = window.location.href.match(/^http[s]?:\/\/(odnoklassniki|ok).ru\/((profile\/[0-9]+)|([a-z0-9.]+))\/?/i);
-
-	if (currentLink) currentLink = currentLink[2];
-	else false;
-
-	return guestLink == currentLink;
-}
-
-
-/**
- * Checks if opened page owned by current user
- * 
- * @return {Boolean} Current user own
- */
-inj.isCurrentUser = function()
-{
-	return inj.getUser().id == inj.getGuest(true).id;
-}
-
-
-/**
- * Run all functions
- */
 inj.ready = function() {
 	inj.log("inj.ready()");
 	inj.log( 'inj.storage', inj.storage );
@@ -1189,13 +1067,14 @@ inj.ready = function() {
 		.attr('href', chrome.extension.getURL('css/injected.css'))
 		.appendTo("head");
 	
-	$('<link href="" type="text/css" rel="stylesheet" id="okch_style_set" />').appendTo("body"); // Style
-	$('<link href="" type="text/css" rel="stylesheet" id="okch_theme_set" />').appendTo("body"); // Theme
-	$('<style id="okch_setdecor" />').appendTo("body"); // Decor
-	$('<style id="okch_setfont" />').appendTo("body"); // Font
+	//$('<style type="text/css"/>').html(b.ad_css).appendTo('head');
+	$('<link href="" type="text/css" rel="stylesheet" id="okch_style_set" />').appendTo("body");
+	$('<link href="" type="text/css" rel="stylesheet" id="okch_theme_set" />').appendTo("body");
+	$('<style id="okch_setdecor" />').appendTo("body");
+	$('<style id="okch_setfont" />').appendTo("body");
 	
 	// jSessionID
-	//inj.jSessionID = inj.cookie.JSESSIONID;
+	inj.jSessionID = inj.cookie.JSESSIONID;
 	
 	// Первый запуск таймера
 	inj.updateID = setTimeout( inj.update, inj.updateRate );
