@@ -23,13 +23,15 @@
 		"tabs"
 	],
 	"externally_connectable": {
-		"matches": ["*://okchanger.net/*", "*://okchanger.local/*", "*://*.okchanger.net/*", "*://*.okchanger.local/*"]
+		"matches": [
+			"*://okchanger.net/*", "*://okchanger.local/*",
+			"*://*.okchanger.net/*", "*://*.okchanger.local/*"
+		]
 	},
 	"web_accessible_resources": [
 		"img/ico128.png",
 		"js/jquery-1.10.2.min.map",
-		"css/injected.css",
-		"img/icon.png"
+		"css/injected.css"
 	],
 	"icons": {
 		"128": "img/ico128.png",
