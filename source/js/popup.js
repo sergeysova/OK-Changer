@@ -10,7 +10,7 @@
 
 
 popup = {
-    website: "http://okchanger.net/", // "http://changer.lestad.local/ajax/",
+    website: "http://api.okchanger.net/", // "http://changer.lestad.local/ajax/",
     storage: {},
     setts: {},
     decor: {},
@@ -193,7 +193,7 @@ popup.decor.load = function() {
     
     // Call server
     $.ajax({
-		url: popup.website+"decor/",
+		url: popup.website+"decor",
 		dataType: "json",
 		success: function(data) {
 		    // Check to errors
@@ -275,7 +275,7 @@ popup.styles.load = function() {
     $("#st_none, #st_default").off('click').click(popup.styles.clicked);
 
     $.ajax({
-		url: popup.website+"styles/",
+		url: popup.website+"styles",
 		dataType: "json",
 		success: function(data) {
 		    // Check for errors from server
