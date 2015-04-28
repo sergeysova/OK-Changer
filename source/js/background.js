@@ -65,6 +65,13 @@ navigator.sayswho = (function(){
                     return M.join(' ');
 })();
 
+
+String.prototype.log = function() {
+    var self = String(this);
+    console.log.apply(console, [self].concat(Array.prototype.slice.call(arguments)));
+}
+
+
 bg = {
     tabs: [],
     tabsManage: [],
@@ -241,6 +248,7 @@ bg.onTabUpdate = function( tabid, changeinfo, tab ) {
         // wait for load
         return;
     }
+
     var tix = bg.findTabIndex(tab.id);
     
     // If tab already in list (bg.tabs)
@@ -248,11 +256,13 @@ bg.onTabUpdate = function( tabid, changeinfo, tab ) {
         if (tab.url.match(bg.regex_ok) !== null) { // ok.ru
             tab.place = 'base';
             bg.tabs[tix] = tab;
+            chrome.pageAction.show(tab.id);
         }
-        else if (tab.url.match(bg.regex_tool) !== null) { // okchanger.net
+        /*else if (tab.url.match(bg.regex_tool) !== null) { // okchanger.net
             tab.place = 'manage';
             bg.tabs[tix] = tab;
-        }
+            chrome.pageAction.show(tab.id);
+        }*/
         else { // left
             bg.removeTab(tabid);
         }
@@ -262,10 +272,10 @@ bg.onTabUpdate = function( tabid, changeinfo, tab ) {
             tab.place = 'base';
             bg.addTab(tab);
         }
-        else if (tab.url.match(bg.regex_tool) !== null) { // okchanger.net
+        /*else if (tab.url.match(bg.regex_tool) !== null) { // okchanger.net
             tab.place = 'manage';
             bg.addTab(tab);
-        }
+        }*/
     }
 };
 
@@ -282,16 +292,6 @@ bg.findNeedTabs = function() {
             '*://beta.okchanger.net/*']}, function(tabs){
                 console.log(arguments);
         for (var i = 0, tab = tabs[i]; i < tabs.length; tab = tabs[++i]) {
-            /**
-            var where = "base";
-            if( tab.url.match(bg.regex_ok) !== null ) {
-                where = 'base';
-            }
-            else if( tab.url.match(bg.regex_tool) !== null ) {
-                where = 'manage';
-            }
-            bg.addTab(tab, where);
-            //*/
             chrome.tabs.reload(tab.id);
         }
     });
