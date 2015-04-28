@@ -75,17 +75,8 @@ bg = {
     regex_tool: '^http(s)?\:\/\/(beta.)?okchanger.net/?(.*)$',
     badexts: {
 	   'jicldjademmddamblmdllfneeaeeclik': 'OkTools'
-    },
-    apiurl: {
-        production: 'http://api.okchanger.net',
-        development: 'http://api.okchanger.local'
     }
 };
-
-
-bg.getApi = function(link) {
-    return (bg.debug ? bg.apiurl.development : bg.apiurl.production) + '/' + link;
-}
 
 
 /**
@@ -117,31 +108,9 @@ bg.error = function( message, object ) {
 	console.error.apply(console, ['OKChm:', message, object]);
 };
 
-
-bg.savingRemote = function() {
-    // need userID (ok.ru)
-    var uid = 0;
-    $.ajax({
-        url: bg.getApi('settings/'+uid),
-        method: 'PUT',
-        dataType: 'json',
-        data: (JSON.stringify(bg.storage)),
-        success: function(result) {
-            if (result.error) console.error(result.error, result.__uid);
-            else console.log('Saved successfully uid:'+result.__uid);
-        }
-    });
-};
-
-
-/**
- * Save settings in Chrome Sync Storage
- */
 bg.saving = function() {
     // Push settings to Chrome sync storage
-    chrome.storage.sync.set(bg.storage, function() {
-        bg.savingRemote();
-    });
+    chrome.storage.sync.set(bg.storage, function() {});
 
     bg.log( bg.storage );
 

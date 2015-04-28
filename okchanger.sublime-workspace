@@ -27,16 +27,16 @@
 			"file": "a/js/background.js",
 			"settings":
 			{
-				"buffer_size": 14254,
+				"buffer_size": 13819,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "a/js/popup.js",
+			"file": "a/js/injected.js",
 			"settings":
 			{
-				"buffer_size": 13154,
-				"line_ending": "Windows"
+				"buffer_size": 28405,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -98,9 +98,9 @@
 	"file_history":
 	[
 		"/Users/lestad/OK-Changer/a/js/popup.js",
-		"/Users/lestad/OK-Changer/a/js/injected.js",
-		"/Users/lestad/OK-Changer/a/manifest.json",
 		"/Users/lestad/OK-Changer/a/js/background.js",
+		"/Users/lestad/OK-Changer/a/manifest.json",
+		"/Users/lestad/OK-Changer/a/js/injected.js",
 		"/Users/lestad/OK-Changer/a/css/injected.less",
 		"/home/lestad/projects/okchanger/a/_locales/en/messages.json",
 		"/home/lestad/projects/okchanger/a/_locales/ru/messages.json",
@@ -122,7 +122,7 @@
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 50.0
 	},
 	"find_in_files":
 	{
@@ -157,7 +157,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -166,57 +166,58 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 14254,
+						"buffer_size": 13819,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2984,
-								2984
+								11399,
+								11399
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "a/js/injected.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 28405,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								25489,
+								25489
 							]
 						],
 						"settings":
 						{
 							"auto_complete": false,
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1512.0,
+						"translation.y": 17395.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "a/js/popup.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 13154,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 3017.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -265,7 +266,7 @@
 	"project": "okchanger.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 94.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -285,7 +286,7 @@
 		[
 			[
 				"",
-				"~/okchnode/okchnode.sublime-project"
+				"~/project/akme.sublime-project"
 			]
 		],
 		"width": 380.0

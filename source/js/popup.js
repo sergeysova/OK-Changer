@@ -10,11 +10,7 @@
 
 
 popup = {
-	website: 'http://okchanger.net',
-    apiurl: {
-    	production: 'http://okchanger.net',
-    	development: 'http://okchanger.net'
-    },
+    website: "http://api.okchanger.net/", // "http://changer.lestad.local/ajax/",
     storage: {},
     setts: {},
     decor: {},
@@ -23,12 +19,6 @@ popup = {
     mods: {},
     debug: false
 };
-
-
-popup.getApi = function(link) {
-	return (popup.debug ? popup.apiurl.development : popup.apiurl.production) + '/' + link;
-}
-
 
 /**
  * Prints any typed message to console
@@ -203,7 +193,7 @@ popup.decor.load = function() {
     
     // Call server
     $.ajax({
-		url: popup.getApi('decor'),
+		url: popup.website+"decor",
 		dataType: "json",
 		success: function(data) {
 		    // Check to errors
@@ -285,7 +275,7 @@ popup.styles.load = function() {
     $("#st_none, #st_default").off('click').click(popup.styles.clicked);
 
     $.ajax({
-		url: popup.getApi('styles'),
+		url: popup.website+"styles",
 		dataType: "json",
 		success: function(data) {
 		    // Check for errors from server
@@ -402,7 +392,7 @@ popup.mods.show = function( event ) {
 popup.mods.load = function() {
     $("#mods_block").html("<div><div>");
     $.ajax({
-	url: popup.getApi('mods'),
+	url: popup.website+"mods/",
 	dataType: "json",
 	success: function(data) {
 	    if ( data.error <= 0 ) {

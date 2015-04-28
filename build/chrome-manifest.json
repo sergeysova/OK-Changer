@@ -31,8 +31,7 @@
 	"web_accessible_resources": [
 		"img/ico128.png",
 		"js/jquery-1.10.2.min.map",
-		"css/injected.css",
-		"img/icon.png"
+		"css/injected.css"
 	],
 	"icons": {
 		"128": "img/ico128.png",
@@ -53,8 +52,7 @@
 		},
 		{
 		    "matches": [
-				"*://okchanger.net/*", "*://okchanger.local/*",
-				"*://beta.okchanger.net/*", "*://beta.okchanger.local/*"
+				"*://okchanger.net/*", "*://beta.okchanger.net/*", "*://okchanger.local/*"
 		    ],
 		    "js": ["js/jquery.js", "js/manage.js"],
 		    "run_at": "document_start"
