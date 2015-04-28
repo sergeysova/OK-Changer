@@ -31,8 +31,8 @@ cp -f "./build/chrome-manifest.json" "./build/chrome/manifest.json"
 
 
 # replace manifest version
-sed -i "s/0.0.0.0/$version/" build/chrome/manifest.json
-sed -i "s/{m}/ beta/" build/chrome/manifest.json
+sed -i '' "s/0.0.0.0/$version/" './build/chrome/manifest.json'
+sed -i '' "s/{m}/ beta/" './build/chrome/manifest.json'
 
 mkdir -p "./release/"
 
