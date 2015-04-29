@@ -10,3 +10,4 @@ build/opera/*
 *.crx
 *.nex
 /nbproject/*
+*.sublime-workspace
