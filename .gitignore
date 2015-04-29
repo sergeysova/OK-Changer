@@ -6,8 +6,11 @@ release/*
 build/chrome/*
 build/opera/*
 /a/*
+/debug/*
 
 *.crx
 *.nex
 /nbproject/*
 *.sublime-workspace
+
+node_modules/*

@@ -39,14 +39,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "a/js/injected.js",
-			"settings":
-			{
-				"buffer_size": 28254,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "Packages/User/NodeIndex.sublime-build",
 	"build_system_choices":
@@ -100,14 +92,13 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/lestad/OK-Changer/a",
-		"/Users/lestad/OK-Changer/a/js"
+		"/Users/lestad/OK-Changer/a"
 	],
 	"file_history":
 	[
+		"/Users/lestad/OK-Changer/a/js/injected.js",
 		"/Users/lestad/OK-Changer/a/js/popup.js",
 		"/Users/lestad/OK-Changer/a/js/background.js",
-		"/Users/lestad/OK-Changer/a/js/injected.js",
 		"/Users/lestad/OK-Changer/a/manifest.json",
 		"/Users/lestad/OK-Changer/a/css/injected.less",
 		"/home/lestad/projects/okchanger/a/_locales/en/messages.json",
@@ -144,6 +135,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"};\n",
 			"getUse",
 			"bg.savingRe",
 			"getGu",
@@ -169,38 +161,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "a/js/injected.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 28254,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								252,
-								252
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],

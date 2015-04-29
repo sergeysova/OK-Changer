@@ -1,0 +1,38 @@
+doctype html
+html
+	head
+		title OK Changer
+		meta(content='text/html; charset=utf-8')
+		link(rel='stylesheet', type='text/css', href='css/jquery-ui.css')
+		link(rel='stylesheet', type='text/css', href='css/popup.css')
+		script(type='text/javascript', src='js/jquery.js')
+		script(type='text/javascript', src='js/popup.js')
+		script(type='text/javascript', src='js/jquery-ui.js')
+	body
+		#topbar.topbar
+			.logo_img
+			ul.toolbar_nav
+				li.toolbar_nav_i
+					.hookBlock
+						a#nav_okchanger.toolbar_nav_a
+							.toolbar_nav_i_ic.nav_okchanger
+								.toolbar_nav_i_tx_w.usel-off(unselectable='on')
+			-var list = [];
+			-list.push({lang: 'Settings', id: 'setts'})
+			-list.push({lang: 'Decoration', id: 'decor'})
+			-list.push({lang: 'Style', id: 'styles'})
+			-list.push({lang: 'Font', id: 'fonts'})
+			-list.push({lang: 'Mod', id: 'mods'})
+			-each item in list
+				li.toolbar_nav_i
+					.hookBlock
+						a.toolbar_nav_a.toolbar_button(href=item.id, id="nav_"+item.id)
+							.toolbar_nav_i_ic(class="nav_"+item.id)
+								.toolbar_nav_i_tx-w.usel-off(unselectable="on", data-lang=item.lang)
+		#settings_block(style="display: none")
+			#hiding_blocks_accord
+				h3(data-lang="General")
+				div
+					#s_mailbar.progbutton(data-lang="HidePanelMail")
+
+
