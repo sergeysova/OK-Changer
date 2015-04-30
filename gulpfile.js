@@ -15,7 +15,8 @@ var config = new json.File(__dirname+"/config.json");
 
 gulp.task('clean', function(cb){
 	return gulp.src(['./debug/*'], {read: false})
-		.pipe(rimraf());
+		.pipe(rimraf())
+		.on('error', console.error);
 });
 
 
@@ -31,41 +32,49 @@ gulp.task('manifest', function(){
 
 gulp.task('js', function(){
 	return gulp.src(['source/js/*.js'])
-		.pipe(gulp.dest('debug/js'));
+		.pipe(gulp.dest('debug/js'))
+		.on('error', console.error);
 });
 
 
 gulp.task('styles', function(){
 	var css = gulp.src(['source/css/*.css'])
-		.pipe(gulp.dest('debug/css'));
+		.pipe(gulp.dest('debug/css'))
+		.on('error', console.error);
 
 	var _less = gulp.src(['source/css/*.less'])
 		.pipe(less())
-		.pipe(gulp.dest('debug/css'));
+		.pipe(gulp.dest('debug/css'))
+		.on('error', console.error);
 	return merge(css, _less);
 });
 
 
 gulp.task('images', function(){
 	return gulp.src(['source/img/*'])
-		.pipe(gulp.dest('debug/img'));
+		.pipe(gulp.dest('debug/img'))
+		.on('error', console.error);
 });
 
 
 gulp.task('locales', function(){
 	return gulp.src(['source/_locales/**/*.json'])
-		.pipe(gulp.dest('debug/_locales'));
+		.pipe(gulp.dest('debug/_locales'))
+		.on('error', console.error);
 });
 
 
 gulp.task('templates', function(){
 	return gulp.src(['source/*.jade'])
 		.pipe(jade())
-		.pipe(gulp.dest('debug'));
+		.pipe(gulp.dest('debug'))
+		.on('error', console.error);
 });
 
 
-gulp.task('build', ['manifest', 'js', 'styles', 'locales', 'images', 'templates']);
+gulp.task('build', ['clean'], function(){
+	gulp.start('manifest', 'js', 'styles', 'locales', 'images', 'templates');
+});
 
 var opts = minimist(process.argv.slice(2));
 
@@ -94,10 +103,24 @@ gulp.task('release', function(){
 	manifest.save();
 	return gulp.src(['debug/*', 'debug/**/*', 'debug/**/**/*', 'debug/**/**/**/*'])
 		.pipe(zip('okchanger_'+opts.ver+(opts.beta ? '-beta' : '')+'-chrome.zip'))
-		.pipe(gulp.dest('release'));
+		.pipe(gulp.dest('release'))
+		.on('error', console.error);
 });
 
 
 
+gulp.task('watch', function(){
+	//gulp.watch('source/chrome-manifest.json', ['manifest']);
+	gulp.watch(['source/css/*.css', 'source/css/*.less'], ['styles']);
+	gulp.watch('source/*.jade', ['templates']);
+	gulp.watch('source/_locales/**/*.json', ['locales']);
+	gulp.watch(['source/js/*.js'], ['js']);
+	gulp.watch('source/img/*', ['images']);
+});
 
-//gulp.task('default', ['build']);
+
+
+gulp.task('default', ['watch']);
+
+
+
