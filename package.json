@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git+https://github.com/LestaD/OK-Changer.git"
   },
+  "scripts": {
+    "preinstall": "npm install -g gulp"
+  },
   "author": "LestaD",
   "dependencies": {
     "gulp": "^3.8.11",
