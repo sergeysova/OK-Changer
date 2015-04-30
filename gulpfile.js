@@ -8,7 +8,10 @@ var gulp = require('gulp'),
 	minimist = require('minimist'),
 	gulpif = require('gulp-if'),
 	zip = require('gulp-zip'),
-	config = require('./config');
+	json = require('jsonsave');
+
+var config = new json.File(__dirname+"/config.json");
+
 
 gulp.task('clean', function(cb){
 	return gulp.src(['./debug/*'], {read: false})
@@ -20,7 +23,7 @@ gulp.task('manifest', function(){
 	var manifest = fs.readFileSync('source/chrome-manifest.json');
 	manifest = JSON.parse(manifest);
 	manifest.name = manifest.name + " build";
-	manifest.version = '0.0.0.' + ++config.data.build;
+	manifest.version = '0.0.0.' + ++config.$.build;
 	config.save();
 	fs.writeFileSync('debug/manifest.json', JSON.stringify(manifest, 0, 2), {encoding: 'utf8'});
 	return true;
@@ -72,20 +75,24 @@ gulp.task('release', function(){
 
 	// Set new build
 	var vv = opts.ver.split('.');
-	vv[3] = config.data.build;
+	vv[3] = config.$.build;
 	opts.ver = vv.join('.');
 
 	// Update manifest
-	var manifest = fs.readFileSync('debug/manifest.json');
-	manifest = JSON.parse(manifest);
-	manifest.name = "OK Changer";
-	manifest.version = opts.ver;
+	var manifest = new json.File('debug/manifest.json');
+	manifest.$.name = "OK Changer";
+	manifest.$.version = opts.ver;
 	if (opts.beta) {
-		manifest.name += " beta";
+		manifest.$.name += " beta";
 	}
 
+	var pkg = new json.File(__dirname+'/package.json');
+	vv.splice(3,1);
+	pkg.$.version = vv.join('.');
+	pkg.save();
+
 	// Save
-	fs.writeFileSync('debug/manifest.json', JSON.stringify(manifest, 0, 2), {encoding: 'utf8'});
+	manifest.save();
 	return gulp.src(['debug/*', 'debug/**/*', 'debug/**/**/*', 'debug/**/**/**/*'])
 		.pipe(zip('okchanger_'+opts.ver+(opts.beta ? '-beta' : '')+'-chrome.zip'))
 		.pipe(gulp.dest('release'));
