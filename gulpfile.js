@@ -1,7 +1,7 @@
 var gulp = require('gulp'),
 	jade = require('gulp-jade'),
 	watch = require('gulp-watch'),
-	del = require('del'),
+	rimraf = require('gulp-rimraf'),
 	fs = require('fs'),
 	less = require('gulp-less'),
 	merge = require('merge-stream'),
@@ -11,16 +11,17 @@ var gulp = require('gulp'),
 
 
 gulp.task('clean', function(cb){
-	del(['debug/*'], cb);
+	return gulp.src(['./debug/*'], {read: false})
+		.pipe(rimraf());
 });
 
 
-gulp.task('manifest', function(cb){
+gulp.task('manifest', function(){
 	var manifest = fs.readFileSync('source/chrome-manifest.json');
 	manifest = JSON.parse(manifest);
 	manifest.name = manifest.name + " build";
 	fs.writeFileSync('debug/manifest.json', JSON.stringify(manifest, 0, 2), {encoding: 'utf8'});
-	cb();
+	return true;
 });
 
 
@@ -60,7 +61,7 @@ gulp.task('templates', function(){
 });
 
 
-gulp.task('build', ['clean', 'manifest', 'js', 'styles', 'locales', 'images', 'templates']);
+gulp.task('build', ['manifest', 'js', 'styles', 'locales', 'images', 'templates']);
 
 
 var knoptions = {
@@ -68,16 +69,19 @@ var knoptions = {
 	default: {ver: false}
 };
 
-var opts = minimist(process.argv.slice(2), knoptions);
+var opts = minimist(process.argv.slice(2));//, knoptions);
 
-gulp.task('release', ['build'], function(){
-	if (opts.ver == false) return false;
+gulp.task('release', function(){
+	if (!opts.ver) return false;
 	var manifest = fs.readFileSync('debug/manifest.json');
 	manifest = JSON.parse(manifest);
+	if (opts.beta) {
+		manifest.name += " beta";
+	}
 	manifest.version = opts.ver;
 	fs.writeFileSync('debug/manifest.json', JSON.stringify(manifest, 0, 2), {encoding: 'utf8'});
 	return gulp.src(['debug/*', 'debug/**/*', 'debug/**/**/*', 'debug/**/**/**/*'])
-		.pipe(zip('okchanger-v'+opts.ver+'-chrome.zip'))
+		.pipe(zip('okchanger_'+opts.ver+(opts.beta ? '-beta' : '')+'-chrome.zip'))
 		.pipe(gulp.dest('release'));
 
 });
