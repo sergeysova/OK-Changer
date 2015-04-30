@@ -20,12 +20,11 @@ gulp.task('clean', function(cb){
 
 
 gulp.task('manifest', function(){
-	var manifest = fs.readFileSync('source/chrome-manifest.json');
-	manifest = JSON.parse(manifest);
-	manifest.name = manifest.name + " build";
-	manifest.version = '0.0.0.' + ++config.$.build;
+	var manifest = new json.File('source/chrome-manifest.json');
+	manifest.$.name += " build";
+	manifest.$.version = '0.0.0.' + ++config.$.build;
+	manifest.saveAs('debug/manifest.json');
 	config.save();
-	fs.writeFileSync('debug/manifest.json', JSON.stringify(manifest, 0, 2), {encoding: 'utf8'});
 	return true;
 });
 

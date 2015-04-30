@@ -18,7 +18,7 @@
     "gulp-rimraf": "^0.1.1",
     "gulp-watch": "^4.2.4",
     "gulp-zip": "^3.0.2",
-    "jsonsave": "1.0.*",
+    "jsonsave": "^1.1.2",
     "merge-stream": "^0.1.7",
     "minimist": "^1.1.1"
   }
