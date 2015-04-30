@@ -12,7 +12,7 @@
 			"19": "img/ico128.png"
 		},
 		"default_title": "OK Changer{m}",
-		"default_popup": "popups.html"
+		"default_popup": "tpl/popups.html"
 	},
 	"permissions" : [
 		"management",

@@ -65,9 +65,15 @@ gulp.task('locales', function(){
 
 
 gulp.task('templates', function(){
-	return gulp.src(['source/*.jade'])
-		.pipe(jade())
-		.pipe(gulp.dest('debug'))
+	var LOCALS = new json.File('source/tpl/popup.json').$;
+	LOCALS.colors = [];
+	for (var i = 0; i < 72; i++)
+		LOCALS.colors.push("rgb("+Math.floor(Math.random()*255)+','
+			+Math.floor(Math.random()*255)+','
+			+Math.floor(Math.random()*255)+')');
+	return gulp.src(['source/tpl/*.jade'])
+		.pipe(jade({locals: LOCALS}))
+		.pipe(gulp.dest('debug/tpl'))
 		.on('error', console.error);
 });
 
@@ -112,10 +118,10 @@ gulp.task('release', function(){
 gulp.task('watch', function(){
 	//gulp.watch('source/chrome-manifest.json', ['manifest']);
 	gulp.watch(['source/css/*.css', 'source/css/*.less'], ['styles']);
-	gulp.watch('source/*.jade', ['templates']);
-	gulp.watch('source/_locales/**/*.json', ['locales']);
+	gulp.watch(['source/tpl/*.jade', 'source/tpl/*.json'], ['templates']);
+	gulp.watch(['source/_locales/**/*.json'], ['locales']);
 	gulp.watch(['source/js/*.js'], ['js']);
-	gulp.watch('source/img/*', ['images']);
+	gulp.watch(['source/img/*'], ['images']);
 });
 
 
