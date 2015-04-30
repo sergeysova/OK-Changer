@@ -7,74 +7,83 @@ Extension for Chrome and Opera 15+<br>
  - [Site](http://okchanger.net)<br>
  - [Beta](http://beta.okchanger.net)<br>
 
-## Windows
 
-### Debug
-1. Create folder "a"
-2. Copy content of folder "source" to folder "a"
-3. Copy and rename file "build/chrome-manifest.json" to "a/manifest.json"
-4. Load unpacked extension to Google Chrome, Yandex or Opera 15+
+# Building
 
-### Build
-1. Build must be run ONLY after "DEBUG"
-2. Copy content from "a" to "source" (overwrite) (do not copy manifest.json!)
-   Don't change version in file a/manifest.json (must be 0.0.0.0)
-3. If you changed file a/manifest.json, copy and replace his to build/chrome-manifest.json
-4. Run build/build.exe
-5. In field Version set need version and click Build
-6. For Google CHrome Webstore archive placed in release/ by name okchanger_0.0.0.0-chrome.zip
-7. For Opera 15+ folder with sources -- build/opera/. Key is a.pem
+Requirements:
+ * `node.js` or `io.js`
+ * `npm`
 
+Clone repository and install needs
+```bash
+git clone https://github.com/LestaD/OK-Changer.git okch
+cd okch
+npm install
+```
 
-## Linux
-Need /bin/bash
+For create debug version:
+```bash
+gulp build
+```
+In `./debug/` will be created work copy of code. You can load unpacked extension on Chrome or Opera
 
-`./a-debug.sh`
-Create dir ./a/ and pull sources
+Before rebuild, you must:
+```bash
+gulp clean
+```
+All files from `./debug/` will be removed
+You must edit code in `./source/` and `gulp build` after code change
 
-`./a-update.sh`
-Move changes to ./source/
+For release a stable version `1.9.4`:
+```bash
+gulp release --ver 1.9.4
+```
 
-`./build.sh 0.0.0.0`
-Build extension. `0.0.0.0` -- version
-For Google Chrome Webstore archive placed in ./release/
+For beta version:
+```bash
+gulp release --ver 1.9.5 --beta
+```
 
-
-
-# По русски
-
-## Windows
-
-### Debug
-1. Создать папку `/a`
-2. Скопировать содержимое папки `/source` в `/a`
-3. Скопировать и переименовать файл `/build/chrome-manifest.json` в `/a/manifest.json`
-4. Загрузить распакованное расширение из Google Chrome(Yandex, Opera)
+In `./release/` you will see *.zip archives with release and beta versions of OK Changer
 
 
-### Build
-1. Всё выполнять ТОЛЬКО после действий для отладки!
-2. Копировать содержимое папки `/a` в папку `/source` с заменой(кроме файла `manifest.json`)
-3. Если файл `manifest.json` был изменен, то перемещаем его на место файла `/build/chrome-manifest.json`
-ВАЖНО! В файле манифеста строку с версией изменять запрещено! она должна быть `"version" : "0.0.0.0"`,
-4. После этого запускаем `/build/build.exe`
-5. В поле Version выставляем необходимую версию и нажимаем Build
-6. Для отправки в Chrome Webstore архив находится в папке `/release/` по имени `okchanger_0.0.0.0-chrome.zip`
-7. Для упаковки и подписи в Opera 15+ папка с файлами релиза в `/build/opera`, ключ для подписи `/a.pem`
+===
 
 
-## Linux
+# Сборка
 
-`./a-debug.sh`
-Создает каталог `./a/` и наполняет его исходниками для отладки
+Требования:
+ * `node.js` или `io.js`
+ * `npm`
 
-`./a-update.sh`
-Перенесет изменения в папку с исходниками `./source/`
+Клонирование репозитория и установка зависимостей:
+```bash
+git clone https://github.com/LestaD/OK-Changer.git okch
+cd okch
+npm install
+```
 
-`./build.sh 0.0.0.0`
-Соберет расширение где `0.0.0.0` это версия
-Архив для отправки в Chrome Webstore в каталоге `./release/`
+Для создания отладочной версии:
+```bash
+gulp build
+```
+В директории `./debug/` будет создана рабочая версия кода. Уже эту директорию можно загружать через `Загрузить распакованное расширение` в Chrome или Opera
 
-`./build-beta.sh 0.0.0.0`
-Собирает аналогично обычной сборке.
-Добавляет `-beta` к версии в `manifest.json` и названии zip-архива
+Перед сборкой необходимо очистить рабочую директорию:
+```bash
+gulp clean
+```
+Все файлы из `./debug/` будут удалены
+Необходимо редактировать код в директории `./source/` и выполнять `gulp build` после сохранения изменений
+
+Для выпуска стабильной версии `1.9.4` необходимо выполнить:
+```bash
+gulp release --ver 1.9.4
+```
+
+Для выпуска бета версии:
+```bash
+gulp release --ver 1.9.5 --beta
+```
+
+В директории `./release/` будут файлы *.zip архивов с рабочими и бета версиями OK Changer
