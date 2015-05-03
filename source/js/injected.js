@@ -469,7 +469,7 @@ inj.upd.s_hidecounters = function( value ) {
 // Выключить моргающий маркер онлайна
 inj.upd.s_hideonlinem = function( value ) {
 	b.stylehiding('hideonlinem', value, "\
-				.ic_online {display: none;} \
+				.ic-online {display: none;} \
 			");
 	inj.storage.s_hideonlinem = value;
 }
