@@ -219,12 +219,9 @@ inj.upd.s_bookmarks = function( value ) {
 
 // Скрытие блока "Группы"
 inj.upd.s_groups = function( value ) {
-	if ( value == 1 || value == true ) {
-		b.hide("#hook_Block_RecommendedGroups");
-	} else {
-		b.show("#hook_Block_RecommendedGroups");
-	}
-	
+	b.stylehiding('groups',value, "\
+		#hook_Block_RecommendedGroups .portlet {display: none !important;}\
+	");
 	inj.storage.s_groups = value;
 }
 
