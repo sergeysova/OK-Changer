@@ -54,6 +54,7 @@
 			"list" : [
 				["hidemarks",				"HideMarksOverPhoto"],
 				["hidepresents",			"HideGifts"],
+				["hidecounters",			"HideNotifCounters"],
 				["hideonlinem",				"HideOnlineMarker"],
 				["avatardown",				"AvatarDown"],
 				["playerbutton",			"HidePlayerButton"]

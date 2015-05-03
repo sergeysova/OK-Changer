@@ -458,6 +458,7 @@ inj.upd.s_bubblenotif = function( value ) {
 inj.upd.s_hidecounters = function( value ) {
 	b.stylehiding('hidecounters', value, "\
 				.notifications {display: none;} \
+				.toolbar_nav_notif {display: none;} \
 			");
 	inj.storage.s_hidecounters = value;
 }
