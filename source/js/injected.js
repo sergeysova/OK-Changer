@@ -672,15 +672,15 @@ inj.upd.news_last_id = function( value ) {
 // Добавление ссылки на офицальную группу
 inj.upd.update_authorspage = function()
 {
-	if ( !$("#action_menu_official_group").exists() )
+	if ( !$("#action_menu_official_group")[0] )
 	{
-		$(".u-menu__mt").append('\
+		$("#hook_Block_LeftColumnTopCard .u-menu").append('\
 			<li class="u-menu_li" id="action_menu_official_group">\
-				<a class="u-menu_a" id="action_menu_official_group_a" href="/okchanger" hrefattrs="st.cmd=userMain&amp;st._aid=FriendFriend_Visit" title="OK Changer">\
+				<a href="/okchanger" class="u-menu_a" title="OK Changer">\
 					<span class="tico"><i class="tico_img ic ic_officialg"></i>'+chrome.i18n.getMessage('officialGroup')+'</span>\
-				</a>\
+				</a> \
 			</li>\
-		'); // background-position: left -538px;
+		');
 	}
 }
 
@@ -1199,7 +1199,6 @@ inj.ready = function() {
 	
 	// Добавляем вкладку для слежения
 	chrome.runtime.sendMessage({method: "onAddTab", manage: "base"}, function(data) {
-		inj.log(data);
 		inj.updateAll(data.storage, {});
 	});
 	
