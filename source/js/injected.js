@@ -132,6 +132,7 @@ b.remove = function( name ) {
 b.stylehiding = function(name,value,css)
 {
 	if ( value == 1 || value == true ) {
+		if (!!$("#okch_"+name)[0]) return;
 		$("#okch_"+name).remove();
 		$('<style id="okch_'+name+'" />').html(css).appendTo('body');
 	} else {
@@ -219,7 +220,7 @@ inj.upd.s_bookmarks = function( value ) {
 
 // Скрытие блока "Группы"
 inj.upd.s_groups = function( value ) {
-	b.stylehiding('groups',value, "\
+	b.stylehiding('groups', value, "\
 		#hook_Block_RecommendedGroups .portlet {display: none !important;}\
 	");
 	inj.storage.s_groups = value;
@@ -377,12 +378,34 @@ inj.upd.s_autohidebar = function( value ) {
 		b.stylehiding('autohidebar', value, "\
 					#topPanel {transition: margin-top .3s}\
 					.modal.__toolbar-indent{top: 0}\
+					.topbarhide #topPanel::before { \
+						content: ' '; \
+						position: fixed; \
+						display: block; \
+						top: 0; \
+						left: 0; \
+						right: 0; \
+						height: 50px; \
+						background: linear-gradient(to bottom, rgba(0,0,0,0.26) 0%,rgba(0,0,0,0) 42%,rgba(0,0,0,0) 100%); \
+						z-index: 2015; \
+						cursor: pointer; \
+					} \
+					.topbarhide .toolbar { \
+						z-index: 2020; \
+					} \
+					.topbarhide #topPanel { \
+						margin-top: -50px; \
+					}\
+					.topbarhide #topPanel:hover { \
+						margin-top: 0px; \
+					} \
 				");
 		$(window).scroll(function(){
-			inj.log($("body").scrollTop());
 			if ( $(window).scrollTop() < 200 ) {
-				$("#topPanel").css("margin-top", "0px");
-			} else $("#topPanel").css("margin-top", "-50px");
+				$("body").removeClass('topbarhide');
+			} else {
+				if (!$("body").hasClass("topbarhide")) $("body").addClass('topbarhide');
+			}
 		});
 		$(window).trigger("scroll");
 	} else {
@@ -390,7 +413,6 @@ inj.upd.s_autohidebar = function( value ) {
 					#topPanel {transition: margin-top .3s}\
 				");
 		$(window).off("scroll");
-		$("#topPanel").css("margin-top", "0px");
 	}
 	
 	inj.storage.s_autohidebar = value;
