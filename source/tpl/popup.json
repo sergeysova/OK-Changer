@@ -1,0 +1,80 @@
+{
+	"categories": [
+		{
+			"lang": "Settings",
+			"id": "setts"
+		},
+		{
+			"lang": "Decoration",
+			"id": "decor"
+		},
+		{
+			"lang": "Style",
+			"id": "styles"
+		},
+		{
+			"lang": "Font",
+			"id": "fonts"
+		},
+		{
+			"lang": "Mod",
+			"id": "mods"
+		}
+	],
+	"settings": [
+		{
+			"lang" : "General",
+			"list" : [
+				["mailbar",					"HidePanelMail"],
+				["fullredirect",			"RedirectLinks"],
+				["adblock",					"AdBlock"],
+				["autohidebar",				"AutohideTopPanel"]
+			]
+		},
+		{
+			"lang" : "HideBlocks",
+			"list" : [
+				["friendcommon",			"FriendsCommon"],
+				["holydays",				"Holidays"],
+				["possible",				"Familiar"],
+				["abouts",					"About"],
+				["happenings",				"Events"],
+				["workwith",				"Worked"],
+				["groups",					"Groups"],
+				["games",					"Games"],
+				["music4u",					"Music4u"],
+				["bookmarks",				"Favorites"],
+				["friendonline",			"FriendOnline"],
+				["moderatorblock",			"Moderator"],
+				["bubblenotif",				"Popups"]
+			]
+		},
+		{
+			"lang" : "SiteDesign",
+			"list" : [
+				["hidemarks",				"HideMarksOverPhoto"],
+				["hidepresents",			"HideGifts"],
+				["hidecounters",			"HideNotifCounters"],
+				["hideonlinem",				"HideOnlineMarker"],
+				["avatardown",				"AvatarDown"],
+				["playerbutton",			"HidePlayerButton"]
+			]
+		}
+	],
+	"fonts": [
+		["ubun",		"Ubuntu",			"http://fonts.googleapis.com/css?family=Ubuntu&subset=latin,cyrillic-ext,cyrillic"],
+		["rusl",		"Ruslan Display",	"http://fonts.googleapis.com/css?family=Ruslan+Display&subset=latin,cyrillic-ext,cyrillic"],
+		["lobs",		"Lobster",			"http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic-ext,cyrillic"],
+		["ruso",		"Russo One",		"http://fonts.googleapis.com/css?family=Russo+One&subset=latin,cyrillic-ext,cyrillic"],
+		["pros",		"Prosto One",		"http://fonts.googleapis.com/css?family=Prosto+One&subset=latin,cyrillic-ext,cyrillic"],
+		["verd",		"Verdana",			""],
+		["cour",		"Courier New",		""],
+		["sego",		"Segoe UI",			""],
+		["syst",		"Segoe Print",		""],
+		["pala",		"Palatino Linotype",""],
+		["monc",		"Monotype Corsiva",	""],
+		["cons",		"Consolas",			""],
+		["tims",		"Times New Roman",	""],
+		["taho",		"Tahoma",			""]
+	]
+}

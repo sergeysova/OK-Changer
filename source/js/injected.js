@@ -132,6 +132,7 @@ b.remove = function( name ) {
 b.stylehiding = function(name,value,css)
 {
 	if ( value == 1 || value == true ) {
+		if (!!$("#okch_"+name)[0]) return;
 		$("#okch_"+name).remove();
 		$('<style id="okch_'+name+'" />').html(css).appendTo('body');
 	} else {
@@ -219,12 +220,9 @@ inj.upd.s_bookmarks = function( value ) {
 
 // Скрытие блока "Группы"
 inj.upd.s_groups = function( value ) {
-	if ( value == 1 || value == true ) {
-		b.hide("#hook_Block_RecommendedGroups");
-	} else {
-		b.show("#hook_Block_RecommendedGroups");
-	}
-	
+	b.stylehiding('groups', value, "\
+		#hook_Block_RecommendedGroups .portlet {display: none !important;}\
+	");
 	inj.storage.s_groups = value;
 }
 
@@ -380,12 +378,34 @@ inj.upd.s_autohidebar = function( value ) {
 		b.stylehiding('autohidebar', value, "\
 					#topPanel {transition: margin-top .3s}\
 					.modal.__toolbar-indent{top: 0}\
+					.topbarhide #topPanel::before { \
+						content: ' '; \
+						position: fixed; \
+						display: block; \
+						top: 0; \
+						left: 0; \
+						right: 0; \
+						height: 50px; \
+						background: linear-gradient(to bottom, rgba(0,0,0,0.26) 0%,rgba(0,0,0,0) 42%,rgba(0,0,0,0) 100%); \
+						z-index: 2015; \
+						cursor: pointer; \
+					} \
+					.topbarhide .toolbar { \
+						z-index: 2020; \
+					} \
+					.topbarhide #topPanel { \
+						margin-top: -50px; \
+					}\
+					.topbarhide #topPanel:hover { \
+						margin-top: 0px; \
+					} \
 				");
 		$(window).scroll(function(){
-			inj.log($("body").scrollTop());
 			if ( $(window).scrollTop() < 200 ) {
-				$("#topPanel").css("margin-top", "0px");
-			} else $("#topPanel").css("margin-top", "-50px");
+				$("body").removeClass('topbarhide');
+			} else {
+				if (!$("body").hasClass("topbarhide")) $("body").addClass('topbarhide');
+			}
 		});
 		$(window).trigger("scroll");
 	} else {
@@ -393,7 +413,6 @@ inj.upd.s_autohidebar = function( value ) {
 					#topPanel {transition: margin-top .3s}\
 				");
 		$(window).off("scroll");
-		$("#topPanel").css("margin-top", "0px");
 	}
 	
 	inj.storage.s_autohidebar = value;
@@ -461,6 +480,7 @@ inj.upd.s_bubblenotif = function( value ) {
 inj.upd.s_hidecounters = function( value ) {
 	b.stylehiding('hidecounters', value, "\
 				.notifications {display: none;} \
+				.toolbar_nav_notif {display: none;} \
 			");
 	inj.storage.s_hidecounters = value;
 }
@@ -469,7 +489,7 @@ inj.upd.s_hidecounters = function( value ) {
 // Выключить моргающий маркер онлайна
 inj.upd.s_hideonlinem = function( value ) {
 	b.stylehiding('hideonlinem', value, "\
-				.ic_online {display: none;} \
+				.ic-online {display: none;} \
 			");
 	inj.storage.s_hideonlinem = value;
 }
@@ -531,7 +551,7 @@ inj.upd.s_stylescircle = function( value )
 inj.upd.s_moderatorblock = function( value )
 {
 	b.stylehiding('moderatorblock', value, "\
-				#hook_Block_ModerationLauncher {display:none !important} \
+				#hook_Block_ModerationLauncher a, #hook_Block_ModerationLauncher.hookBlock {display:none !important} \
 			");
 	inj.storage.s_moderatorblock = value;
 }
@@ -652,15 +672,15 @@ inj.upd.news_last_id = function( value ) {
 // Добавление ссылки на офицальную группу
 inj.upd.update_authorspage = function()
 {
-	if ( !$("#action_menu_official_group").exists() )
+	if ( !$("#action_menu_official_group")[0] )
 	{
-		$(".u-menu__mt").append('\
+		$("#hook_Block_LeftColumnTopCard .u-menu").append('\
 			<li class="u-menu_li" id="action_menu_official_group">\
-				<a class="u-menu_a" id="action_menu_official_group_a" href="/okchanger" hrefattrs="st.cmd=userMain&amp;st._aid=FriendFriend_Visit" title="OK Changer">\
+				<a href="/okchanger" class="u-menu_a" title="OK Changer">\
 					<span class="tico"><i class="tico_img ic ic_officialg"></i>'+chrome.i18n.getMessage('officialGroup')+'</span>\
-				</a>\
+				</a> \
 			</li>\
-		'); // background-position: left -538px;
+		');
 	}
 }
 
@@ -898,7 +918,7 @@ inj.bgs.getthemes = function()
 	inj.log("---GetThemes()---");
 		$.ajax({
 			type: "GET",
-			url: "http://okchanger.net/themes/",
+			url: "http://okchanger.lestad.net/themes/",
 			dataType: "json",
 			success: inj.bgs.loadthemes,
 			error: function()
@@ -1179,7 +1199,6 @@ inj.ready = function() {
 	
 	// Добавляем вкладку для слежения
 	chrome.runtime.sendMessage({method: "onAddTab", manage: "base"}, function(data) {
-		inj.log(data);
 		inj.updateAll(data.storage, {});
 	});
 	
