@@ -1,0 +1,56 @@
+doctype html
+html
+	head
+		title OK Changer
+		meta(content='text/html; charset=utf-8')
+		link(rel='stylesheet', type='text/css', href='/css/jquery-ui.css')
+		link(rel='stylesheet', type='text/css', href='/css/popup.css')
+		script(type='text/javascript', src='/js/jquery.js')
+		script(type='text/javascript', src='/js/popup.js')
+		script(type='text/javascript', src='/js/jquery-ui.js')
+
+	body
+		#topbar.topbar
+			.logo_img
+			ul.toolbar_nav
+				li.toolbar_nav_i
+					.hookBlock
+						a#nav_okchanger.toolbar_nav_a
+							.toolbar_nav_i_ic.nav_okchanger
+								.toolbar_nav_i_tx_w.usel-off(unselectable='on')
+			-each item in categories
+				li.toolbar_nav_i
+					.hookBlock
+						a.toolbar_nav_a.toolbar_button(href=item.id, id="nav_"+item.id)
+							.toolbar_nav_i_ic(class="nav_"+item.id)
+								.toolbar_nav_i_tx-w.usel-off(unselectable="on", data-lang=item.lang)
+		#settings_block(style="display: none")
+			#hidingblocks_accord
+				-each group in settings
+					h3(data-lang=group.lang)
+					div
+						-each sett in group.list
+							.progbutton(data-lang=sett[1], id="s_"+sett[0])
+				h3(data-lang="PageOpacity")
+				div
+					#l_pagetransp
+				h3(data-lang="PageColor")
+				#pagecolor_selector
+					-each color in colors
+						.colorb(style="background: "+color)
+		#decor_block(style="display: none")
+			.decbutton#dc_none(data-skip="skip", data-url="empty", data-id="-1")
+				.decbg(data-lang="ClearDecor")
+			.decbutton#dc_default(data-skip="skip", data-url="empty", data-id="0")
+				.decbg(data-lang="OriginalDecor")
+
+		#styles_block(style="display: none")
+		
+		#fonts_block(style="display: none")
+			.decbutton(id="ft_none", data-font="-1", data-google="")
+				.decbg(data-lang="StandartFont")
+			-each font in fonts
+				.decbutton(id="ft_"+font[0], data-font=font[1], data-google=font[2])
+					.decbg=font[1]
+
+		#mods_block

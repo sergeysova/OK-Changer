@@ -1,0 +1,25 @@
+{
+  "name": "OK-Changer",
+  "description": "Simple design extension for ok.ru",
+  "version": "1.8.3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LestaD/OK-Changer.git"
+  },
+  "scripts": {
+    "preinstall": "npm install -g gulp"
+  },
+  "author": "LestaD",
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-if": "^1.2.5",
+    "gulp-jade": "^1.0.0",
+    "gulp-less": "^3.0.3",
+    "gulp-rimraf": "^0.1.1",
+    "gulp-watch": "^4.2.4",
+    "gulp-zip": "^3.0.2",
+    "jsonsave": "^1.1.2",
+    "merge-stream": "^0.1.7",
+    "minimist": "^1.1.1"
+  }
+}

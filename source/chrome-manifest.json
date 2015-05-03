@@ -1,0 +1,73 @@
+{
+	"manifest_version" : 2,
+	"name" : "OK Changer",
+	"short_name": "OKCh",
+	"version" : "0.0.0.0",
+	"description" : "__MSG_extDescription__",
+	"homepage_url": "http://okchanger.net/",
+	"content_security_policy": "script-src 'self'; object-src 'self'",
+	"default_locale": "en",
+	"page_action": {
+		"default_icon": {
+			"19": "img/ico128.png"
+		},
+		"default_title": "OK Changer{m}",
+		"default_popup": "tpl/popups.html"
+	},
+	"permissions" : [
+		"management",
+		"notifications",
+		"contextMenus",
+		"commands",
+		"storage",
+		"tabs"
+	],
+	"externally_connectable": {
+		"matches": [
+			"*://okchanger.net/*", "*://okchanger.local/*",
+			"*://*.okchanger.net/*", "*://*.okchanger.local/*"
+		]
+	},
+	"web_accessible_resources": [
+		"img/ico128.png",
+		"js/jquery-1.10.2.min.map",
+		"css/injected.css"
+	],
+	"icons": {
+		"128": "img/ico128.png",
+		"48": "img/ico48.png",
+		"16": "img/ico16.png"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://odnoklassniki.ru/*",
+				"*://www.odnoklassniki.ru/*",
+				"*://ok.ru/*",
+				"*://www.ok.ru/*",
+				"*://*.mycdn.me/*"
+			],
+			"js": ["js/jquery.js", "js/injected.js"],
+			"run_at":"document_start"
+		},
+		{
+		    "matches": [
+				"*://okchanger.net/*", "*://beta.okchanger.net/*", "*://okchanger.local/*"
+		    ],
+		    "js": ["js/jquery.js", "js/manage.js"],
+		    "run_at": "document_start"
+		}
+	],
+	"background": {
+		"scripts": ["js/background.js", "js/jquery.js"]
+	},
+	"commands": {
+		"toggle-pageAction": {
+			"suggested_key": {
+				"default": "Alt+Shift+O"
+			},
+			"description": "__MSG_keyOpen__"
+		}
+	}
+}
+

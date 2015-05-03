@@ -898,7 +898,7 @@ inj.bgs.getthemes = function()
 	inj.log("---GetThemes()---");
 		$.ajax({
 			type: "GET",
-			url: "http://okchanger.net/themes/",
+			url: "http://okchanger.lestad.net/themes/",
 			dataType: "json",
 			success: inj.bgs.loadthemes,
 			error: function()

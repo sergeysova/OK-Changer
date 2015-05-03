@@ -3,7 +3,12 @@
 	[
 		{
 			"follow_symlinks": true,
-			"path": "a"
+			"path": ".",
+			"name": "OK Changer"
+		},
+		{
+			"name": "Source",
+			"path": "source"
 		}
 	]
 }

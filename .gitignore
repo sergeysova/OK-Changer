@@ -3,11 +3,11 @@
 # Source of compiler
 project/*
 release/*
-build/chrome/*
-build/opera/*
-/a/*
+debug/*
 
-*.crx
-*.nex
-/nbproject/*
+# IDE files
 *.sublime-workspace
+nbproject/*
+
+# npm
+node_modules/*
