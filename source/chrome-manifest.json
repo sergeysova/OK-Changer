@@ -31,7 +31,8 @@
 	"web_accessible_resources": [
 		"img/ico128.png",
 		"js/jquery-1.10.2.min.map",
-		"css/injected.css"
+		"css/injected.css",
+		"img/icon.png"
 	],
 	"icons": {
 		"128": "img/ico128.png",
