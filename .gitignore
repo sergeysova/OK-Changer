@@ -9,5 +9,9 @@ debug/*
 *.sublime-workspace
 nbproject/*
 
+# Result files
+*.nex
+*.crx
+
 # npm
 node_modules/*
