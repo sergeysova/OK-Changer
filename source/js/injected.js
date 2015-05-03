@@ -871,9 +871,9 @@ inj.bgs.check = function()
 			+'</div>').appendTo(".covers_cat").hide();
 		
 		// Category
-		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i __ac" data-page="okch">OK Changer</a>');
-		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i" data-page="users">'+chrome.i18n.getMessage('ThemesFromUsers')+'</a>');
-		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i" data-page="default">'+chrome.i18n.getMessage('ThemesDefault')+'</a>');
+		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i __ac" data-page="okch"><div class="nav-side_tx">OK Changer <span class="lstp-t"></span></div></a>');
+		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i" data-page="users"><div class="nav-side_tx">'+chrome.i18n.getMessage('ThemesFromUsers')+' <span class="lstp-t"></span></div></a>');
+		$('#OKCH_ThemesTypes .nav-side').append('<a href="" class="okch_link nav-side_i" data-page="default"><div class="nav-side_tx">'+chrome.i18n.getMessage('ThemesDefault')+' <span class="lstp-t"></span></div></a>');
 
 		// Create new
 		// TODO: uncomment when Editor was finished
@@ -988,6 +988,9 @@ inj.bgs.loadthemes = function( data )
 		
 		$okthemes.html("");
 		$usthemes.html("");
+
+		var team_count = 0;
+		var users_count = 0;
 		
 		for ( it in data.themes )
 		{
@@ -1007,6 +1010,7 @@ inj.bgs.loadthemes = function( data )
 								.replace( "{file}",		data.themes[it].file)
 								.replace( "{author}",	"" )
 							);
+				team_count++;
 			}
 			else
 			{
@@ -1017,12 +1021,14 @@ inj.bgs.loadthemes = function( data )
 								.replace( "{file}",		data.themes[it].file )
 								.replace( "{author}",	data.themes[it].author ? data.themes[it].author : chrome.i18n.getMessage('NoAuthor') )
 							);
+				users_count++;
 			}
 		}
 		
 		// FIX: write loading users themes
 		
-		
+		$('a.okch_link[data-page="okch"] .lstp-t').text(team_count);
+		$('a.okch_link[data-page="users"] .lstp-t').text(users_count);
 		
 		$("#OKCH_themes").on("click", "a", inj.bgs.applyHandler);
 		$("#OKCH_themes2").on("click", "a", inj.bgs.applyHandler);
