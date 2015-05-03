@@ -528,7 +528,7 @@ inj.upd.s_stylescircle = function( value )
 inj.upd.s_moderatorblock = function( value )
 {
 	b.stylehiding('moderatorblock', value, "\
-				#hook_Block_ModerationLauncher {display:none !important} \
+				#hook_Block_ModerationLauncher a, #hook_Block_ModerationLauncher.hookBlock {display:none !important} \
 			");
 	inj.storage.s_moderatorblock = value;
 }
