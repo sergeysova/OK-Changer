@@ -20,7 +20,11 @@
 		"contextMenus",
 		"commands",
 		"storage",
-		"tabs"
+		"tabs",
+		"*://okchanger.lestad.net/*",
+		"*://okchanger.net/*",
+		"*://beta.okchanger.net/*",
+		"*://api.okchanger.net/*"
 	],
 	"externally_connectable": {
 		"matches": [
