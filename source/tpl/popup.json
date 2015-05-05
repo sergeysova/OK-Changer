@@ -1,25 +1,10 @@
 {
 	"categories": [
-		{
-			"lang": "Settings",
-			"id": "setts"
-		},
-		{
-			"lang": "Decoration",
-			"id": "decor"
-		},
-		{
-			"lang": "Style",
-			"id": "styles"
-		},
-		{
-			"lang": "Font",
-			"id": "fonts"
-		},
-		{
-			"lang": "Mod",
-			"id": "mods"
-		}
+		{ "lang": "Settings",   "id": "setts" },
+		{ "lang": "Decoration", "id": "decor" },
+		{ "lang": "Style",      "id": "styles" },
+		{ "lang": "Font",       "id": "fonts" },
+		{ "lang": "Mod",        "id": "mods" }
 	],
 	"settings": [
 		{

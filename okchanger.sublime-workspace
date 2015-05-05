@@ -4,6 +4,50 @@
 		"selected_items":
 		[
 			[
+				"team",
+				"team_count"
+			],
+			[
+				"has",
+				"hasClass〔function〕"
+			],
+			[
+				"top",
+				"topbarhide"
+			],
+			[
+				"remove",
+				"removeClass〔function〕"
+			],
+			[
+				"toolbar",
+				"toolbar_nav"
+			],
+			[
+				"Rusla",
+				"RuslanDisplay"
+			],
+			[
+				"Hide",
+				"HideGifts"
+			],
+			[
+				"Fa",
+				"Favorites"
+			],
+			[
+				"w",
+				"writeFileSync"
+			],
+			[
+				"pro",
+				"prototype"
+			],
+			[
+				"read",
+				"readFileSync"
+			],
+			[
 				"hoo",
 				"hookBlocks"
 			],
@@ -39,6 +83,14 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "source/chrome-manifest.json",
+			"settings":
+			{
+				"buffer_size": 1691,
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "Packages/User/NodeIndex.sublime-build",
 	"build_system_choices":
@@ -63,16 +115,28 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 54.0,
+		"height": 392.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"ssht",
+				"Set Syntax: HTML"
+			],
+			[
+				"ssjs",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
 			[
 				"Package",
 				"Preferences: Browse Packages"
 			]
 		],
-		"width": 392.0
+		"width": 593.0
 	},
 	"console":
 	{
@@ -92,10 +156,32 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/lestad/OK-Changer/a"
+		"/Users/lestad/OK-Changer"
 	],
 	"file_history":
 	[
+		"/Users/lestad/OK-Changer/source/js/injected.js",
+		"/Users/lestad/OK-Changer/package.json",
+		"/Users/lestad/OK-Changer/Changes.txt",
+		"/Users/lestad/OK-Changer/source/tpl/popup.json",
+		"/Users/lestad/OK-Changer/source/chrome-manifest.json",
+		"/Users/lestad/OK-Changer/debug/manifest.json",
+		"/Users/lestad/Downloads/Акме_files/livereload.js",
+		"/Users/lestad/OK-Changer/gulpfile.js",
+		"/Users/lestad/OK-Changer/source/tpl/popups.jade",
+		"/Users/lestad/OK-Changer/source/popup.html",
+		"/Users/lestad/OK-Changer/source/js/background.js",
+		"/Users/lestad/OK-Changer/source/popup.json",
+		"/Users/lestad/OK-Changer/source/popups.jade",
+		"/Users/lestad/jsonsave/test.js",
+		"/Users/lestad/jsonsave/index.js",
+		"/Users/lestad/OK-Changer/source/css/injected.less",
+		"/Users/lestad/OK-Changer/config.json",
+		"/Users/lestad/OK-Changer/config/config.json",
+		"/Users/lestad/OK-Changer/config/index.js",
+		"/Users/lestad/OK-Changer/build/index.js",
+		"/Users/lestad/OK-Changer/.gitignore",
+		"/Users/lestad/OK-Changer/okchanger.sublime-project",
 		"/Users/lestad/OK-Changer/a/js/injected.js",
 		"/Users/lestad/OK-Changer/a/js/popup.js",
 		"/Users/lestad/OK-Changer/a/js/background.js",
@@ -135,6 +221,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"theme",
+			"'",
+			"config",
 			"};\n",
 			"getUse",
 			"bg.savingRe",
@@ -151,6 +240,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\""
 		],
 		"reverse": false,
 		"show_context": true,
@@ -161,18 +251,49 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "source/chrome-manifest.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1691,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								530,
+								530
+							]
+						],
+						"settings":
+						{
+							"auto_complete": false,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 58.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 33.0
 	},
 	"layout":
 	{
@@ -209,7 +330,7 @@
 	"project": "okchanger.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -218,6 +339,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"mani",
+				"OK Changer/debug/manifest.json"
+			]
 		],
 		"width": 0.0
 	},
@@ -229,7 +354,7 @@
 		[
 			[
 				"",
-				"~/FileFolder/App/ff.sublime-project"
+				"~/project/akme.sublime-project"
 			]
 		],
 		"width": 380.0
@@ -247,7 +372,7 @@
 	"settings":
 	{
 	},
-	"show_minimap": true,
+	"show_minimap": false,
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
