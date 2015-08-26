@@ -1,6 +1,8 @@
 OK-Changer
 ==========
 
+ ![GitHub tag](https://img.shields.io/github/tag/lestad/OK-Changer.svg)
+
 Extension for Chrome and Opera 15+<br>
 <br>
  - [Group in Odnoklassniki.ru](http://ok.ru/okchanger)<br>
